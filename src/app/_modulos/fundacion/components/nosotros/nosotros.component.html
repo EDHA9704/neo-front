@@ -360,13 +360,13 @@ minTime= "500"
                     <div class="card-body" *ngIf="currentUser">
                         <button class="btn" *ngIf="currentUser.usuario._id == idF" (click)="eliminarHistoria(his._id,his.foto)"><i class="fa fa-trash" aria-hidden="true"></i></button>
       
-                      <p class="card-text"><small class="text-muted">{{his.creadoEn }}</small></p>
+                      <p class="card-text"><small class="text-muted">{{(his.creadoEn | amFromUnix) | amLocale:'es' | amTimeAgo}}</small></p>
                       <p>{{his.titulo}}</p>
                       <p>{{his.descripcion}}</p>
                     </div>
                     <div class="card-body" *ngIf="!currentUser">
                        
-                      <p class="card-text"><small class="text-muted">{{his.creadoEn }}</small></p>
+                      <p class="card-text"><small class="text-muted">{{(his.creadoEn | amFromUnix) | amLocale:'es' | amTimeAgo}}</small></p>
                       <p>{{his.titulo}}</p>
                       <p>{{his.descripcion}}</p>
                     </div>
@@ -391,13 +391,13 @@ minTime= "500"
                     <div class="card-body" *ngIf="currentUser">
                         <button class="btn" *ngIf="currentUser.usuario._id == idF" (click)="eliminarHistoria(his._id,his.foto)"><i class="fa fa-trash" aria-hidden="true"></i></button>
       
-                      <p class="card-text"><small class="text-muted">{{his.creadoEn }}</small></p>
+                      <p class="card-text"><small class="text-muted">{{(his.creadoEn | amFromUnix) | amLocale:'es' | amTimeAgo}}</small></p>
                       <p>{{his.titulo}}</p>
                       <p>{{his.descripcion}}</p>
                     </div>
                     <div class="card-body" *ngIf="!currentUser">
                        
-                      <p class="card-text"><small class="text-muted">{{his.creadoEn }}</small></p>
+                      <p class="card-text"><small class="text-muted">{{(his.creadoEn | amFromUnix) | amLocale:'es' | amTimeAgo}}</small></p>
                       <p>{{his.titulo}}</p>
                       <p>{{his.descripcion}}</p>
                     </div>

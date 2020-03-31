@@ -91,7 +91,7 @@
                   fund.logo}}">
                 <img class="img-fluid rounded-circle w-50 mb-3" *ngIf="!fund.logo" src="../../../../assets/img/Captura2.png">
               <h3 matTooltip="Nombre">{{fund.nombreFundacion}}</h3>
-              <h5 class="hace">{{fund.creadoEn }}</h5>
+              <h5 class="hace">{{(fund.creadoEn | amFromUnix) | amLocale:'es' | amTimeAgo}}</h5>
               <div class="info">
                 <div class="item">
                   <div class="icon">
@@ -204,7 +204,7 @@
                     fundacion.logo}}">
                   <img class="img-fluid rounded-circle w-50 mb-3" *ngIf="!fundacion.logo" src="../../../../assets/img/Captura2.png">
                 <h3>{{fundacion.nombreFundacion}}</h3>
-                <h5 class="hace">{{fundacion.creadoEn }}</h5>
+                <h5 class="hace">{{(fundacion.creadoEn | amFromUnix) | amLocale:'es' | amTimeAgo}}</h5>
                 <div class="info">
                   <div class="item">
                     <div class="icon">

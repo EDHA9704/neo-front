@@ -8,6 +8,23 @@ p,label,span,option{
     font-family: 'Exo', sans-serif;
     margin: 0;
 }
+.mat-form-field-label{
+    color: #818181;
+}
+.mat-select-placeholder{
+    color: #818181;
+}
+.modal-header{
+    align-items: center !important;
+}
+.modal-title{
+    font-size: 1.5em !important;
+}
+.close{
+    span{
+        font-size: 2em;
+    }
+}
 h5,h4,h3,h2,h1{
     font-family: 'Righteous', cursive;
     color: #555;
@@ -267,6 +284,7 @@ p,li{
         text-align: center;
         h5{
             color: #3bbfad;
+            font-size: 2em;
         }
     }
     .voluntarios{
@@ -389,4 +407,113 @@ p,li{
     width: 100%;
     height: 100%;
     border-radius: 50%;
+}
+.testimonial{
+    width: 100%;
+    color: #fafafa;
+    position: absolute;
+    top: 60%;
+    transform: translate(0%,-50%);
+    text-align: center;
+    .testimonial-text-box{
+        padding: 0 1.5rem;
+        margin-bottom: 2rem;
+        position: relative;
+        i{
+            position: absolute;
+            top: -5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 4rem;
+            color: #00ffc3;
+            opacity: .5;
+            z-index: -1;
+        }
+    }
+}
+
+.testimonial-customer-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    h1{
+        font-size: 2em !important;
+    }
+    .testimonial-customer{
+        margin: 0 2em;
+        img{
+            width: 10rem;
+            height: 10rem;
+            border-radius: 100%;
+            border: 3px solid #00ffc3;
+        }
+        h1{
+            color: white;
+        }
+    }
+}
+
+.galeria {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    display: -webkit-box;
+    position: relative;
+    flex-wrap: wrap;
+    padding: 0 !important;
+}
+
+.imagenes {
+    width: 20%;
+    height: 500px;
+    overflow: hidden;
+    position: relative;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+.encima {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(24, 113, 131, 0.89) 0%, rgba(56, 129, 149, 0.4) 100%);
+    h2 {
+        position: relative;
+        top: 36%;
+        text-align: center;
+        color: #fff;
+    }
+    div {
+        position: relative;
+        display: block;
+        top: 36%;
+        width: 40px;
+        height: 5px;
+        background: #fff;
+        margin: auto;
+    }
+}
+
+.sesgoabajo {
+    z-index: 10;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-width: 0px 0 15vh 100vw;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+}
+
+.sesgoarriba {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-width: 15vh 100vw 0 0;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent;
 }

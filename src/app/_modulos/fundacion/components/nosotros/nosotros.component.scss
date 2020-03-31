@@ -150,7 +150,9 @@
         border-bottom: 3px solid transparent !important;
     }
 }
-
+.carousel-control-prev, .carousel-control-next{
+    z-index: 0 !important;
+}
 
 .carousel-control-prev-icon, .carousel-control-next-icon {
     background-image: none !important;
@@ -159,7 +161,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    z-index: 0;
+    z-index: 0 !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -346,7 +348,7 @@
         top: 5%;
         left: 0%;
         display: flex;
-        width: 50%;
+        width: 60%;
         flex-direction: column;
         justify-content: center;
         
@@ -375,7 +377,7 @@
         bottom: 2%;
         left: 0%;
         display: flex;
-        width: 50%;
+        width: 60%;
         flex-direction: column;
         justify-content: center;
         align-items: flex-end;
@@ -617,7 +619,7 @@ img{
             text-align: start;
             font-size: 35px;
             font-weight: 400;
-            color: #535353;
+            color: #303030;
             margin: 0;
           }
       }

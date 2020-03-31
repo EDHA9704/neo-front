@@ -40,6 +40,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
   import { ImageCropperModule } from 'ngx-image-cropper';
   import { NgxUiLoaderModule} from 'ngx-ui-loader';
+  import { MomentModule } from 'ngx-moment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +65,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     ToastrModule.forRoot(),
     NgxUsefulSwiperModule ,
     FormsModule,
+    MomentModule,
     MatStepperModule,MatInputModule,MatCheckboxModule,
     MatSelectModule,MatButtonModule,MatMenuModule,
   MatExpansionModule,MatFormFieldModule,MatDatepickerModule,

@@ -133,7 +133,7 @@ minTime= "500"
                         <p>Estado</p>
                         <span></span>
                     </div>
-                    <p>Publicado:&nbsp;{{emergencia.creadoEn }}</p>
+                    <p>Publicado:&nbsp;{{(emergencia.creadoEn | amFromUnix) | amLocale:'es' | amTimeAgo}}</p>
                     <div class="divider-titulo2">
                         <p>Tipo:</p>
                         <span></span>

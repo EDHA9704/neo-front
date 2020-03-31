@@ -55,7 +55,7 @@
             <mat-card *ngFor="let emerg of emergencias">
                 <div class="card-header">
                     <div class="card-header-tex">
-                        <h5>Publicado: {{emerg.creadoEn }}</h5>
+                        <h5>Publicado: {{(emerg.creadoEn | amFromUnix) | amLocale:'es' | amTimeAgo }}</h5>
                     </div>
                     <button type="button" class="card-header-icon" [routerLink]="['/perfil','emergencia',emerg._id]">
                         <i class="fa fa-external-link" aria-hidden="true"></i>

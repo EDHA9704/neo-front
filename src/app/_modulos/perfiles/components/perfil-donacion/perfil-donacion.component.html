@@ -130,7 +130,7 @@ minTime= "500"
                         <p>Estado</p>
                         <span></span>
                     </div>
-                    <p>Publicado:&nbsp;{{donacionOB.creadoEn}}</p>
+                    <p>Publicado:&nbsp;{{(donacionOB.creadoEn | amFromUnix) | amLocale:'es' | amTimeAgo}}</p>
                     <div class="divider-titulo2">
                         <p>{{donacionOB.tipo}}</p>
                         <span></span>
@@ -152,7 +152,8 @@ minTime= "500"
                         <mat-icon class="example-tab-icon">person_pin                    </mat-icon>
                         Donador
                       </ng-template>
-                      <div class="donador">
+                      <!--SI EXISTE DONANTE R-->
+                      <div class="donador" *ngIf="donacionOB.donanteR">
                         <div class="donador-photo">
                             <div class="photo">
                                 <img src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
@@ -171,6 +172,31 @@ minTime= "500"
                                     </div>
                                     <div class="info">
                                             <i class="fa fa-envelope" aria-hidden="true"></i> <p>{{donacionOB.donanteR.correo}}</p>
+                                        </div>
+                          </div>
+                        
+                      </div>
+                      <!--SI ES UNA DONACION HECHA POR LA FUNDACION-->
+                      <div class="donador" *ngIf="!donacionOB.donanteR">
+                        
+                          <div class="donador-datos">
+                            <div class="info">
+                                <i class="fa fa-user" aria-hidden="true"></i> <p> {{donacionOB.donante.nombres}} {{donacionOB.donante.apellidos}}</p>
+                            </div>
+                            <div class="info">
+                                    <i class="fa fa-phone-square" aria-hidden="true"></i><p>{{donacionOB.donante.telefono}}</p>
+                                </div>
+                                <div class="info">
+                                        <i class="fa fa-mobile" aria-hidden="true"></i><p>{{donacionOB.donante.celular}}</p>
+                                    </div>
+                                    <div class="info">
+                                            <i class="fa fa-envelope" aria-hidden="true"></i> <p>{{donacionOB.donante.correo}}</p>
+                                        </div>
+                                        <div class="info">
+                                            <i class="fa fa-envelope" aria-hidden="true"></i> <p>{{donacionOB.donante.direccion}}</p>
+                                        </div>
+                                        <div class="info">
+                                            <i class="fa fa-envelope" aria-hidden="true"></i> <p>{{donacionOB.donante.cedula}}</p>
                                         </div>
                           </div>
                         

@@ -40,6 +40,9 @@ mat-form-field{
         }
     }
 }
+.mainclean{
+    padding-top: 0 !important;
+}
 .mascota-body{
     padding: 0;
     border-radius: 10px;
@@ -111,6 +114,7 @@ mat-form-field{
             font-size: 1.5rem;
         }
     }
+   
     .content-many2{
         display: flex;
         flex-direction: row;
@@ -128,6 +132,7 @@ mat-form-field{
                 flex-wrap: wrap;
                 p{
                     margin: .5rem;
+                    font-weight: normal;
                 }
             }
         }
@@ -158,7 +163,7 @@ mat-form-field{
             flex-direction: row;
             font-weight: bold;
             align-items: center;
-            margin: 1rem 0;
+            margin: 0;
             span{
                 border-bottom: 2px solid #3bbfad;
                 max-width: 30%;

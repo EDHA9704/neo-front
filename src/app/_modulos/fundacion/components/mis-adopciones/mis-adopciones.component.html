@@ -50,7 +50,7 @@
             <mat-card *ngFor="let adop of adopciones">
                 <div class="card-header">
                     <div class="card-header-tex">
-                        <h5> Solicitado: {{adop.creadoEn }}</h5>
+                        <h5> Solicitado: {{(adop.creadoEn | amFromUnix) | amLocale:'es' | amTimeAgo}}</h5>
                     </div>
                     <button type="button" class="card-header-icon" (click)="redirectAdopcion(currentUser.usuario._id,adop._id)">
                       <i class="fa fa-external-link" aria-hidden="true"></i>

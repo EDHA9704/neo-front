@@ -25,6 +25,8 @@ export class MiPerfilComponent implements OnInit {
   public url:string;
   public statusValid;
   public valid;
+  public correoAntes = ''
+  public nombreAntes = ''
   minDate = new Date(1980, 0, 1);
 
   maxDate = new Date();
@@ -51,7 +53,7 @@ export class MiPerfilComponent implements OnInit {
   barrio = new FormControl('', [Validators.required,Validators.maxLength(50),Validators.minLength(3),Validators.pattern('[0-9 a-z A-Z áéíóúÁÉÍÓÚñÑ , . -]*$')]);
   calleP = new FormControl('', [Validators.required,Validators.maxLength(50),Validators.minLength(3),Validators.pattern('[0-9 a-z A-Z áéíóúÁÉÍÓÚñÑ , . -]*$')]);
   calleS = new FormControl('', [Validators.required,Validators.maxLength(50),Validators.minLength(3),Validators.pattern('[0-9 a-z A-Z áéíóúÁÉÍÓÚñÑ , . -]*$')]);
-  link = new FormControl('', [Validators.required, Validators.pattern(this.rgxPass)]);
+  link = new FormControl('', [Validators.pattern(this.rgxPass)]);
   password2 = new FormControl('', [Validators.required, Validators.maxLength(30),Validators.minLength(8), Validators.pattern(this.rgxPass2)]);
   
   correoCuenta = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z0-9_\\-]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}')]);
@@ -190,8 +192,7 @@ export class MiPerfilComponent implements OnInit {
             '';
   }
   getErrorMessage19() {
-    return this.link.hasError('required') ? 'Celular requerido' : 
-            this.link.hasError('pattern') ? 'URL no válida':   
+    return this.link.hasError('pattern') ? 'URL no válida':   
             '';
   }
   getErrorMessage20() {
@@ -225,6 +226,8 @@ export class MiPerfilComponent implements OnInit {
         this.usuarioFundacion = response.usuario;
         this.ValidaNomb = this.usuarioFundacion.nombreFundacion
         this.usuarioFundacion2 = response.usuario;
+        this.correoAntes = response.usuario.correo;
+        this.nombreAntes   = response.usuario.nombreFundacion
         console.log(this.usuarioFundacion)
         this.usuarioFundacion.correo = response.usuario.correo;
         //this.usuarioFundacion.direccionFundacion = response.usuario.direccion;
@@ -422,6 +425,7 @@ $("#banco").keyup(()=>{
   }
   //datos personales
   actualizarFundacion2(op){
+    console.log(op)
     $(document).ready(()=>{
       this.prob()
             
@@ -439,7 +443,7 @@ $("#banco").keyup(()=>{
             representante:this.usuarioFundacion.representante,
   
           }
-          if(this.usuarioFundacion2.nombreFundacion != this.nombres.value){
+          if(this.nombreAntes != this.nombres.value){
             this._usuarioService.validarNombreF(this.usuarioFundacion).subscribe(
               response=>{
 
@@ -606,19 +610,20 @@ $("#banco").keyup(()=>{
         link:this.usuarioFundacion.link
 
       }
-
-      if(this.usuarioFundacion2.correo != this.correo2.value){
+      if(this.correoAntes != this.correo2.value){
         this._usuarioService.validarCorreoF(this.usuarioFundacion).subscribe(
           response=>{
+            console.log(response)
             if(response.n == '2'){
               this._usuarioService.actualizarUsuario(update2,this.usuarioFundacion._id).subscribe(
                 response=>{
-          
+                  console.log(response)
                   this.status='success';
                   this._messageService.showSuccess('Perfil','Datos actualizados')
 
                 },
                 error=>{
+                  console.log(<any>error)
                   this._messageService.showError('Error','No se pudo actualizar, inténtalo de nuevo')
 
                 }

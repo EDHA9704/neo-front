@@ -13,7 +13,7 @@ import { MisAdopcionesComponent } from './components/mis-adopciones/mis-adopcion
 import { MisVoluntariosComponent } from './components/mis-voluntarios/mis-voluntarios.component';
 import { ContactanosComponent } from './components/contactanos/contactanos.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
-
+import { MomentModule } from 'ngx-moment';
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 
@@ -33,7 +33,8 @@ import { NosotrosComponent } from './components/nosotros/nosotros.component'
     FormsModule,ReactiveFormsModule,
     NgxUiLoaderModule,
     NgxUsefulSwiperModule,
-    SharedModule
+    SharedModule,
+    MomentModule
 
     
   ],

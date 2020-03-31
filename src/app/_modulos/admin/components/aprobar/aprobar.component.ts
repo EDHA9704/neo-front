@@ -2,12 +2,12 @@ import { Component, OnInit,DoCheck } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UsuarioFundacion } from '../../../../_models/usuarioFundacion';
 import { UserService, AuthenticationService,} from '../../../../_shared/services';
-import { element } from 'protractor';
 import {FormControl, Validators} from '@angular/forms';
 import {Mail} from '../../../../_models/mail';
 import { environment } from '../../../../../environments/environment'; 
 import { MessagesService } from 'src/app/_shared/messages/messages.service';
 declare var $: any;
+import * as moment from 'moment'
 @Component({
   selector: 'app-aprobar',
   templateUrl: './aprobar.component.html',
@@ -163,6 +163,7 @@ export class AprobarComponent implements OnInit {
                 var ff =   new Date(e.fechaFundacion);
                 var fin = ff.toLocaleDateString()
                 e.fechaFundacion = fin;
+ 
                 this.fundacionesNA.push(e)
             
             });

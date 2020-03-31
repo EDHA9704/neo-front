@@ -8,6 +8,7 @@
     align-items: center;
 	padding: 0 4rem;
 	position: relative;
+
 	.back{
 		cursor: pointer;
 		position: absolute;
@@ -133,6 +134,9 @@ mat-label{
 	left: 0;
 	width: 50%;
 	z-index: 2;
+	h1{
+		color: black;
+	}
 }
 
 .container.right-panel-active .sign-in-container {
@@ -218,6 +222,9 @@ mat-label{
 
 .overlay-left {
 	transform: translateX(-20%);
+	h1{
+		color: white;
+	}
 }
 
 .container.right-panel-active .overlay-left {
@@ -227,6 +234,9 @@ mat-label{
 .overlay-right {
 	right: 0;
 	transform: translateX(0);
+	h1{
+		color: white;
+	}
 }
 
 .container.right-panel-active .overlay-right {

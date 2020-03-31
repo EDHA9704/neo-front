@@ -13,7 +13,7 @@ import { NewfundacionComponent} from './components/newfundacion/newfundacion.com
 
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
-
+import { MomentModule } from 'ngx-moment';
 
   import {MatTableModule} from '@angular/material/table'; 
 import { PanelComponent } from './components/panel/panel.component';
@@ -29,6 +29,7 @@ import {SharedModule} from 'src/app/_shared/shared.module'
     MatTableModule,
     MatTooltipModule,
     SharedModule,
+    MomentModule
   ]
 })
 export class AdminModule { }
