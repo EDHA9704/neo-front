@@ -1,0 +1,26 @@
+
+<section class="admin-panel">
+    <mat-tab-group mat-stretch-tabs>
+        <mat-tab >
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">account_balance</mat-icon> Fundaciones
+          </ng-template>
+          <app-afundaciones></app-afundaciones>
+        </mat-tab>
+      
+        <mat-tab >
+          <ng-template mat-tab-label >
+            <mat-icon class="example-tab-icon">record_voice_over</mat-icon> Voluntarios
+          </ng-template>
+          <app-avoluntarios></app-avoluntarios>
+        </mat-tab>
+      
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">supervised_user_circle</mat-icon> Ciudadanos
+          </ng-template>
+      
+          <app-aciudadanos></app-aciudadanos>
+        </mat-tab>
+      </mat-tab-group>
+</section>

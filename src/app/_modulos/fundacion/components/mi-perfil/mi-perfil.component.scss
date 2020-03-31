@@ -1,0 +1,173 @@
+
+.container{
+   padding-top: 10rem;
+}
+
+label{
+    font-size: 1.5rem;
+}
+input{
+    font-size: 1.5rem;
+}
+mat-form-field{
+    font-size: 1.5rem;
+}
+a{
+    color: #3bbfa0;
+}
+.active{
+    background: #3bbfa0 !important;
+}
+.titulo{
+    margin-bottom: 1rem;
+    color: #3bbfa0;
+}
+.datosUser small{
+    width: 100%;
+}
+
+.msjError{
+    color: red;
+    width: 100%;
+    text-align: start;
+    background-color: transparent;
+    border-radius: 5px;
+   
+    padding: 5px;
+    position: absolute;
+    top: 72%;
+    font-size: 12px;
+}
+::ng-deep .cdk-overlay-container{
+    z-index: 1200 !important;
+}
+@media (min-width: 576px){
+    .container {
+        max-width: 95%;
+    }
+}
+
+.errNC{
+    margin: 0;
+    position: absolute;
+    top: 74%;
+    font-size: 13px;
+    color: red;
+}
+.msjError2{
+    color: red;
+    width: 100%;
+    text-align: start;
+    background-color: transparent;
+    border-radius: 5px;
+   
+    padding: 5px 0;
+    position: absolute;
+    top: 85%;
+    font-size: 12px;
+}
+.formP{
+    background: white;
+    padding: 0 4rem;
+}
+.formP form{
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+mat-form-field{
+    width: 100% ;
+}
+
+.divider{
+    border-bottom: 1px solid #adb7b5;
+    color: gray;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    text-align: end;
+}
+
+.btnsACP{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    text-align: end;
+}
+
+.btnsACP button{
+    background: #3bbfa0;
+    color: white;
+    font-weight: bold;
+}
+
+.imgRG{
+    position: relative;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+padding-top: 10px;
+padding-bottom: 10px;
+}
+.input-label2{
+    background: #3bbfa0;  /* fallback for old browsers */
+    border: 0;
+
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+.input-label2:hover{
+    cursor: pointer;
+}
+
+#file2{
+    display: none;
+}
+#file23{
+    display: none;
+}
+.btnElimLog{
+    position: absolute;
+    top: 7%;
+    border-radius: 50%;
+    right: 37%;
+    background: #484444;
+    
+}
+.btnElimLog i{
+    color: #3bbfa0;
+}
+.imgRG img{
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    
+}
+.btnf{
+    text-align: center;
+}
+.customFRM{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    mat-form-field{
+        width: 45%;
+    }
+}
+
+.btnDir{
+    border-radius: 5px;
+		border: 1px solid #3bbfad;
+		background-color: transparent;
+		color: #3bbfad;
+		font-size: 12px;
+		font-weight: bold;
+		padding: 4px 18px;
+		margin: 5px;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+        transition: transform 80ms ease-in;
+        width: 100%;
+}

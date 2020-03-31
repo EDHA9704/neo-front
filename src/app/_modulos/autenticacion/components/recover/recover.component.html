@@ -1,0 +1,112 @@
+<div class="content">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" [routerLink]="['/home/nosotros']" ><img style="width: 3em;" src="../../../../../assets/img/logo.png"></a>
+    <button style="color: #3bbfad;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" style="color: #3bbfad;"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/autenticacion']" style="font-size: 2em; border: 1px solid #3bbfad; border-radius: 5px; color: #3bbfad;">Iniciar sesión con otra cuenta.<span class="sr-only">(current)</span></a>
+        </li>
+        
+      </ul>
+    </div>
+  </nav>
+
+
+<div class="containerr">
+  <div class="recover">
+      <div class="headerRS">
+          <h4 style="font-size: 2em;">Restablecer contraseña</h4>
+        </div>
+        <mat-horizontal-stepper #stepper [linear]="isLinear" style="font-size: 1.5rem;">
+            <mat-step [completed]="vall == true" [editable]="vallE == null">
+                <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>Correo electrónico</ng-template>
+                    <mat-form-field>
+                      <input matInput placeholder="Correo electrónico" formControlName="email" required>
+                      <mat-error *ngIf="firstFormGroup.controls.email.hasError('required') ">
+                          Correo electrónico requerido
+                        </mat-error>
+                        <mat-error *ngIf="firstFormGroup.controls.email.hasError('email') ">
+                            Correo electrónico invalido
+                          </mat-error>
+                    </mat-form-field>
+                    <div class="errorRCE" *ngIf="vall == false">
+                        {{mensaje}}
+                    </div>
+                    <div class="btnsNP">
+                      <button class="btn btn-primary btnRGA" [disabled]="!firstFormGroup.valid" (click)="validarCorreo(stepper)">Siguiente</button> 
+                    </div>
+                  </form>
+            </mat-step>
+            <mat-step  [completed]="vall2 == true"  [editable]="vallE2 == null">
+                <form [formGroup]="secondFormGroup">
+                    <ng-template matStepLabel>Código</ng-template>
+                    <div>
+                        Un código de verificación fue enviado al correo electronico proporcionado, ingresalo a continuación:
+                    </div>
+                    <mat-form-field>
+                      <input matInput placeholder="Código" formControlName="codigo" required>
+                      <mat-error *ngIf="secondFormGroup.controls.codigo.hasError('required') ">
+                          Código requerido.
+                        </mat-error>
+                        <mat-error *ngIf="secondFormGroup.controls.codigo.hasError('pattern') ">
+                            Código requerido de 4 dígitos.
+                          </mat-error>
+                    </mat-form-field>
+                    <div class="errorRCE" *ngIf="vall2 == false">
+                        {{mensaje2}}
+                    </div>
+                    <div  class="btnsNP">
+                      
+                      <button class="btn btn-success btnRGA" (click)="verificarCodigo(stepper)" [disabled]="!secondFormGroup.valid">Verificar</button>
+                      <button class="btn btn-danger" (click)="eliminarCodigoPrev2(stepper)">Cancelar</button>
+                    </div>
+                    <div  class="btnsNP2">
+                      
+                       
+                        <a (click)="eliminarCodigoPrev(stepper)">¿No recibiste el código?</a>
+                      </div>
+                  </form>
+            
+            </mat-step>
+            <mat-step [completed]="vall3 == true" [editable]="vall3 == null">
+                <form [formGroup]="threeFormGroup">
+                    <ng-template matStepLabel>Contraseña</ng-template>
+                  
+                 
+                      <mat-form-field appearance="standard">
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput placeholder="Contraseña" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                        <mat-icon style="cursor: pointer;" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <mat-error *ngIf="threeFormGroup.controls.password.hasError('required') ">
+                          Contraseña requerida.
+                        </mat-error>
+                        <mat-error *ngIf="threeFormGroup.controls.password.hasError('pattern') ">
+                            Contraseña invalida.
+                          </mat-error>
+                    </mat-form-field>
+                    <div class="btnsNP">
+                        <button class="btn btn-success btnRGA" (click)="cambiarPassword()" [disabled]="!threeFormGroup.valid">Guardar</button>
+                        <button class="btn btn-danger" (click)="eliminarCodigoPrev2(stepper)">Cancelar</button>
+
+                    </div>
+                    </form>
+            </mat-step>
+            <!-- one option -->
+          
+          </mat-horizontal-stepper>
+        
+          <!-- second option -->
+          <div>
+            
+          </div>
+  </div>
+  
+      
+</div>
+</div>
+

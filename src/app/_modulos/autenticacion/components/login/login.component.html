@@ -1,0 +1,359 @@
+<div class="login">
+    <div class="back" [routerLinkActive]="['active']" [routerLink]="['/home']">
+        <a ><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Inicio</a>
+    </div>
+    <div class="content" >
+        <div class="container" id="container">
+            <div class="form-container sign-up-container">
+                <h1 style="width: 100%; text-align: center; margin: 10px 0;">Crear cuenta</h1>
+                <div class="form"> 
+                   
+                   
+                   
+                    <!--<input type="text" placeholder="Name" />
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />-->
+                    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+                        <mat-step [stepControl]="formGr1">
+                          <form [formGroup]="formGr1" style="padding: 0 !important;">
+                            
+                            <div class="col-12 imgRG">
+                                <div class="btnIM">
+                      
+                                    <label for="file2" class="input-label2">Selecciona tu logo <i class="fa fa-picture-o" aria-hidden="true"></i></label>
+                                    <input required id="file2" (change)="fileChangeEvent2($event)" formControlName="foto"
+                                      type="file">
+                                      
+                                  </div>
+                                <div class="imgAb">
+                                    
+                                    <img *ngIf="imL2 == false" src="../../../../../assets/img/Captura2.png" class="img-fluid" alt="Responsive image">
+                                    <img *ngIf="imL2 == true" src="{{imgUN2}}">
+                                   
+                                </div>
+                                
+                                 
+                              </div>
+                               <div class="form-row datosUser">
+                          <div class="form-group col-md-12">
+                             
+                              <mat-form-field appearance="standard">
+                                  <mat-label>Nombre de la fundación</mat-label>
+                                
+                                  <input  formControlName="nombres"  matInput type="text" id="nombre" placeholder="Nombres de la fundación"  >
+                                  <mat-icon matSuffix><i class="fa fa-university" aria-hidden="true"></i></mat-icon>
+                                  
+                                    <mat-error *ngIf="f.nombres.errors">
+                                      <p *ngIf="f.nombres.errors.required">Nombre requerido</p> 
+                                      <p *ngIf="f.nombres.errors.minlength">Nombre no válido</p> 
+                                      <p *ngIf="f.nombres.errors.maxlength">Nombre demasiado largo</p> 
+                                      <p *ngIf="f.nombres.errors.pattern">Nombre no válido, no se admite números o caracteres especiales</p> 
+
+                                    </mat-error>
+                                   
+                                
+                                </mat-form-field>
+
+                            </div>
+                            <div class="form-group col-md-12">
+                                <mat-form-field appearance="standard">
+                                    <input required [min]="minDate" [max]="maxDate" formControlName="fechaFunda" matInput [matDatepicker]="picker" placeholder="Fecha en que fue fundada">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <mat-error *ngIf="f.fechaFunda.errors">
+                                      <p *ngIf="f.fechaFunda.errors.required">Fecha requerida</p> 
+                                    </mat-error>
+                                  </mat-form-field>
+
+                              </div>
+                            
+                              <div class="form-group col-md-12">
+            
+                                  <mat-form-field appearance="standard">
+                                      <mat-label>Representante de la fundación</mat-label>
+                                    
+                                      <input required formControlName="representante" matInput type="text" id="representante" placeholder="Nombres y Apellidos"  >
+                                      <mat-icon matSuffix><i class="fa fa-user" aria-hidden="true"></i></mat-icon>
+                                      <mat-error *ngIf="f.representante.errors">
+                                        <p *ngIf="f.representante.errors.required">Nombres y Apellidos  requeridos</p> 
+                                        <p *ngIf="f.representante.errors.maxlength">Exceso de caracteres</p> 
+                                       
+
+                                        <p *ngIf="f.representante.errors.pattern">Ingresa al menos un nombre y un apellido</p> 
+  
+                                      </mat-error>
+                                    </mat-form-field>
+                                  
+                                </div>
+                             
+                        </div>
+                            <div>
+                              <button   (click)="validarNextStep('1',stepper)">Siguiente</button>
+                            </div>
+                          </form>
+                        </mat-step>
+                        <mat-step [stepControl]="formGr2">
+                          <form [formGroup]="formGr2" style="padding: 0;">
+                            <div class="row"> 
+                                <div class="form-group col-md-12">
+        
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Teléfono (domicilio)</mat-label>
+                                      
+                                        <input required formControlName="telefono" matInput type="text" id="telefono" >
+                                        <mat-icon matSuffix><i class="fa fa-phone-square" aria-hidden="true"></i></mat-icon>
+                                        <mat-error *ngIf="f2.telefono.errors">
+                                          <p *ngIf="f2.telefono.errors.required">Teléfono requerido</p> 
+                                          <p *ngIf="f2.telefono.errors.pattern">Teléfono no válido</p> 
+        
+                                        </mat-error>
+                                      </mat-form-field>
+                  
+                                </div>
+                                <div class="form-group col-md-12">
+        
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Celular</mat-label>
+                                      
+                                        <input required formControlName="celular" matInput type="text" id="celular"   >
+                                        <mat-icon matSuffix><i class="fa fa-phone-square" aria-hidden="true"></i></mat-icon>
+                                        <mat-error *ngIf="f2.celular.errors">
+                                          <p *ngIf="f2.celular.errors.required">Celular requerido</p> 
+                                          <p *ngIf="f2.celular.errors.pattern">Celular no válido</p> 
+        
+                                        </mat-error>
+                                      </mat-form-field>
+                  
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Correo electrónico</mat-label>
+                                      
+                                        <input required formControlName="correo2" matInput type="text" id="correo2" placeholder="Correo electrónico"  [class.is-invalid]="!f2.correo2.errors" [class.is-valid]="f2.correo2.errors">
+                                        <mat-icon matSuffix><i class="fa fa-envelope" aria-hidden="true"></i></mat-icon>
+                                        <mat-error *ngIf="f2.correo2.errors">
+                                          <p *ngIf="f2.correo2.errors.required">Correo requerido</p> 
+                                         
+                                          <p *ngIf="f2.correo2.errors.pattern">Correo no válido</p> 
+        
+                                        </mat-error>
+                                      </mat-form-field>
+        
+                                </div>
+                                <div class="form-group col-md-12">
+                            
+                                      <mat-form-field appearance="standard">
+                                        <mat-label>Contraseña</mat-label>
+                                        <input matInput placeholder="Contraseña" [type]="hide2 ? 'password' : 'text'" formControlName="password2" id="password2" required>
+                                        <mat-icon style="cursor: pointer;" matSuffix (click)="hide2 = !hide2">{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        <mat-error *ngIf="f2.password2.errors">
+                                          <p *ngIf="f2.password2.errors.required">Contraseña requerida</p> 
+                                 
+                                          <p *ngIf="f2.password2.errors.maxlength">Contraseña demasiado larga</p> 
+                                          <p *ngIf="f2.password2.errors.pattern">Contraseña no válida</p> 
+        
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>   
+                            </div>
+                         
+                          </form>
+                          <div>
+                            <button  matStepperPrevious>Regresar</button>
+                            <button  matStepperNext>Siguiente</button>
+                          </div>
+                        </mat-step>
+                        <mat-step [stepControl]="formGr3">
+                        <form  class="row"  [formGroup]="formGr3" style="padding: 0; flex-direction: row; font-size: 1.5em !important;">
+                            <div class="form-group col-12 col-md-6">
+
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Sector</mat-label>
+                                    <mat-select required formControlName="sector">
+                                      <mat-option *ngFor="let s of sector2" [value]="s.value">
+                                        {{s.value}}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+          
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Barrio</mat-label>
+                                      
+                                        <input required formControlName="barrio" matInput type="text" id="barrio" [class.is-invalid]="f3.barrio.errors" [class.is-valid]="f3.barrio.errors">
+                                        <mat-icon matSuffix><i class="fa fa-home" aria-hidden="true"></i></mat-icon>
+                                        <mat-error *ngIf="f3.barrio.errors">
+                                          <p *ngIf="f3.barrio.errors.required">Barrio requerido</p> 
+                                          <p *ngIf="f3.barrio.errors.minlength">Barrio no válido</p> 
+                                          <p *ngIf="f3.barrio.errors.maxlength">Exceso de caracteres</p> 
+                                          <p *ngIf="f3.barrio.errors.pattern">Barrio no válido</p> 
+          
+                                        </mat-error>
+                                      </mat-form-field>
+                                </div>
+                                <div class="form-group col-md-12 direc">
+                                  <button (click)="openDialogMap()">Seleccionar dirección <i class="fa fa-map-marker" aria-hidden="true"></i></button>
+                                  <p>Dirección:</p><p *ngIf="direccionSelec && direccionSelec != ''">{{direccionSelec.formmatedAddres}}</p>
+                                </div>
+                              
+                        </form>
+                          <div>
+                            <button  matStepperPrevious>Regresar</button>
+                            <button  (click)="validarNextStep('2',stepper)" [disabled]="loading == true || !formGr3.valid" [class.disable]="loading == true || !formGr3.valid">Guardar</button>
+                          </div>
+                        </mat-step>
+                      </mat-horizontal-stepper>
+                   
+                </div>
+            </div>
+            <div class="form-container sign-in-container">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <h1>Inicio de sesión</h1>
+                 <div class="row">
+                    <div class="form-group col-md-12">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Correo electrónico</mat-label>
+                          
+                            <input required formControlName="correo" matInput type="email" id="correo" placeholder="Correo electrónico"  >
+                            <mat-icon matSuffix><i class="fa fa-envelope" aria-hidden="true"></i></mat-icon>
+                          
+                          </mat-form-field>
+
+                    </div>
+                    <div class="form-group col-md-12">
+                       
+                          <mat-form-field appearance="standard">
+                            <mat-label>Contraseña</mat-label>
+                            <input matInput placeholder="Contraseña" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                            <mat-icon style="cursor: pointer;" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                           
+                        </mat-form-field>
+                    </div>  
+                 </div>
+                  
+                  
+                    <a [routerLink]="['/autenticacion/recover']" style="color: #3bbfad; font-weight: bold; text-decoration: underline;">Olvidaste tu contraseña?</a>
+                 
+                    <button [disabled]="loading == true || !loginForm.valid" [class.disable]="loading == true || !loginForm.valid">Entrar</button>
+                </form>
+            </div>
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>¿Ya tienes una cuenta?</h1>
+                        <p>Para mantenerse conectado con nosotros, inicie sesión 
+                            con su información personal</p>
+                        <button class="ghost" id="signIn">Iniciar sesión</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>¿Todavía no tienes una cuenta?</h1>
+                        <p>Ingresa tus datos personales y únete a nuestra plataforma.</p>
+                        <button class="ghost" id="signUp">Registrarse</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</div>
+
+  <!--MODAL DE  codigo CONFIRMACION DE REGISTRO DE FUNDACION-->
+               
+  <div class="modal fade"  id="modalFundacion2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered " role="document">
+
+
+
+    <!--PROCESO DE REGISTRO--> 
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle" >Registro exitoso</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--alertas de registro-->
+      <div class="modal-body">
+        
+        <div class="registroExitosoFun">
+          <div class="imgScss">
+            <img style="width: 8rem;" src="../../../assets/img/affirmative-156538_640.png">
+          </div>
+          <p>
+            El proceso de registro fue completado exitosamente, los datos fueron enviados al administrador para la verificación de los mismos, este proceso puede tardar entre 24 a 48 horas.
+          </p>
+          
+           
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cerrar</button>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+<div class="modal fade"  id="modalFundacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered " role="document">
+
+
+
+  <!--VERIFICACION DE CORREO-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalCenterTitle">Verificación de cuenta</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" *ngIf="loadingCodigo == false">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+      
+        <div class="col-12">
+          <p class="">Un código de verificación fue enviado al correo electrónico que proporcionaste. Ingresalo a continuación:</p>
+        </div>
+      </div>
+      <form #registerCodigo="ngForm"  class="needs-validation" novalidate>
+        <div class="form-group col-md-12">
+
+          <label for="codigo">Código</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupPrepend">
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+              </span>
+            </div>
+            <input required pattern="[0-9]{4}" type="number" class="form-control" id="codigo" placeholder="Ingresa el código de verificación"
+              name="codigo" #codigo="ngModel" [(ngModel)]="codi.codigo" [class.is-invalid]="!codigo.valid && codigo.touched"
+              [class.is-valid]="codigo.valid">
+
+            <div class="msjError" *ngIf="(!codigo.valid && codigo.touched)">
+              <div *ngIf="codigo.errors.required">
+                Es necesario que ingreses el código.
+              </div>
+              <div *ngIf="codigo.errors.pattern">
+                El código debe contener mínimo y máximo 4 números.
+              </div>
+             
+            </div>
+        
+          </div>
+        </div>
+
+        <div class="form-group col-md-12">
+          <button type="button" (click)="verificarCodigo()" class="btn btn-primary btnRGA" [disabled]="!registerCodigo.form.valid || loadingCodigo == true">Verificar</button>
+          
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+</div>
+</div>

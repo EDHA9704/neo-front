@@ -1,0 +1,249 @@
+img{
+    width: 100%;
+}
+.disN{
+    opacity: .6;
+}
+.custom-body{
+    position: relative;
+}
+.custombar{
+    background-color: #3bbfad !important;
+}
+.main{
+    padding: 6rem;
+    min-height: 25em;
+    
+}
+.custom-cards{
+    position: relative; 
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .spinn{
+        position: absolute;
+    }
+}
+#modalComprobante .modal-body{
+    position: relative;
+    padding: 0;
+    button{
+        position: absolute;
+        top: 2%;
+        right: 2%;
+        background: black;
+        padding: 0 .5rem;
+        border-radius: 50%;
+        color: white;
+        span{
+            font-size: 3rem;
+        }
+    }
+    .imgModalCom{
+        width: 100%;
+        height: 50rem;
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+/*----PAGES---*/
+.selectPages{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 2rem !important;
+    margin: 2rem 0;
+    i{
+        font-size: 2rem;
+    }
+    a,  button{
+        margin: .5rem;
+        color: #3bbfad;
+    }
+    .pagess{
+        max-width: 40%;
+        overflow-x: auto;
+    }
+    .pageAnt button,  .pageNex button{
+        background: transparent;
+        border: 0;
+    }
+    .pageAnt2 a,  .pageNex2 a{
+        background: transparent;
+        border: 0;
+        margin: .5rem 0 !important;
+    }
+}
+.pgActive{
+    background: #3bbfad;
+    color: white !important;
+    padding: .1rem .8rem;
+    border-radius: 25%;
+}
+.dividerTi{
+    border-bottom: 1px solid #bfbebecc;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    padding: 0;
+    margin: 2rem 0;
+    font-size: 1.5rem;
+    color: #656363;
+}
+.btnRGM{
+    width: 100%;
+    margin-bottom: 2rem;
+    text-align: center;
+    .dropdown-menu{
+        font-size: 1.4rem;
+    }
+}
+.btnRGM button{
+    background: #3bbfad;
+    color: white;
+}
+.imgRG{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+padding-top: 10px;
+padding-bottom: 10px;
+}
+.imgRG .imgRD{
+    position: relative;
+    width: 8rem;
+    height: 8rem;
+}
+.imgRG .imgRD img{
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}
+.btnIM{
+    position: absolute;
+    top: 5%;
+    right: -15%;
+}
+.btnNEXT{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}
+.btnNEXT button{
+    background: #3bbfad;
+    color: white;
+    min-height: 3rem;
+}
+
+.btnNEXT2{
+    padding: 2rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    button{
+        background: #3bbfad;
+        color: white;
+        min-height: 3rem;
+    }
+}
+.btnNEXT2 button:nth-child(1){
+    margin-right: 10px;
+}
+.btnNEXT button:nth-child(2){
+    margin-left: 10px;
+}
+::ng-deep .cdk-overlay-container{
+    z-index: 1200 !important;
+}
+.input-label2{
+    background: #3bbfad;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-weight: bold;
+}
+.input-label2:hover{
+    cursor: pointer;
+}
+#file{
+    display: none;
+}
+.modal-body{
+    min-height: 50rem;
+    font-size: 1.4rem;
+    button{
+        border: 0;
+        border-radius: 5px;
+    }
+}
+.tituloPage{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 8rem 0 0rem 0;
+    .tituloPage-logo{
+       width: 7rem;
+       height: 7rem;
+       margin: .5rem;
+       img{
+           width: 100%;
+           height: 100%;
+           border-radius: 50%;
+           border: 2px solid #3bbfad;
+       }
+    }
+    .tituloPage-name{
+       margin: .5rem;
+       display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+       h3{
+           font-family: 'Righteous', cursive;
+           font-size: 5rem;
+           color: #3bbfad;
+       }
+       .lineTi{
+           width: 5%;
+           border-radius: 5px;
+           border-top: 3px solid #3bbfad;
+       }
+    }
+}
+@media only screen and (max-width:400px){
+   
+    .content-grid-cards{
+        padding: 0 !important;
+    }
+    
+  }
+  .vacunasMSC{
+      display: flex;
+      flex-direction: column;
+      .titulovac{
+          h5{
+              font-size: 1.5em;
+          }
+      }
+      .content-vacunas{
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          mat-checkbox{
+              margin: 0 1em;
+          }
+      }
+  } 

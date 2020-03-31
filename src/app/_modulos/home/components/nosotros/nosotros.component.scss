@@ -1,0 +1,408 @@
+*,
+*::before,
+*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+a{
+    text-decoration: none;
+}
+ul{
+    list-style: none;
+}
+
+p{
+    font-size: 1.6rem;
+}
+img{
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+section{
+    padding: 5rem 0;
+}
+.container{
+    width: 100%;
+    max-width: 98rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+
+/*-hero-*/
+.hero{
+    width: 100%;
+    height: 75vh;
+    background: linear-gradient(135deg, rgba(24, 113, 131, 0.89) 0%, rgba(56, 129, 149, 0.4) 100%), url('../../../../../assets/img/4586.jpg') center no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.hero:before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 4.7rem;
+    background: url('../../../../../assets/img/wave-small.png');
+    background-size: cover;
+}
+.main-message{
+    width: 100%;
+    display: flex;
+    font-family: 'Righteous', cursive;
+    flex-direction: column;
+    max-width: 100%;
+    align-items: flex-end;
+    justify-content: center;
+    color: #fafafa;
+    transform: translateY(20%);
+    .mssg{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    h3{
+        font-size: 2.6rem;
+    }
+    h1{
+        font-size: 5rem;
+        margin: 1rem 0;
+    }
+}
+.btn{
+    background-color: #3bbfa0;
+    border-radius: 2rem;
+    color: #fafafa;
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 1rem 2.5rem;
+    text-transform: uppercase;
+}
+.btn:hover{
+    background-color: #ce587b;
+}
+
+.experience-outdoors{
+    padding: 0;
+}
+.title-heading{
+    text-align: center;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    color: rgba(0,0,0,.7);
+    h3{
+        font-size: 1.4rem;
+    }
+    h1{
+        color: #3bbfa0;
+        font-size: 4rem;
+        margin: .5rem 0 1rem;
+    }
+    p{
+        color: #555;
+        font-weight: 600;
+    }
+}
+.activities-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(40rem,1fr));
+    grid-gap: 2.5rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.activities-grid-item{
+    height: 40rem;
+    padding: 2rem;
+    position: relative;
+    max-width: 25em;
+    margin: 1em;
+    color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+   
+    z-index: 1;
+    font-size: 1.6em;
+    .iconsRedirect{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .redirect{
+            display: none;
+            box-shadow: 1px 3px 1px -1px #141013;
+            background: white;
+            padding: .1em;
+            border-radius: 5px;
+        }
+    }
+    .btnCrds{
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 1em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        a{
+            font-size: .9em;
+            font-weight: bolder;
+            box-shadow: 0px 0px 9px 0px #fff;
+        }
+        
+    }
+}
+.star-gazing{
+    ul{
+        padding: 1em;
+    list-style: disc !important;
+    overflow: auto;
+    }
+}
+.activities-grid-item::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(24, 113, 131, 0.89) 0%, rgba(56, 129, 149, 0.4) 100%);
+    z-index: -1;
+}
+.star-gazing{
+    background: url('../../../../../assets/img/OGQASM0.jpg') center no-repeat;
+}
+.hiking{
+    background: url('../../../../../assets/img/veterinaria-macias-001.jpg') center no-repeat;
+}
+
+.activities-grid-item i{
+    font-size: 4rem;
+    color: #3bbfa0;
+    h1{
+        font-family: 'Aldrich', sans-serif;
+        font-size: 1.7rem;
+        text-transform: uppercase;
+        margin: 2rem 0;
+    }
+}
+
+.testimonials{
+    width: 100%;
+    height: 80vh;
+    background: linear-gradient(135deg, rgba(24, 113, 131, 0.89) 0%, rgba(56, 129, 149, 0.4) 100%),
+     url('../../../../../assets/img/testimonials-bg.jpg') center no-repeat;
+     background-size: cover;
+     position: relative;
+     display: flex;
+     justify-content: center;
+     .contactsSofr{
+        position: absolute; bottom: 0;
+        p{
+            font-size: 3em;
+            color: white;
+            font-weight: bolder;
+        }
+        }
+     
+}
+.testimonials::before{
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: 0;
+    width: 100%;
+    height: 8.7rem;
+    background: url('../../../../../assets/img/wave-small-reversed.png') center no-repeat;
+    background-size: cover;
+}
+.testimonial{
+    width: 100%;
+    color: #fafafa;
+    position: absolute;
+    top: 60%;
+    transform: translate(0%,-50%);
+    text-align: center;
+    .testimonial-text-box{
+        padding: 0 1.5rem;
+        margin-bottom: 2rem;
+        position: relative;
+        i{
+            position: absolute;
+            top: -5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 4rem;
+            color: #00ffc3;
+            opacity: .5;
+            z-index: -1;
+        }
+    }
+}
+
+.testimonial-customer-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    h1{
+        font-size: 2em !important;
+    }
+    .testimonial-customer{
+        margin: 0 2em;
+        img{
+            width: 10rem;
+            height: 10rem;
+            border-radius: 100%;
+            border: 3px solid #00ffc3;
+        }
+    }
+}
+
+.galeria {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    display: -webkit-box;
+    position: relative;
+    flex-wrap: wrap;
+    padding: 0 !important;
+}
+
+.imagenes {
+    width: 20%;
+    height: 500px;
+    overflow: hidden;
+    position: relative;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+.encima {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(24, 113, 131, 0.89) 0%, rgba(56, 129, 149, 0.4) 100%);
+    h2 {
+        position: relative;
+        top: 36%;
+        text-align: center;
+        color: #fff;
+    }
+    div {
+        position: relative;
+        display: block;
+        top: 36%;
+        width: 40px;
+        height: 5px;
+        background: #fff;
+        margin: auto;
+    }
+}
+
+.sesgoabajo {
+    z-index: 10;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-width: 0px 0 15vh 100vw;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+}
+
+.sesgoarriba {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-width: 15vh 100vw 0 0;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent;
+}
+
+/*Media queries--*/
+
+@media screen and (max-width:425px){
+    .btnCrds{
+       display: none !important;
+    }
+}
+@media screen and (max-width:425px){
+    .redirect{
+       display: block !important;
+    }
+}
+@media screen and (min-width:350px){
+    .main-message{
+        transform: translateY(40%);
+    }
+}
+@media screen and (min-width:470px){
+    .hero::before{
+        height: 9.4rem;
+        background: url("../../../../../assets/img/wave-medium.png");
+        background-size: cover;
+    }
+    .textimonials::before{
+        height: 9.4rem;
+        background: url("../../../../../assets/img/wave-medium-reversed.png");
+        background-size: cover;
+    }
+}
+@media screen and (min-width:700px){
+    header{
+        height: 8rem;
+    }
+    .hero{
+        height: 80vh;
+    }
+    .main-message{
+        transform: translateY(50%);
+    }
+    .title-heading h1{
+        font-size: 3.5rem;
+    }
+}
+@media screen and (min-width:950px){
+    .hero::before{
+        height: 11.7rem;
+        background: url('../../../../../assets/img/wave-large.png');
+        background-size: cover;
+    }
+    .testimonials::before{
+        height: 16.7rem;
+        background: url('../../../../../assets/img/wave-large-reversed.png');
+        background-size: cover;
+    }
+}
+
+@media screen and (min-width:1200px){
+    .hero{
+        height: 75vh;
+        
+    }
+  
+}
+@media screen and (min-width:1400px){
+    .hero::before{
+        height: 20.7rem;
+        background: url('../../../../../assets/img/wave-large.png');
+        background-size: cover;
+    }
+}
+@media screen and (min-width:1600px){
+    .testimonials::before{
+        height: 22.7rem;
+        background: url('../../../../../assets/img/wave-large-reversed.png');
+        background-size: cover;
+    }
+}

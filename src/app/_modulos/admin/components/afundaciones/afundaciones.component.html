@@ -1,0 +1,272 @@
+
+  
+<div class="modal fade" id="modalEditFun" tabindex="-1" role="dialog" aria-labelledby="modalEditFun" aria-hidden="true" style="z-index: 2000;">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Actualizar fundación</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> 
+      </div>
+      <div class="modal-body" *ngIf="edFun == true;">
+        <form #registerFormActu="ngForm"  class="formRg needs-validation" novalidate>
+      
+          <div class="containerACTUALIZAR">
+            <div class="col-12 imgRG">
+              <img *ngIf="logo.value != '' && imL3 == false" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                logo.value}}" class="img-fluid" alt="Responsive image">
+              
+              <button type="button" *ngIf="logo.value != ''" class="btn btnElimLog" (click)="eliminarLogo(id.value,logo.value)"><i class="fa fa-trash" style="font-size: 1.4em;" aria-hidden="true"></i></button>
+             
+              <img *ngIf="logo.value == '' && imL3 == false" src="../../../assets/img/fondos-de-perros.jpg" class="img-fluid" alt="Responsive image">
+              <img *ngIf="imL3 == true" src="{{imgUN3}}">
+            </div>
+          <div *ngIf="logo.value == '' || logo.value == null" class="col s12 file-field input-field btnf">
+              <div class="btn ">
+
+                <label for="file23" class="input-label2">Seleccionar logo</label>
+                <input id="file23" (change)="fileChangeEvent3($event)"
+                  type="file">
+              </div>
+
+            </div>
+            <div class="form-row datosUser">
+              <div class="form-group col-md-6">
+                  <mat-form-field appearance="standard">
+                      <mat-label>Nombre de la fundación</mat-label>
+                    
+                      <input required [formControl]="nombres" matInput type="text" id="nombre" placeholder="Nombres de la fundación"  [class.is-invalid]="!nombres.valid && nombres.touched" [class.is-valid]="nombres.valid">
+                      <mat-icon matSuffix><i class="fa fa-university" aria-hidden="true"></i></mat-icon>
+                     <mat-error *ngIf="nombres.invalid">{{getErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                    <p id="nmbr" class="errNC" *ngIf="statusValid == 'error' && nm == 'sie'">El nombre ya está en uso</p>
+
+              </div>
+
+              <div class="form-group col-md-6">
+                  
+                  <mat-form-field appearance="standard">
+                      <input required [min]="minDate" [max]="maxDate" [formControl]="fechaFunda" matInput [matDatepicker]="picker" placeholder="Fecha en que fue fundada">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <mat-error *ngIf="fechaFunda.invalid">{{getErrorMessage2()}}</mat-error>
+                    </mat-form-field>
+               
+              </div>
+
+              <div class="form-group col-md-12">
+            
+                  <mat-form-field appearance="standard">
+                      <mat-label>Nombres/Apellidos del representante legal de la fundación</mat-label>
+                    
+                      <input required [formControl]="representante" matInput type="text" id="representante" placeholder="Representante legal de la fundación"  [class.is-invalid]="!representante.valid && representante.touched" [class.is-valid]="representante.valid">
+                      <mat-icon matSuffix><i class="fa fa-user" aria-hidden="true"></i></mat-icon>
+                     <mat-error *ngIf="representante.invalid">{{getErrorMessage8()}}</mat-error>
+                    </mat-form-field>
+                  
+                </div>
+
+
+              <div class="form-group col-md-12">
+                 <mat-form-field appearance="standard">
+                                <mat-label>Correo electrónico</mat-label>
+                              
+                                <input required [formControl]="correo2" matInput type="text" id="correo2" placeholder="Correo electrónico"  [class.is-invalid]="!correo2.valid && correo2.touched" [class.is-valid]="correo2.valid">
+                                <mat-icon matSuffix><i class="fa fa-envelope" aria-hidden="true"></i></mat-icon>
+                               <mat-error *ngIf="correo2.invalid">{{getErrorMessage3()}}</mat-error>
+                              </mat-form-field>
+                              <p id="corr" class="errNC" *ngIf="statusValid == 'error' && cor == 'sie'">El correo electrónico ya está en uso</p>
+              </div>
+
+              <div class="form-group col-md-6">
+
+                  <mat-form-field appearance="standard">
+                      <mat-label>Teléfono (domicilio)</mat-label>
+                    
+                      <input required [formControl]="telefono" matInput type="text" id="telefono"   [class.is-invalid]="!telefono.valid && telefono.touched" [class.is-valid]="telefono.valid">
+                      <mat-icon matSuffix><i class="fa fa-phone-square" aria-hidden="true"></i></mat-icon>
+                     <mat-error *ngIf="telefono.invalid">{{getErrorMessage5()}}</mat-error>
+                    </mat-form-field>
+
+              </div>
+              <div class="form-group col-md-6">
+
+                  <mat-form-field appearance="standard">
+                      <mat-label>Celular</mat-label>
+                    
+                      <input required [formControl]="celular" matInput type="text" id="celular"   [class.is-invalid]="!celular.valid && celular.touched" [class.is-valid]="celular.valid">
+                      <mat-icon matSuffix><i class="fa fa-phone-square" aria-hidden="true"></i></mat-icon>
+                     <mat-error *ngIf="celular.invalid">{{getErrorMessage9()}}</mat-error>
+                    </mat-form-field>
+
+              </div>
+              <div class="form-group col-md-6">
+
+                  <mat-form-field appearance="standard">
+                      <mat-label>Sector</mat-label>
+                      <mat-select required [formControl]="sector">
+                        <mat-option *ngFor="let s of sector2" [value]="s.value">
+                          {{s.value}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col-md-6">
+
+                      <mat-form-field appearance="standard">
+                          <mat-label>Barrio</mat-label>
+                        
+                          <input required [formControl]="barrio" matInput type="text" id="barrio" [class.is-invalid]="!barrio.valid && barrio.touched" [class.is-valid]="barrio.valid">
+                          <mat-icon matSuffix><i class="fa fa-home" aria-hidden="true"></i></mat-icon>
+                         <mat-error *ngIf="barrio.invalid">{{getErrorMessage6()}}</mat-error>
+                        </mat-form-field>
+                  </div>
+                  <div class="form-group col-md-6" style="display: flex;flex-direction: column;">
+                    <p *ngIf="usuarioFundacion.direccionMap"><strong>Dirección: </strong>{{usuarioFundacion.direccionMap.formmatedAddres}}</p>
+
+                  </div>
+                  <div class="form-group col-md-6">
+                    <button (click)="openDialogMap()" class="btnDir">Cambiar dirección <i class="fa fa-map-marker" aria-hidden="true"></i></button>
+                  </div>
+
+            </div>
+          </div>
+                   
+        
+        
+                   
+                  </form>
+      </div>
+      <div class="modal-footer" style="text-align: center; justify-content: center;">
+              <button  (click)="verificarLogoActuali()"style="background: #3bbfad; border: 1px solid #3bbfad;font-size: 1.5rem;" type="button" class="btnRGV btn btn-primary btnRGA" [disabled]="nombres.invalid || fechaFunda.invalid || representante.invalid || correo2.invalid 
+                    || telefono.invalid || celular.invalid ||  sector.invalid || barrio.invalid  || actualizarFunda == true">Actualizar</button>
+        </div>
+    </div>
+  </div>
+
+
+
+</div>
+<div class="modal fade" id="modalValidFOTOEDI" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Logo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Está seguro de actualizar la fundación sin un logo?</p>
+      </div>
+      <div class="modal-footer btnVlidFoto" >
+        <button type="button" class="btn btn-secondary" (click)="actualizarFundacion()" data-dismiss="modal">Aceptar</button>
+        <button type="button" class="btn btn-secondary" (click)="cancelarActualizacionLgo()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalValidEliminarFUN" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="font-size: 1.5em; ">Eliminar fundación</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 1.5em; font-weight: bold;">¿Está seguro eliminar la fundación?. No se podra revertir la acción.</p>
+      </div>
+      <div class="modal-footer btnVlidFoto" >
+        <button style="font-size: 1.5em;" type="button" class="btn btn-secondary" (click)="eliminarFundacion()">Si, seguro</button>
+        <button style="font-size: 1.5em;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ps" style="display: flex;
+flex-direction: column; position: relative;
+align-items: center; width: 100%;" *ngIf="carga == true">
+<app-loading-custom style="position: absolute;     "  ></app-loading-custom>
+
+</div>
+
+    <div class="mat-elevation-z8" style="display: flex;
+    flex-direction: column;
+    align-items: center;">
+
+
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar fundación">
+          </mat-form-field>
+        <table mat-table [dataSource]="dataSource"  matSort class="mat-elevation-z8">
+
+            <ng-container matColumnDef="logo" >
+                <th mat-header-cell *matHeaderCellDef > Logo </th>
+                <td mat-cell *matCellDef="let element">  
+                  <img *ngIf="element.logo" style="width: 3rem; height: 3rem; border-radius: 50%;" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                    element.logo}}">
+                  <img *ngIf="!element.logo" style="width: 3rem; height: 3rem; border-radius: 50%;" src="../../../../../assets/img/iconmas.png">
+                </td>
+              </ng-container>
+      <ng-container matColumnDef="nombreFundacion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombreFundacion}} </td>
+      </ng-container>
+      <ng-container matColumnDef="representante">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Representante </th>
+          <td mat-cell *matCellDef="let element"> {{element.representante}} </td>
+        </ng-container>
+      <!--<ng-container matColumnDef="fechaFundacion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fundada </th>
+          <td mat-cell *matCellDef="let element"> {{element.fechaFundacion}} </td>
+        </ng-container>-->
+        <ng-container matColumnDef="correo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
+            <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
+          </ng-container>
+          <ng-container matColumnDef="telefono">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
+              <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+            </ng-container>
+            <ng-container matColumnDef="celular">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Celular </th>
+                <td mat-cell *matCellDef="let element"> {{element.celular}} </td>
+              </ng-container>
+            <!--<ng-container matColumnDef="direccion">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </th>
+                <td mat-cell *matCellDef="let element"> {{element.sector}} - {{element.barrio}} - {{element.calleP}} - {{element.calleS}}</td>
+              </ng-container>
+              <ng-container matColumnDef="link">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Web </th>
+                  <td mat-cell *matCellDef="let element"> {{element.link}} </td>
+                </ng-container>-->
+                <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+                    <td mat-cell *matCellDef="let element"> 
+                      <p *ngIf="element.estado == 3">Eliminado</p>
+                      <p *ngIf="element.estado == 2">Actualización</p>
+                      <p *ngIf="element.estado == 0">Por aprobar</p>
+                      <p *ngIf="element.estado == 1">Activo</p>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="accion" stickyEnd>
+                      <th mat-header-cell *matHeaderCellDef > Acción </th>
+                      <td mat-cell *matCellDef="let element" class="btnsAcc" > 
+                          <button *ngIf="element.estado != '3'" class="btn" (click)="editarFun(element)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                          <button *ngIf="element.estado != '3'" (click)="verificarEliminarFundacion(element._id)" class="btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                          <button *ngIf="element.estado == '3' " [disabled]="activando == true" (click)="activarFundacion(element._id)" class="btn"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+
+                        </td>
+                    </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+
+    

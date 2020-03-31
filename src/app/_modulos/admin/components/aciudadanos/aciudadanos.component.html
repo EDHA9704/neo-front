@@ -1,0 +1,173 @@
+
+<div class="carga">
+    <div class="containerLoad" *ngIf="carga == true">
+        <div class="loading">
+          <span>Cargando...</span>
+        </div>
+      </div>
+</div>
+<div class="mat-elevation-z8">
+  <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar ciudadanos">
+    </mat-form-field>
+  <table mat-table [dataSource]="dataSource"  matSort class="mat-elevation-z8">
+
+      <!--<ng-container matColumnDef="foto" >
+          <th mat-header-cell *matHeaderCellDef > Foto </th>
+          <td mat-cell *matCellDef="let element">  
+            <img *ngIf="element.foto" style="width: 3rem; height: 3rem; border-radius: 50%;" src="{{url + 'obtener-foto/' + element.foto}}">
+            <img *ngIf="!element.foto" style="width: 3rem; height: 3rem; border-radius: 50%;" src="../../../../assets/img/iconmas.png">
+          </td>
+        </ng-container>-->
+<ng-container matColumnDef="nombres">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombres/Apellidos </th>
+  <td mat-cell *matCellDef="let element"> {{element.nombres}} {{element.apellidos}}</td>
+</ng-container>
+
+  <ng-container matColumnDef="correo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
+      <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
+    </ng-container>
+   
+      
+          <ng-container matColumnDef="estado">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+              <td mat-cell *matCellDef="let element"> 
+                <p *ngIf="element.estado == 3">Eliminado</p>
+                <p *ngIf="element.estado == 2">Actualización</p>
+                <p *ngIf="element.estado == 0">Por aprobar</p>
+                <p *ngIf="element.estado == 1">Activo</p>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="accion" stickyEnd>
+              <th mat-header-cell *matHeaderCellDef > Acción </th>
+              <td mat-cell *matCellDef="let element" class="btnsAcc" > 
+                  <button *ngIf="element.estado != '3'" class="btn" (click)="editarVol(element)"><i class="fa fa-pencil" aria-hidden="true" style="font-size: 1.5em;"></i></button>
+                  <button *ngIf="element.estado != '3'" (click)="verificarEliminarCiudadano(element._id)" class="btn"><i class="fa fa-trash" aria-hidden="true" style="font-size: 1.5em;"></i></button>
+              </td>
+            </ng-container>
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+<div class="modal fade" id="modalValidEliminarFUN" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="font-size: 1.5em; ">Eliminar ciudadano</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 1.5em; font-weight: bold;">¿Está seguro eliminar al ciudadano?. No se podra revertir la acción.</p>
+      </div>
+      <div class="modal-footer btnVlidFoto" >
+        <button style="font-size: 1.5em;" type="button" class="btn btn-secondary" (click)="eliminarCiudadano()">Si, seguro</button>
+        <button style="font-size: 1.5em;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalEditFun" tabindex="-1" role="dialog" aria-labelledby="modalEditFun" aria-hidden="true" style="z-index: 2000;">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Actualizar ciudadano</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> 
+      </div>
+      <div class="modal-body" *ngIf="edFun == true;">
+        <form #registerFormActu="ngForm"  class="formRg needs-validation" novalidate>
+      
+          <div class="containerACTUALIZAR">
+            
+            <div class="form-row datosUser">
+              <div class="form-group col-md-6">
+                  <mat-form-field appearance="standard">
+                      <mat-label>Nombres</mat-label>
+                    
+                      <input required [formControl]="nombres" matInput type="text" id="nombres" placeholder="Nombres" >
+                      <mat-icon matSuffix><i class="fa fa-university" aria-hidden="true"></i></mat-icon>
+                     <mat-error *ngIf="nombres.invalid">{{getErrorMessage()}}</mat-error>
+                    </mat-form-field>
+
+              </div>
+              <div class="form-group col-md-6">
+                <mat-form-field appearance="standard">
+                    <mat-label>Apellidos</mat-label>
+                  
+                    <input required [formControl]="apellidos" matInput type="text" id="apellidos" placeholder="Apellidos">
+                    <mat-icon matSuffix><i class="fa fa-university" aria-hidden="true"></i></mat-icon>
+                   <mat-error *ngIf="apellidos.invalid">{{getErrorMessage2()}}</mat-error>
+                  </mat-form-field>
+
+            </div>
+              <div class="form-group col-md-6">
+                  
+                  <mat-form-field appearance="standard">
+                      <input required [min]="minDate" [max]="maxDate" [formControl]="fechaNacimiento" matInput [matDatepicker]="picker" placeholder="Fecha de nacimiento">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <mat-error *ngIf="fechaNacimiento.invalid">{{getErrorMessage3()}}</mat-error>
+                    </mat-form-field>
+               
+              </div>
+
+            
+
+              <div class="form-group col-md-6">
+                 <mat-form-field appearance="standard">
+                                <mat-label>Correo electrónico</mat-label>
+                              
+                                <input required [formControl]="correo2" matInput type="text" id="correo2" placeholder="Correo electrónico"  [class.is-invalid]="!correo2.valid && correo2.touched" [class.is-valid]="correo2.valid">
+                                <mat-icon matSuffix><i class="fa fa-envelope" aria-hidden="true"></i></mat-icon>
+                               <mat-error *ngIf="correo2.invalid">{{getErrorMessage4()}}</mat-error>
+                              </mat-form-field>
+              </div>
+
+              <div class="form-group col-md-6">
+
+                  <mat-form-field appearance="standard">
+                      <mat-label>Teléfono (domicilio)</mat-label>
+                    
+                      <input required [formControl]="telefono" matInput type="text" id="telefono"   [class.is-invalid]="!telefono.valid && telefono.touched" [class.is-valid]="telefono.valid">
+                      <mat-icon matSuffix><i class="fa fa-phone-square" aria-hidden="true"></i></mat-icon>
+                     <mat-error *ngIf="telefono.invalid">{{getErrorMessage5()}}</mat-error>
+                    </mat-form-field>
+
+              </div>
+              <div class="form-group col-md-6">
+
+                  <mat-form-field appearance="standard">
+                      <mat-label>Celular</mat-label>
+                    
+                      <input required [formControl]="celular" matInput type="text" id="celular"   [class.is-invalid]="!celular.valid && celular.touched" [class.is-valid]="celular.valid">
+                      <mat-icon matSuffix><i class="fa fa-phone-square" aria-hidden="true"></i></mat-icon>
+                     <mat-error *ngIf="celular.invalid">{{getErrorMessage9()}}</mat-error>
+                    </mat-form-field>
+
+              </div>
+
+
+            </div>
+          </div>
+                   
+        
+        
+                   
+                  </form>
+      </div>
+      <div class="modal-footer" style="text-align: center; justify-content: center;">
+              <button  (click)="actualizarCiudadano()" style="background: #3bbfad; border: 1px solid #3bbfad;font-size: 1.5rem;" type="button" class="btnRGV btn btn-primary btnRGA" [disabled]="nombres.invalid || apellidos.invalid || correo2.invalid 
+                    || telefono.invalid || celular.invalid  || actualizarFunda == true">Actualizar</button>
+        </div>
+    </div>
+  </div>
+
+
+
+</div>

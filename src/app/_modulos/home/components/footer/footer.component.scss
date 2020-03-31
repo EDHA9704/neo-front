@@ -1,0 +1,34 @@
+*{
+    font-size: 1.3em;
+}
+p{
+    margin: 0;
+}
+
+footer{
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 2rem;
+    background-color: #d7d4ed;
+    align-items: center;
+    text-align: center;
+    color: rgba(0,0,0,.7);
+    img{
+        width: 4rem !important;
+    }
+}
+
+@media screen and (max-width:576px){
+    footer{
+        justify-content: center;
+    }
+
+    footer  img:nth-child(1){
+        display: none;
+    }
+    
+
+}

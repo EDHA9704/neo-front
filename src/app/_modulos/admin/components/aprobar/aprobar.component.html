@@ -1,0 +1,283 @@
+
+<!-- Modal aprobacion negacion cuenta-->
+<div class="modal fade" id="modalPro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle" style="font-size: 1.5rem;">Proceso de cuenta</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="font-size: 1.5rem;" *ngIf="aprobarC == true && fundacion2">
+            <div class="form-check">
+                <input class="form-check-input" (change)="validarMsj()" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                
+                <label class="form-check-label" for="exampleRadios1" style="font-size: 1.5rem;">
+                  Mensaje por defecto
+                </label>
+                <small id="passwordHelpInline" class="text-muted" style="font-size: 1.5rem;">
+                    La cuenta <strong>{{fundacion2.nombreFundacion}}</strong>, ha sido aprobada exitosamente. Ahora puedes 
+                    iniciar sesión, actualizar tus datos de perfil
+                    y comenzar a publicar.
+                  </small>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" (change)="validarMsj()" type="radio" name="exampleRadios" id="personalizado" value="option2">
+                <label class="form-check-label" for="personalizado" style="font-size: 1.5rem;">
+                  Mensaje personalizo
+                </label>
+              </div>
+              <form id="formMsjPer">
+                  <mat-form-field appearance="standard" >
+                      <mat-label>Mensaje personalizado</mat-label>
+                    
+                      <textarea [disabled]="msjPer == false" required [formControl]="msj" matInput type="text" id="msj"  [class.is-invalid]="!msj.valid && msj.touched" [class.is-valid]="msj.valid"></textarea>
+                      <mat-icon matSuffix><i class="fa fa-university" aria-hidden="true"></i></mat-icon>
+                     <mat-error *ngIf="msj.invalid">{{getErrorMessage()}}</mat-error>
+                    </mat-form-field>
+              </form>
+             
+
+        </div>
+        <div class="modal-body" style="font-size: 1.5rem;" *ngIf="aprobarC == false && fundacion2">
+            <p>Explica las razones por las que no se pudo aprobar la cuenta de la fundación <strong>{{fundacion2.nombreFundacion}}</strong></p>
+              <form id="formMSJ">
+                  <mat-form-field appearance="standard" >
+                      <mat-label>Razones</mat-label>
+                    
+                      <textarea [disabled]="msjPer == false" required [formControl]="msj" matInput type="text" id="msj"  [class.is-invalid]="!msj.valid && msj.touched" [class.is-valid]="msj.valid"></textarea>
+                      <mat-icon matSuffix><i class="fa fa-university" aria-hidden="true"></i></mat-icon>
+                     <mat-error *ngIf="msj.invalid">{{getErrorMessage()}}</mat-error>
+                    </mat-form-field>
+              </form>
+             
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size: 1.5rem;">Cerrar</button>
+          <button (click)="aprobarCuenta(fundacion2._id)" type="button" class="btn btn-primary btnAp" *ngIf="aprobarC == true && msjPer == false" style="font-size: 1.5rem;">Aprobar cuenta</button>
+          <button (click)="aprobarCuenta(fundacion2._id)" type="button" class="btn btn-primary btnAp" *ngIf="aprobarC == true && msjPer == true" [disabled]="msj.invalid" style="font-size: 1.5rem;">Aprobar cuenta</button>
+
+          <button (click)="desaprobarCuenta(fundacion2._id,fundacion2)" type="button" class="btn btn-primary btnNe " *ngIf="aprobarC == false" style="font-size: 1.5rem;">Negar cuenta</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<section class="team" id="team">
+  <div class="container my-3 py-5 text-center">
+    <div class="row mb-5">
+      <div class="col">
+        <h1 class="titulo" style="font-size: 3em;">Cuentas por aprobar</h1>
+      </div>
+    </div>
+    
+    <!--TODAS LAS FUNDACIONES POR APROBAR-->
+    <div class="row" *ngIf="verTodas == 'si'" style="display: flex;
+    flex-direction: column;
+    align-items: center;">
+      <app-loading-custom style="position: absolute; " *ngIf="carga == true" ></app-loading-custom>
+
+      <div class="col-12 ">
+        <div class="fundaciones">
+          <div class="card" *ngFor="let fund of fundacionesNA">
+            <div class="card-body">
+                <img class="img-fluid rounded-circle w-50 mb-3"  *ngIf="fund.logo" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                  fund.logo}}">
+                <img class="img-fluid rounded-circle w-50 mb-3" *ngIf="!fund.logo" src="../../../../assets/img/Captura2.png">
+              <h3 matTooltip="Nombre">{{fund.nombreFundacion}}</h3>
+              <h5 class="hace">{{fund.creadoEn }}</h5>
+              <div class="info">
+                <div class="item">
+                  <div class="icon">
+                      <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                  </div>
+                    <p> Fundada el {{fund.fechaFundacion}}</p>
+                </div>
+                <div class="item">
+                  <div class="icon">
+                      <i class="fa fa-user" aria-hidden="true"></i>
+                  </div>
+                    <p matTooltip="Representante"> {{fund.representante}}</p>
+                </div>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </div>
+                      <p matTooltip="Correo"> {{fund.correo}}</p>
+                  </div>
+                 
+                <div class="item">
+                  <div class="icon">
+                      <i class="fa fa-phone-square" aria-hidden="true"></i>
+                  </div>
+                    <p matTooltip="Teléfono"> {{fund.telefono}}</p>
+                </div>
+                <div class="item">
+                  <div class="icon">
+                      <i class="fa fa-phone-square" aria-hidden="true"></i>
+                  </div>
+                    <p matTooltip="Celular"> {{fund.celular}}</p>
+                </div>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    </div>
+                      <p matTooltip="Dirección"> Sector {{fund.sector}}, barrio {{fund.barrio}}, calle principal {{fund.calleP}},
+                        calle secundaria {{fund.calleS}}
+                      </p>
+                  </div>
+              </div>
+              
+              
+            </div>
+            <div class="card-footer justify-content-center" >
+                <div class="p-1">
+                  <a style="cursor: pointer;" (click)="procesoCuenta('yes',fund)" class="yes" matTooltip="Aprobar cuenta">
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                  </a>
+                </div>
+                
+                  <div class="p-1">
+                      <a style="cursor: pointer;" (click)="procesoCuenta('no',fund)" class="no" matTooltip="Negar cuenta">
+                          <i class="fa fa-times" aria-hidden="true"></i>                    </a>
+                    </div>
+              </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+        <div class="row pp" *ngIf="carga == false && advertencia == false && verTodas == 'si' ">
+            <div class="col-12">
+              <div class="selectPages" >
+                <div class="pageAnt2">
+                    <a  [routerLink]="['/admin','cuentas','all',  '1']"
+                      class="btn btn-primary">
+                      <i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                  </div>
+              <div class="pageAnt">
+                <button [disabled]="page == 1"  [routerLink]="['/admin','cuentas','all',  prev_page]"
+                  class="btn btn-primary">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i></button>
+              </div>
+              <div class="pagess">
+        
+               <a  [routerLink]="['/admin','cuentas','all', p]" *ngFor="let p of pagesSelec" [class.pgActive]="page == p">{{p}}</a>
+           
+              </div>
+              <div class="pageNex">
+                <button [disabled]="page == pages"  [routerLink]="['/admin','cuentas','all', next_page]"
+                class="btn btn-primary">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="pageNex2">
+                  <a  [routerLink]="['/admin','cuentas','all',  pages]"
+                  class="btn btn-primary">
+                  <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                </a>
+                </div>
+            </div>
+
+              <!--<a *ngIf="page > 1 && advertencia != true" [routerLink]="['/admin','cuentas','all', prev_page]" class="btn btn-primary">
+                <i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Anterior</a>
+              <a *ngIf="pages != page && advertencia != true" [routerLink]="['/admin','cuentas','all', next_page]"
+                class="btn btn-primary">Siguiente
+                <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+              </a>-->
+            </div>
+      
+          </div>
+    <!--UNA sola fundacion-->
+    <div class="row" *ngIf="verTodas == 'no' && fundacion && advertencia == false">
+        <div class="col-12 ">
+          <div class="fundaciones2">
+            <div class="card">
+              <div class="card-body">
+                  <img class="img-fluid rounded-circle w-50 mb-3"  *ngIf="fundacion.logo" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                    fundacion.logo}}">
+                  <img class="img-fluid rounded-circle w-50 mb-3" *ngIf="!fundacion.logo" src="../../../../assets/img/Captura2.png">
+                <h3>{{fundacion.nombreFundacion}}</h3>
+                <h5 class="hace">{{fundacion.creadoEn }}</h5>
+                <div class="info">
+                  <div class="item">
+                    <div class="icon">
+                        <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                    </div>
+                      <p> Fundada el {{fundacion.fechaFundacion}}</p>
+                  </div>
+                  <div class="item">
+                    <div class="icon">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </div>
+                      <p> {{fundacion.representante}}</p>
+                  </div>
+                  <div class="item">
+                      <div class="icon">
+                          <i class="fa fa-envelope" aria-hidden="true"></i>
+                      </div>
+                        <p> {{fundacion.correo}}</p>
+                    </div>
+                   
+                  <div class="item">
+                    <div class="icon">
+                        <i class="fa fa-phone-square" aria-hidden="true"></i>
+                    </div>
+                      <p> {{fundacion.telefono}}</p>
+                  </div>
+                  <div class="item">
+                    <div class="icon">
+                        <i class="fa fa-phone-square" aria-hidden="true"></i>
+                    </div>
+                      <p> {{fundacion.celular}}</p>
+                  </div>
+                  <div class="item">
+                      <div class="icon">
+                          <i class="fa fa-map-marker" aria-hidden="true"></i>
+                      </div>
+                        <p> Sector {{fundacion.sector}}, barrio {{fundacion.barrio}}
+                        </p>
+                    </div>
+                </div>
+                
+                
+              </div>
+              <div class="card-footer justify-content-center" >
+                  <div class="p-1">
+                    <a style="cursor: pointer;" (click)="procesoCuenta('yes',fundacion)" class="yes" matTooltip="Aprobar cuenta">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                  
+                    <div class="p-1">
+                        <a style="cursor: pointer;" (click)="procesoCuenta('no',fundacion)" class="no" matTooltip="Negar cuenta">
+                            <i class="fa fa-times" aria-hidden="true"></i>                    </a>
+                      </div>
+                </div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+      <div class="row" *ngIf="verTodas == 'no' && fundacion && advertencia == false">
+          <div class="col-12 btnMasMascotas">
+              <button (click)="verTodasFundaciones()" style="font-size: 1.5rem;">Ver todas las cuentas</button>
+            </div>
+    
+        </div>
+  </div>
+
+</section>
+<div class="advertencia" *ngIf="carga == false && advertencia == true">
+  <div class="imgAd">
+    <img src="../../../../../assets/img/corazon.png">
+  </div>
+  <p style="font-size: 2em;">{{mensaje2}}</p>
+</div>
+

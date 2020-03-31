@@ -1,0 +1,274 @@
+p,label,span,option,button{
+    font-family: 'Exo', sans-serif;
+    margin: 0;
+}
+h5,h4,h3,h2,h1{
+    font-family: 'Righteous', cursive;
+    color: #555;
+    margin: 0;
+}
+img{
+    width: 100%;
+}
+.custombar{
+    background-color: #3bbfad !important;
+}
+
+.main{
+    padding: 6rem;
+    min-height: 25em;
+  
+}
+.custom-cards{
+    position: relative; 
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .spinn{
+        position: absolute;
+    }
+}
+#modalComprobante .modal-body{
+    position: relative;
+    padding: 0;
+    button{
+        position: absolute;
+        top: 2%;
+        right: 2%;
+        background: black;
+        padding: 0 .5rem;
+        border-radius: 50%;
+        color: white;
+        span{
+            font-size: 3rem;
+        }
+    }
+    .imgModalCom{
+        width: 100%;
+        height: 50rem;
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+/*----PAGES---*/
+.selectPages{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 2rem !important;
+    margin: 2rem 0;
+    i{
+        font-size: 2rem;
+    }
+    a,  button{
+        margin: .5rem;
+        color: #3bbfad;
+    }
+    .pagess{
+        max-width: 40%;
+        overflow-x: auto;
+    }
+    .pageAnt button, .pageNex button{
+        background: transparent;
+        border: 0;
+    }
+    .pageAnt2 a, .pageNex2 a{
+        background: transparent;
+        border: 0;
+        margin: .5rem 0 !important;
+    }
+}
+.pgActive{
+    background: #3bbfad;
+    color: white !important;
+    padding: .1rem .8rem;
+    border-radius: 25%;
+}
+.dividerTi{
+    border-bottom: 1px solid #bfbebecc;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    padding: 0;
+    margin: 2rem 0;
+    font-size: 1.5rem;
+    color: #656363;
+}
+.btnRGM{
+    width: 100%;
+    margin-bottom: 2rem;
+    text-align: center;
+    .dropdown-menu{
+        font-size: 1.4rem;
+    }
+}
+.btnRGM button{
+    background: #3bbfad;
+    color: white;
+} 
+.imgRG{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+padding-top: 10px;
+padding-bottom: 10px;
+}
+.imgRG .imgRD{
+    position: relative;
+    width: 8rem;
+    height: 8rem;
+}
+
+.btnIM{
+    position: absolute;
+    top: 5%;
+    right: -15%;
+}
+
+.btnNEXT{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+    button{
+        background: #3bbfad;
+        color: white;
+        min-height: 3rem;
+    }
+    
+}
+.btnNEXT2{
+    margin: 2rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    button{
+        font-family: 'Exo', sans-serif;
+        background: #3bbfad;
+    color: white;
+    min-height: 3rem;
+    }
+}
+
+.btnNEXT2 button:nth-child(1){
+    margin-right: 10px;
+}
+.btnNEXT button:nth-child(2){
+    margin-left: 10px;
+}
+.btnsRegMas{
+    margin-top: 2rem;
+    text-align: center;
+}
+.btnsRegMas button:nth-child(1){
+    background: #3bbfad;
+    border: 1px solid #3bbfad;
+   
+}
+.btnsRegMas button:nth-child(2){
+    background: #bf3b3b;
+    border: 1px solid #bf3b3b;
+    
+}
+::ng-deep .cdk-overlay-container{
+    z-index: 3000 !important;
+}
+.btnDir{
+    border-radius: 5px;
+		border: 1px solid #3bbfad !important;
+		background-color: transparent;
+		color: #3bbfad;
+		font-size: 12px;
+		font-weight: bold;
+		padding: 4px 18px;
+		
+		letter-spacing: 1px;
+		text-transform: uppercase;
+        transition: transform 80ms ease-in;
+        width: 100%;
+}
+.mapCustom{
+    height: 12em !important;
+}
+.input-labelVol{
+    background: #3bbfad;
+
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-weight: bold;
+}
+.input-labelVol:hover{
+    cursor: pointer;
+}
+
+#fileVol{
+    display: none;
+}
+.modal-body{
+    min-height: 50rem;
+    font-size: 1.4rem;
+    button{
+        border: 0;
+        border-radius: 5px;
+    }
+}
+
+.noval{
+    opacity: .6;
+}
+.tituloPage{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 8rem 0 0rem 0;
+   
+    .tituloPage-name{
+       margin: .5rem;
+       display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+       h3{
+           font-family: 'Righteous', cursive;
+           font-size: 5rem;
+           color: #3bbfad;
+       }
+       .lineTi{
+           width: 5%;
+           border-radius: 5px;
+           border-top: 3px solid #3bbfad;
+       }
+    }
+}
+
+.btnModalVolAcc{
+    display: flex;
+    button{
+        font-size: 1.5rem;
+        span{
+            font-size: 2.5rem;
+        }
+    }
+}
+.modal{
+    z-index: 2000 !important;
+}
+@media only screen and (max-width:400px){
+   
+    .content-grid-cards{
+        padding: 0 !important;
+    }
+    
+  }

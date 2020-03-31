@@ -1,0 +1,60 @@
+<div class="carga">
+    <div class="containerLoad" *ngIf="carga == true">
+        <div class="loading">
+          <span>Cargando...</span>
+        </div>
+      </div>
+</div>
+<div class="mat-elevation-z8">
+  <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar voluntarios">
+    </mat-form-field>
+  <table mat-table [dataSource]="dataSource"  matSort class="mat-elevation-z8">
+
+      <!--<ng-container matColumnDef="foto" >
+          <th mat-header-cell *matHeaderCellDef > Foto </th>
+          <td mat-cell *matCellDef="let element">  
+            <img *ngIf="element.foto" style="width: 3rem; height: 3rem; border-radius: 50%;" src="{{url + 'obtener-foto/' + element.foto}}">
+            <img *ngIf="!element.foto" style="width: 3rem; height: 3rem; border-radius: 50%;" src="../../../../assets/img/iconmas.png">
+          </td>
+        </ng-container>-->
+<ng-container matColumnDef="nombres">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombres/Apellidos </th>
+  <td mat-cell *matCellDef="let element"> {{element.nombres}} {{element.apellidos}}</td>
+</ng-container>
+<ng-container matColumnDef="cedula">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cédula </th>
+    <td mat-cell *matCellDef="let element"> {{element.cedula}} </td>
+  </ng-container>
+  <ng-container matColumnDef="correo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
+      <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
+    </ng-container>
+   
+     
+        <ng-container matColumnDef="telefono">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><i class="fa fa-phone-square" aria-hidden="true"></i></th>
+          <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+        </ng-container>
+        <ng-container matColumnDef="celular">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <i class="fa fa-phone-square" aria-hidden="true"></i></th>
+          <td mat-cell *matCellDef="let element"> {{element.celular}} </td>
+        </ng-container>
+       
+       
+     
+          <ng-container matColumnDef="estado">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+              <td mat-cell *matCellDef="let element"> 
+                <p *ngIf="element.estado == 3">Eliminado</p>
+                <p *ngIf="element.estado == 2">Actualización</p>
+                <p *ngIf="element.estado == 0">Por aprobar</p>
+                <p *ngIf="element.estado == 1">Activo</p>
+               </td>
+            </ng-container>
+         
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

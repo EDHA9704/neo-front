@@ -1,0 +1,78 @@
+<section class="tituloPage" *ngIf="fundacion">
+
+    <div class="tituloPage-name">
+      <h3>Contactanos</h3>
+      <span class="lineTi"></span> 
+    </div>
+  </section>
+  <div id="mainMS" class="main">
+
+
+      <!--Seccion de cartas de mascotas-->
+      <section class="main-mascotas">
+    
+   
+        <div class="mascots" *ngIf="fundacion" >
+  
+          <div class="container containerContactanos">
+              <h5>¿Tienes alguna duda?</h5>
+             
+              <p>Descárgate la aplicación móvil y realiza tus consultas directamente ó contáctanos por medio de:</p>
+            
+              <div class="row justify-content-center">
+                <div class="col-12 col-sm-12 col-md-6" >
+                  <div class="datosContactos" *ngIf="fundacion">
+                    <div class="contact">
+                      <div class="icon-contact">
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                      </div>
+                      <div class="text-contact"><p>{{fundacion.telefono}}</p></div>
+                    </div>
+                    <div class="contact">
+                      <div class="icon-contact">
+                        <i class="fa fa-mobile" aria-hidden="true"></i>
+                      </div>
+                      <div class="text-contact"><p>{{fundacion.celular}}</p></div>
+                    </div>
+                    <div class="contact">
+                      <div class="icon-contact">
+                        <i class="fa fa-envelope-open" aria-hidden="true"></i>
+                      </div>
+                      <div class="text-contact"><p>{{fundacion.correo}}</p></div>
+                    </div>
+                    <div class="contact">
+                      <div class="icon-contact">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                      </div>
+                      <div class="text-contact-custom">
+                        <p><strong>Sector:</strong> {{fundacion.sector}}</p>
+                        <p><strong>Barrio:</strong> {{fundacion.barrio}}</p>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+               <div class="col-12 col-sm-12 col-md-6" *ngIf="fundacion && fundacion.direccionMap">
+                 <div class="content-map">
+                
+                   <div class="mapa">
+                       <div id="mapcustom" style="width: 100%; height: 100%;" >
+                       </div>
+                   </div>
+                   <div class="mapa-dir">
+                    <p><strong> {{fundacion.direccionMap.formmatedAddres}}</strong></p>
+                  </div>
+                 </div>
+                
+                   
+               </div>
+              </div>
+            
+            </div>
+   
+        </div>
+
+
+      </section>
+    </div>
+

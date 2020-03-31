@@ -1,0 +1,558 @@
+<ngx-ui-loader [loaderId]="'loader-02'" 
+bgsColor= "#fc7c7c"
+bgsOpacity= "0.7"
+bgsPosition= "bottom-right"
+bgsSize= "60"
+bgsType= "square-jelly-box"
+blur= "14"
+delay= "0"
+fastFadeOut= "true"
+fgsColor= "#3bbfad"
+fgsPosition= "center-center"
+fgsSize= "60"
+fgsType= "square-jelly-box"
+gap= "10"
+logoPosition= "center-center"
+logoSize= "120"
+logoUrl= "" 
+masterLoaderId= "master"
+overlayBorderRadius= "0"
+overlayColor= "rgba(40, 40, 40, 0.8)"
+pbColor= "rgba(40,0,248,0)"
+pbDirection= "rtl"
+pbThickness= "3"
+hasProgressBar= "false"
+text= ""
+textColor= "#FFFFFF"
+textPosition= "center-center"
+maxTime= "-1"
+minTime= "500" 
+></ngx-ui-loader>
+<div class="main">
+  <div class="container-mascota" *ngIf="mascota">
+    <div class="container">
+  <div class="cropFotoMascota" *ngIf="imageReady != ''">
+    <div class="processFoto" *ngIf="imageReady == 'load'">
+      <p>Cargando imagen...</p><div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class="croptitulo" *ngIf="imageReady == 'ok'">
+      <h5>Recorta la imagen y presiona en "Guardar"</h5>
+    </div>
+    <image-cropper  
+    [imageChangedEvent]="imageChangedEvent"
+    [maintainAspectRatio]="true"
+    [cropperMinWidth]="300"
+    [cropperMinHeight]="300"
+    [aspectRatio]="4 / 3"
+    format="png"
+    (imageCropped)="imageCropped($event)"
+    (imageLoaded)="imageLoaded()"
+    (cropperReady)="cropperReady()"
+    (loadImageFailed)="loadImageFailed()"
+  ></image-cropper>
+  <div class="imgCroped" *ngIf="imageReady == 'ok'">
+    <img [src]="croppedImage" />
+  </div>
+  <div class="actionsCropImage" *ngIf="imageReady == 'ok'">
+    <button class="btn" (click)="subirFoto()" [disabled]="subiendoImage == true">Guardar</button>
+    <button class="btn">Cancelar</button>
+  </div>
+  </div>
+  
+  
+  
+ 
+      <section class="mascota-body" >
+        <div class="row" style=" margin: 0 !important;width: 100% !important;">
+          <div class="col-12 col-md-12 col-lg-8 gallery">
+            <div class="content">
+              <section class="mascota-header">
+                <div class="contentWater">
+                  <div class="contentw">
+                    <h2>{{mascota.nombre}}</h2>
+                    <h2>{{mascota.nombre}}</h2>
+                  </div>
+                  
+                </div>
+                  
+          
+              
+              </section>
+              <swiper class="swiper" [config]="config_gallery" #swiperGallery style="width: 85%; height: 25rem;">
+                <label *ngIf="permission == true" for="file23" class="input-label2"><i class="fa fa-upload" aria-hidden="true"></i> Añadir foto</label>
+                 <input *ngIf="permission == true" id="file23" (change)="fileChangeEvent($event)" name="foto" type="file">
+  
+              <div class="swiper-wrapper" style="width: 100%; height: 100%;">
+                <div *ngFor="let image of images" class="swiper-slide" style="width: 100%; height: 100%;">
+                  <div class="dropdown btnEstablecerFoPerfil2" *ngIf="permission == true">
+                    <button class="btn btn-secondary" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa fa-cog" aria-hidden="true"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+                      <button style="font-size: 1.4rem;" class="dropdown-item" type="button" (click)="fotoPrincipalMascota(mascota._id ,image._id)">Seleccionar como principal</button>
+                      <button style="font-size: 1.4rem;" class="dropdown-item" type="button" (click)="eliminarFotoMascota(mascota._id,image._id,image.name)">Eliminar imagen</button>
+                      
+                    </div>
+                  </div>
+                  <img src="{{image.image}}" alt="image" class="slide" style="width: 100%; height: 100%;">
+                </div>
+              </div>
+              <div class="swiper-pagination"></div>
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+            </swiper>
+      
+             <div class="descripcion-pet">
+              <p>{{mascota.descripcion}}</p>
+             </div>
+            
+           
+            </div>
+          
+      
+         
+          </div>
+          <div class="col-12 col-md-12 col-lg-4 info">
+  
+            <div class="content1">
+              <div class="titulo">
+                <h4>Información de la mascota</h4>
+                <div class="mascota-header-actions" *ngIf="permission == true">
+                  <button type="button" class="btn btn-primary" (click)="editarModal()">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" class="btn btn-primary btash" (click)="eliminarEstadoMascota()">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+                <div class="row">
+                  <div class="col-12 col-md-6 title"><p>Nombre: </p>&nbsp; 
+                    <p class="item"> {{mascota.nombre}}</p></div>
+                  <div class="col-12 col-md-6 title" ><p>Especie: </p>&nbsp; 
+                    <p class="item"> {{mascota.especie}}</p></div>
+                  <div class="col-12 col-md-6 title " ><p>Sexo: </p>&nbsp; 
+                    <p class="item"> {{mascota.sexo}}</p>
+                  </div>
+                  <div class="col-12 col-md-6 title " ><p>Raza: </p>&nbsp; 
+                    <p class="item"> {{mascota.raza}}</p></div>
+                  <div class="col-12 col-md-6 title " ><p>Tamaño: </p>&nbsp; 
+                    <p class="item"> {{mascota.tamanio}}</p></div>
+                  <div class="col-12 col-md-12 title " ><p>Edad:</p>&nbsp; 
+                    <p class="item"> {{mascota.edadT}} / {{mascota.anios}} años - {{mascota.meses}} meses</p></div>
+                  
+                    <div class="col-12 title">
+                      <div class="content-many2">
+                        <div class="content-many-op2">
+                          <div class="tit">
+                            <p>Vacunas</p>
+                
+                          </div>
+                          <div class="op">
+                            <p  *ngIf="mascota.vacunas.Puppy">Puppy <i *ngIf="mascota.vacunas.Puppy == true" class="fa fa-check" aria-hidden="true"></i> <i
+                                *ngIf="mascota.vacunas.Puppy == ''" class="fa fa-ban" aria-hidden="true"></i></p>
+                            <p *ngIf="mascota.vacunas.Multiple">Múltiple <i *ngIf="mascota.vacunas.Multiple == true" class="fa fa-check" aria-hidden="true"></i> <i
+                                *ngIf="mascota.vacunas.Multiple == ''" class="fa fa-ban" aria-hidden="true"></i></p>
+                            <p *ngIf="mascota.vacunas.Antirrabica">Antirrábica <i *ngIf="mascota.vacunas.Antirrabica == true" class="fa fa-check" aria-hidden="true"></i> <i
+                                *ngIf="mascota.vacunas.Antirrabica == ''" class="fa fa-ban" aria-hidden="true"></i></p>
+                            <p *ngIf="mascota.vacunas.Bronchicine">Bronchicine <i *ngIf="mascota.vacunas.Bronchicine == true" class="fa fa-check" aria-hidden="true"></i> <i
+                                *ngIf="mascota.vacunas.Bronchicine == ''" class="fa fa-ban" aria-hidden="true"></i></p>
+                                <p *ngIf="mascota.vacunas.TrFelina">Triple felina <i *ngIf="mascota.vacunas.TrFelina == true" class="fa fa-check" aria-hidden="true"></i> <i
+                                  *ngIf="mascota.vacunas.TrFelina == ''" class="fa fa-ban" aria-hidden="true"></i></p>
+                
+                          </div>
+                
+                        </div>
+                
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-12 title " ><p>Otras vacunas: </p>&nbsp; 
+                      <p class="item"> {{mascota.otherVacunas}}</p></div>
+                    <div class="col-12">
+                      <mat-accordion>
+                   
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              Fundación
+                            </mat-panel-title>
+                           
+                          </mat-expansion-panel-header>
+                          <p><i class="fa fa-university" aria-hidden="true"></i> <a [routerLink]="['/fundacion',mascota.responsable._id]">{{mascota.responsable.nombreFundacion}}</a></p>
+                          <p><i class="fa fa-phone" aria-hidden="true"></i> {{mascota.responsable.telefono}}/{{mascota.responsable.celular}}</p>
+                          <p><i class="fa fa-map-pin" aria-hidden="true"></i> {{mascota.responsable.sector}}, {{mascota.responsable.barrio}}, {{mascota.responsable.calleP}}, {{mascota.responsable.calleS}}</p>
+                        </mat-expansion-panel>
+                      </mat-accordion>
+                    </div>
+                    <div class="col-12 btnAdoptame">
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                        ¡ ADÓPTAME !
+                      </button>
+                    </div>
+                </div>
+              
+            </div>
+          </div>
+        
+        </div>
+      </section>
+    </div>
+  
+  </div>
+  
+  <!-- Modal de proceso de adopcion -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 1.5rem;">Proceso de adopción</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body pasosAdopcion">
+          <div class="pasos">
+            <div class="paso-img">
+                <i class="fa fa-upload" aria-hidden="true"></i>
+            </div>
+            <div class="paso-desc">
+              <p>Descarga la aplicación móvil y selecciona la mascota que más te guste.</p>
+            </div>
+          </div>
+          <div class="pasos">
+              <div class="paso-img">
+                  <i class="fa fa-file-text" aria-hidden="true"></i>
+              </div>
+              <div class="paso-desc">
+                <p>Llena el formulario de adopción con información valida y tu solicitud será enviada a la Fundación respectiva.</p>
+              </div>
+            </div>
+            <div class="pasos">
+                <div class="paso-img">
+                    <i class="fa fa-check-square" aria-hidden="true"></i>
+                </div>
+                <div class="paso-desc">
+                    <p> Entre 24 a 48 horas serás notificado mediante la aplicación móvil si tu solicitud fue aprobada o negada.</p>
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer pasosFooter">
+          <button type="button" class="btn btn-primary">Descarga aplicación móvil  <i class="fa fa-upload" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal editar mascota-->
+  <div class="modal fade" id="mdalEditar" tabindex="-1" role="dialog" aria-labelledby="mdalEditar"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 1.5rem;">Editar Información</h5>
+          <div class="btnsCR">
+              <button  class="btn btn-danger btnRestablecer"
+              (click)="restablecerDatos()"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+              <button type="button" class="close cls2" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+         
+        </div>
+        <div class="modal-body">
+          <div class="row perfMascota2" *ngIf="permission == true && mascota" style="width: 100%; margin: 0 !important;">
+            <div class="col-12  msd">
+  
+              
+              <form 
+                class="needs-validation formNuevaMascota" novalidate style="font-size: 1.4rem;">
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+  
+                    <mat-form-field appearance="standard">
+                      <mat-select required [formControl]="especie" id="especie"
+                        placeholder="Selecciona la especie" [class.is-invalid]="!especie.valid && especie.touched"
+                        [class.is-valid]="especie.valid">
+                        <mat-option value="Felino">Felino</mat-option>
+                        <mat-option value="Canino">Canino</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="especie.invalid">{{getErrorMessage()}}</mat-error>
+  
+                    </mat-form-field>
+                  
+                  </div>
+                  <div class="form-group col-md-6">
+  
+  
+                    <mat-form-field appearance="standard">
+                      <mat-label>Nombre de la mascota</mat-label>
+  
+                      <input required [formControl]="nombre" matInput type="text" id="nombre"
+                        placeholder="¿Cúal es el nombre de la mascota?"
+                        [class.is-invalid]="!nombre.valid && nombre.touched" [class.is-valid]="nombre.valid">
+                      <mat-icon matSuffix><i class="fa fa-paw" aria-hidden="true"></i></mat-icon>
+                      <mat-error *ngIf="nombre.invalid">{{getErrorMessage2()}}</mat-error>
+  
+                    </mat-form-field>
+                  </div>
+  
+  
+                  <div class="form-group col-md-6">
+                    <mat-form-field appearance="standard">
+                      <mat-select required [formControl]="sexo" id="sexo" placeholder="Selecciona el sexo"
+                        [class.is-invalid]="!sexo.valid && sexo.touched" [class.is-valid]="sexo.valid">
+                        <mat-option value="Macho">Macho</mat-option>
+                        <mat-option value="Hembra">Hembra</mat-option>
+                      </mat-select>
+                      <mat-icon matSuffix> <i class="fa fa-venus-mars" aria-hidden="true"></i></mat-icon>
+                      <mat-error *ngIf="sexo.invalid">{{getErrorMessage3()}}</mat-error>
+  
+                    </mat-form-field>
+                 
+                  </div>
+                  <div class="form-group col-md-6">
+                    <mat-form-field appearance="standard">
+                      <mat-label>¿De qué raza es la mascota?</mat-label>
+  
+                      <input required [formControl]="raza" matInput type="text" id="raza"
+                        placeholder="¿De qué raza es la mascota?" [class.is-invalid]="!raza.valid && raza.touched"
+                        [class.is-valid]="raza.valid">
+                      <mat-icon matSuffix><i class="fa fa-gratipay" aria-hidden="true"></i></mat-icon>
+                      <mat-error *ngIf="raza.invalid">{{getErrorMessage4()}}</mat-error>
+  
+                    </mat-form-field>
+                 
+                  </div>
+                  <div class="form-group col-md-6">
+                    <mat-form-field appearance="standard">
+                      <mat-select required [formControl]="color"
+                        placeholder="Color de la mascota" [class.is-invalid]="!color.valid && color.touched"
+                        [class.is-valid]="color.valid">
+                        <mat-option value="Blanco">Blanco</mat-option>
+                        <mat-option value="Negro">Negro</mat-option>
+                        <mat-option value="Café">Café</mat-option>
+                        <mat-option value="Varios colores">Varios Colores</mat-option>
+  
+                      </mat-select>
+                      <mat-icon matSuffix><i class="fa fa-tint" aria-hidden="true"></i></mat-icon>
+                      <mat-error *ngIf="color.invalid">{{getErrorMessage5()}}</mat-error>
+  
+                    </mat-form-field>
+                 
+                  </div>
+  
+                  <div class="form-group col-md-6">
+                    <mat-form-field appearance="standard">
+                      <mat-select required [formControl]="tamanio"
+                        placeholder="Tamaño de la mascota" [class.is-invalid]="!tamanio.valid && tamanio.touched"
+                        [class.is-valid]="tamanio.valid">
+                        <mat-option value="Mediano">Mediano</mat-option>
+                        <mat-option value="Grande">Grande</mat-option>
+                        <mat-option value="Pequeño">Pequeño</mat-option>
+                      </mat-select>
+                      <mat-icon matSuffix><i class="fa fa-text-height" aria-hidden="true"></i></mat-icon>
+                      <mat-error *ngIf="tamanio.invalid">{{getErrorMessage6()}}</mat-error>
+  
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <mat-form-field appearance="standard">
+                      <mat-select required [formControl]="esterilizado"
+                        placeholder="La mascota esta esterilizada"
+                        [class.is-invalid]="!esterilizado.valid && esterilizado.touched"
+                        [class.is-valid]="esterilizado.valid">
+                        <mat-option value="Si">Si</mat-option>
+                        <mat-option value="No">No</mat-option>
+  
+                      </mat-select>
+                      <mat-icon matSuffix><i class="fa fa-dot-circle-o" aria-hidden="true"></i></mat-icon>
+                      <mat-error *ngIf="esterilizado.invalid">{{getErrorMessage7()}}</mat-error>
+  
+                    </mat-form-field>
+                  
+                  </div>
+                  <div class="form-group col-md-4">
+                    <mat-form-field appearance="standard">
+                      <mat-select required [formControl]="edadT"
+                        placeholder="Edad de la mascota" [class.is-invalid]="!edadT.valid && edadT.touched"
+                        [class.is-valid]="edadT.valid">
+                        <mat-option value="Cachorro">Cachorro</mat-option>
+                        <mat-option value="Joven">Joven</mat-option>
+                        <mat-option value="Adulto">Adulto</mat-option>
+                      </mat-select>
+                      <mat-icon matSuffix> <i class="fa fa-birthday-cake" aria-hidden="true"></i></mat-icon>
+                      <mat-error *ngIf="edadT.invalid">{{getErrorMessage8()}}</mat-error>
+  
+                    </mat-form-field>
+                   
+                  </div>
+                  <div class="form-group col-md-4 ">
+  
+                    <mat-form-field appearance="standard">
+                      <mat-select required [formControl]="anios" placeholder="Edad en años"
+                        [class.is-invalid]="!anios.valid && anios.touched" [class.is-valid]="anios.valid">
+                        <mat-option value="0">0</mat-option>
+                        <mat-option value="1">1</mat-option>
+                        <mat-option value="2">2</mat-option>
+                        <mat-option value="3">3</mat-option>
+                        <mat-option value="4">4</mat-option>
+                        <mat-option value="5">5</mat-option>
+                        <mat-option value="6">6</mat-option>
+                        <mat-option value="7">7</mat-option>
+                        <mat-option value="8">8</mat-option>
+                        <mat-option value="9">9</mat-option>
+                        <mat-option value="10">10</mat-option>
+                        <mat-option value="11">11</mat-option>
+                        <mat-option value="12">12</mat-option>
+                      </mat-select>
+                      <mat-icon matSuffix><i class="fa fa-birthday-cake" aria-hidden="true"></i></mat-icon>
+                      <mat-error *ngIf="anios.invalid">{{getErrorMessage9()}}</mat-error>
+  
+                    </mat-form-field>
+                    
+                  
+                  </div>
+  
+  
+                  <div class="form-group col-md-4 ">
+  
+                    <mat-form-field appearance="standard">
+                      <mat-select required [formControl]="meses" placeholder="Edad en meses"
+                        [class.is-invalid]="!meses.valid && meses.touched" [class.is-valid]="meses.valid">
+                        <mat-option value="0">0</mat-option>
+                        <mat-option value="1">1</mat-option>
+                        <mat-option value="2">2</mat-option>
+                        <mat-option value="3">3</mat-option>
+                        <mat-option value="4">4</mat-option>
+                        <mat-option value="5">5</mat-option>
+                        <mat-option value="6">6</mat-option>
+                        <mat-option value="7">7</mat-option>
+                        <mat-option value="8">8</mat-option>
+                        <mat-option value="9">9</mat-option>
+                        <mat-option value="10">10</mat-option>
+                        <mat-option value="11">11</mat-option>
+                        <mat-option value="12">12</mat-option>
+                      </mat-select>
+                      <mat-icon matSuffix><i class="fa fa-birthday-cake" aria-hidden="true"></i></mat-icon>
+                      <mat-error *ngIf="meses.invalid">{{getErrorMessage10()}}</mat-error>
+  
+                    </mat-form-field>
+                   
+                  </div>
+  
+                </div>
+  
+                <div class="form-row justify-content-center datosUser">
+                    <div class="form-group col-md-10 vacunasMSC">
+                        <label for="meses">Vacunas</label>
+          
+                        <div class="row" *ngIf="especie.value == 'Canino'">
+                          <div class="col-6">
+                              <div class="input-group">
+                                  <div class="form-check">
+                                      <mat-checkbox value="Puppy" id="puppy" [formControl]="ppy2">Puppy</mat-checkbox>
+                                    </div>
+                                   
+                                      </div>
+                          </div>
+                          <div class="col-6">
+                              <div class="input-group">
+                                  <div class="form-check">
+                                      <mat-checkbox value="Múltiple" id="multiple" [formControl]="mul">Múltiple</mat-checkbox>
+                                    </div>
+                                    
+                              </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <div class="form-check">
+                                        <mat-checkbox value="Bronchicine" id="bron" [formControl]="bro">Bronchicine</mat-checkbox>
+                                      </div>
+                                      
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                  <div class="input-group">
+                                      <div class="form-check">
+                                          <mat-checkbox value="Antirrábica" id="anti" [formControl]="ant2">Antirrábica</mat-checkbox>
+                                        </div>
+                                  </div>
+                                </div>
+                        </div>
+                        <div class="row" *ngIf="especie.value == 'Felino'">
+                          <div class="col-6">
+                              <div class="input-group">
+                                  <div class="form-check">
+                                      <mat-checkbox value="tripleFelina" id="tripleFelina" [formControl]="ppy">Triple felina</mat-checkbox>
+                                   
+                                    </div>
+                                   
+                                      </div>
+                          </div>
+                         
+                          
+                              <div class="col-6">
+                                  <div class="input-group">
+                                      <div class="form-check">
+                                          <mat-checkbox value="Antirrábica" id="anti" [formControl]="ant">Antirrábica</mat-checkbox>
+          
+                                       
+                                        </div>
+                                  </div>
+                                </div>
+                        </div>
+                      </div>
+                </div>
+              
+                <div class="form-row justify-content-center">
+                  <div class="form-group col-md-12">
+                    <mat-form-field appearance="standard">
+                      <mat-label>Otras vacunas</mat-label>
+                        
+                          <input [formControl]="otherVacunas" matInput  type="text" id="vacunas" placeholder="Otras vacunas"  >
+                          <mat-icon matSuffix><i class="fa fa-paw" aria-hidden="true"></i></mat-icon>
+                         <mat-error *ngIf="otherVacunas.invalid">{{getErrorMessageOTHER()}}</mat-error>
+                    </mat-form-field>
+                  
+                  </div>
+                </div>
+                <div class="form-row justify-content-center">
+                  <div class="form-group col-md-12">
+                    <mat-form-field>
+                      <textarea required [formControl]="descripcion" id="descripcion" cdkTextareaAutosize cdkAutosizeMinRows="2"
+                        cdkAutosizeMaxRows="5" required type="text" placeholder="Descripción"
+                        [class.is-invalid]="!descripcion.valid && descripcion.touched"
+                        [class.is-valid]="descripcion.valid" matInput minlength="15" maxlength="500"></textarea>
+  
+                      <mat-hint align="end">{{descripcion.value?.length || 0}}/500</mat-hint>
+                      <mat-error *ngIf="descripcion.invalid">{{getErrorMessage11()}}</mat-error>
+  
+                    </mat-form-field>
+                  
+                  </div>
+                </div>
+                
+  
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer btnsRegMas">
+            
+                  <button (click)="actualizarMascota()" type="submit" class="btn btn-primary btnActualizar"
+                  [disabled]="nombre.invalid || especie.invalid || sexo.invalid || color.invalid || raza.invalid || 
+                  tamanio.invalid || esterilizado.invalid || edadT.invalid || descripcion.invalid || anios.invalid || meses.invalid ">Actualizar 
+                  </button>
+                
+  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

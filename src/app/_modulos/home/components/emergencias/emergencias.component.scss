@@ -1,0 +1,322 @@
+p,label,span,option{
+    font-family: 'Exo', sans-serif;
+    margin: 0;
+}
+h5,h4,h3,h2,h1{
+    font-family: 'Righteous', cursive;
+    color: #555;
+    margin: 0;
+}
+img{
+    width: 100%;
+}
+.header{
+    margin-top: 11rem;
+    width: 100%;
+   
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .titulo{
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-direction: column;
+            align-items: center;
+            h3{
+                font-size: 5rem;
+                color: #555;
+            }
+            span{
+                max-width: 40%;
+                min-width: 40%;
+                border: 1px solid #3bbfad;
+            }
+        }
+        
+        .header-descrip{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            .header-photo{
+                width: 10rem;
+                height: 10rem;
+                margin:1rem;
+                img{
+                    width: 100%;
+                    border-radius: 10px;
+                }
+            }
+            .header-text{
+                display: flex;
+                align-items: center;
+                max-width: 50%;
+                p{
+                    font-size: 1.7rem;
+                }
+            }
+    
+        }
+    }
+   
+}
+.main{
+    padding: 6rem;
+    .content-grid{
+        
+
+        .content-grid-filtros{
+            
+            select{
+                min-height: 4rem;
+                option{
+                    font-size: 1.7rem;
+                }
+            }
+            h5{
+                margin-bottom: 1rem;
+                font-size: 2rem;
+            }
+            label{
+                font-size: 1.5rem;
+            }
+            button{
+                width: 100%;
+                font-size: 1.5rem;
+            }
+        }
+        .content-grid-cards{
+          
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(25rem,1fr));
+            grid-gap: 2.5rem;
+            padding: 0 6rem;
+            width: 100%;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s 2s, opacity 2s linear;
+            mat-card{
+                padding: 0; 
+                box-shadow: 0px 0px 5px #444;
+                max-width: 25rem;
+                .card-header{
+                    display: flex;
+                    justify-content: space-between;
+                    .card-header-tex{
+                        max-width: 70%;
+                    }
+                    h5{
+                        font-size: 1.2rem;
+                    }
+                    button{
+                        background: #3bbfad;
+                        color: white;
+                        border: 0;
+                        border-radius: 4px;
+                        box-shadow: 1px 1px 4px 1px #444;
+                        min-height: 2.5em;
+                    }
+                    .card-header-icon{
+                        display: flex;
+                        align-items: center;
+                        cursor: pointer;
+                        i{
+                            font-size: 1.5rem;
+                            color: white;
+                        }
+                    }
+                   
+                }
+                .card-status{
+                    text-align: center;
+                    background: #3bbfad;
+                    span{
+                        color: white;
+                        font-size: 1.4rem;
+                    }
+                }
+                .card-statusNeg{
+                    background: #bf3b3b;
+                    span{
+                        color: white;
+                        font-size: 1.4rem;
+                    }
+                }
+                .card-body{
+                    .card-body-title{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        .card-body-title-text{
+                            max-width: 60%;
+                            p{
+                                font-size: 1.7rem;
+                                font-weight: bolder;
+                                color: #3bbfad;
+                            }
+                        }
+                        .card-body-title-photo{
+                            width: 5rem;
+                            height: 5rem;
+                            overflow: hidden;
+                            border-radius: 5px;
+                            cursor: pointer;
+                        }
+                    }
+                    .card-body-subtitle{
+                        padding: 0rem 0;
+                        span{
+                            font-size: 1.7rem;
+                            font-weight: bold;
+                        }
+                        p{
+                            font-size: 1.5rem;
+                        }
+                    }
+                    .card-footer{
+                        display: flex;
+                        flex-direction: column;
+                        background: transparent;
+                        border: 0;
+                        padding: 0;
+                        .card-footer-title{
+                            text-align: end;
+                            font-size: 1.5rem;
+                            color: #555;
+                            border-bottom: 1px solid rgba(85, 85, 85, 0.274);
+                        }
+                        .card-footer-text{
+                            padding: .5rem 0;
+                            p{
+                                font-size: 1.5rem;
+                                
+                                span{
+                                    font-size: 1.5rem !important;
+                                }
+                            }
+                        }
+                    }
+                }
+              }
+              
+        }
+        .visible {
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 1s linear;
+          }
+    }
+}
+.custom-cards{
+    position: relative; 
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .spinn{
+        position: absolute;
+    }
+}
+#modalComprobante .modal-body{
+    position: relative;
+    padding: 0;
+}
+
+#modalComprobante .modal-body{
+    position: relative;
+}
+
+
+#modalComprobante .modal-body button{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    background: black;
+    padding: 0 .5rem;
+    border-radius: 50%;
+    color: white;
+    span{
+        font-size: 3rem;
+    }
+}
+
+#modalComprobante .modal-body .imgModalCom{
+    width: 100%;
+    height: 50rem;
+}
+#modalComprobante .modal-body .imgModalCom img{
+    width: 100%;
+    height: 100%;
+}
+/*----PAGES---*/
+.selectPages{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 2rem !important;
+    margin: 2rem 0;
+    i{
+        font-size: 2rem;
+    }
+}
+.selectPages a, .selectPages button{
+    margin: .5rem;
+    color: #3bbfad;
+}
+.selectPages .pagess{
+    max-width: 40%;
+    overflow-x: auto;
+}
+.selectPages .pageAnt button, .selectPages .pageNex button{
+    background: transparent;
+    border: 0;
+}
+.selectPages .pageAnt2 a, .selectPages .pageNex2 a{
+    background: transparent;
+    border: 0;
+    margin: .5rem 0 !important;
+}
+
+.pgActive{
+    background: #3bbfad;
+    color: white !important;
+    padding: .1rem .8rem;
+    border-radius: 25%;
+}
+.dividerTi{
+    border-bottom: 1px solid #bfbebecc;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    padding: 0;
+    margin: 2rem 0;
+    font-size: 1.5rem;
+    color: #656363;
+}
+
+.biography {
+    display: block;
+    display: -webkit-box;
+    max-width: 100%;
+    height: 50px;
+    font-size: 1.7rem;
+    margin: .5rem auto;
+    line-height: 1;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+@media only screen and (max-width:400px){
+   
+    .content-grid-cards{
+        padding: 0 !important;
+    }
+    
+  }

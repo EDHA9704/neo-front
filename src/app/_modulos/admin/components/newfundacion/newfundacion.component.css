@@ -1,0 +1,211 @@
+*{
+    font-size: 1.5rem;
+}
+::ng-deep .mat-horizontal-stepper-content {
+    outline: 0;
+    position: relative;
+    height: 36rem;
+}
+.container{
+    padding-top: 5rem;
+}
+mat-horizontal-stepper{
+    padding: 0 8rem;
+}
+.btnDir{
+    border-radius: 5px;
+		border: 1px solid #3bbfad;
+		background-color: transparent;
+		color: #3bbfad;
+		font-size: 12px;
+		font-weight: bold;
+		padding: 4px 18px;
+		margin: 5px;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+        transition: transform 80ms ease-in;
+        width: 100%;
+}
+@media only screen and (max-width:992px){
+    mat-horizontal-stepper{
+        padding: 0 5rem;
+    }
+    
+  }
+  @media only screen and (max-width:770px){
+    mat-horizontal-stepper{
+        padding: 0 2rem;
+    }
+    
+  }
+h5,h3,h2,h1{
+    font-family: 'Righteous', cursive;
+}
+a,p,button{
+    margin: 0;
+    font-family: 'Exo', sans-serif !important;
+}
+.titulo{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+.errNC{
+    margin: 0;
+    position: absolute;
+    top: 74%;
+    font-size: 13px;
+    color: red;
+}
+.titulo h3{
+    font-weight: bold;
+    font-size: 2.2rem;
+    font-family: 'Righteous', cursive;
+    color: #3bbfa0;
+}
+.datosUser {
+    width: 100%;
+}
+.datosUser small {
+    width: 100%;
+}
+.navPU{
+    display: flex;
+    justify-content: center;
+}
+
+table {
+    width: 100%;
+  }
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+
+  ng-container{
+      margin-left: 5px !important;
+      margin-right: 5px !important;
+  }
+  td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type {
+    padding-left: 24px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+.btnsAcc button:nth-child(1){
+    color:#3bbfa0;
+}
+.btnsAcc button:nth-child(2){
+    color:#dc0c0c;
+}
+
+.msjError{
+    width: 100%;
+    color: red;
+}
+.imgRG{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+padding-top: 10px;
+padding-bottom: 10px;
+}
+.containerACTUALIZAR{
+    height: 29rem;
+    overflow: auto;
+}
+.btnElimLog{
+    position: absolute;
+    top: 7%;
+    border-radius: 50%;
+    right: 37%;
+    background: #484444;
+    
+}
+.btnElimLog i{
+    color: #3bbfa0;
+}
+.imgRG .imgRD{
+    position: relative;
+    width: 8rem;
+    height: 8rem;
+    
+}
+
+.imgRG .imgRD img{
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.input-label2{
+    background: #3bbfad;
+    border: 1px solid #3bbfad;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-weight: bold;
+}
+.input-label2:hover{
+    cursor: pointer;
+}
+
+#file2{
+    display: none;
+}
+#file23{
+    display: none;
+}
+
+.btnf{
+    text-align: center;
+}
+#nav-form{
+    background: #fff;
+    padding: 2rem 3rem;
+}
+
+.btnIM{
+    position: absolute;
+    top: 5%;
+    right: -15%;
+}
+.btnNEXT{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+}
+.btnNEXT button{
+    background: #3bbfad;
+    color: white;
+}
+
+.btnNEXT2{
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    position: absolute;
+    bottom: 0;
+}
+.btnNEXT2 button{
+    background: #3bbfad;
+    color: white;
+}
+.btnNEXT2 button:nth-child(1){
+    margin-right: 10px;
+}
+.btnNEXT2 button:nth-child(2){
+    margin-left: 10px;
+}
+.novald{
+    opacity: .6;
+}

@@ -1,0 +1,425 @@
+    <ngx-ui-loader [loaderId]="'loader-02'" 
+bgsColor= "#fc7c7c"
+bgsOpacity= "0.7"
+bgsPosition= "bottom-right"
+bgsSize= "60"
+bgsType= "square-jelly-box"
+blur= "14"
+delay= "0"
+fastFadeOut= "true"
+fgsColor= "#3bbfad"
+fgsPosition= "center-center"
+fgsSize= "60"
+fgsType= "square-jelly-box"
+gap= "10"
+logoPosition= "center-center"
+logoSize= "120"
+logoUrl= "" 
+masterLoaderId= "master"
+overlayBorderRadius= "0"
+overlayColor= "rgba(40, 40, 40, 0.8)"
+pbColor= "rgba(40,0,248,0)"
+pbDirection= "rtl"
+pbThickness= "3"
+hasProgressBar= "false"
+text= ""
+textColor= "#FFFFFF"
+textPosition= "center-center"
+maxTime= "-1"
+minTime= "500"
+></ngx-ui-loader>
+    <div  id="carouselExampleIndicators" class="carousel slide hero" data-ride="carousel" *ngIf="portadasFundacion && usuarioFundacion && carga == true" style="position: relative;">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" *ngFor="let i of hh" ></li>
+        </ol>
+        <div class="carousel-inner" *ngIf="portadasFundacion.length > 0 && cargaPortads == true">
+          <div class="carousel-item"  *ngFor="let portada of portadasFundacion" [class.active]="portada.orden == 1">
+    
+            <img src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+              portada.foto}}" alt="...">
+            <div class="carousel-caption d-none d-md-block" *ngIf="portada.mensaje2 && portada.mensaje2 != ''">
+             
+              <p>{{portada.mensaje2}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-inner" *ngIf="portadasFundacion.length == 0 && cargaPortads == true">
+            <div class="carousel-item active" >
+              <img src="../../../../../assets//img/4586.jpg" alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h5 *ngIf="currentUser">Tus portadas se mostrarán en esta sección</h5>
+              
+              </div>
+            </div>
+          </div>
+      
+        <!-- Button trigger modal -->
+    
+        <div class="btnConfigPor">
+            <button style="font-size: 1.5rem;" *ngIf="valid == true" type="button" class="btn btn-primary btnSubirPortada btnRGA" data-toggle="modal" data-target="#exampleModal">
+                Añadir portada
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+              <button style="font-size: 1.5rem;" *ngIf="valid == true" type="button" class="btn btn-primary dropPortada btnRGA" data-toggle="modal" data-target="#exampleModal2">
+                  <i class="fa fa-list" aria-hidden="true"></i>
+                 
+                </button>
+           
+    
+        </div>
+
+        <!-- Modal a;adir portada-->
+        <div *ngIf="portadasFundacion.length >= 0" style="z-index: 2000 !important" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Añadir nueva portada</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body mdBPOR" style="font-size: 1.5rem;">
+                <p>Sube una nueva portada para tu perfil de fundación, puedes añadir títulos que se añadirán sobre la portada.</p>
+                <form id="mdalPOR" #registerPortada="ngForm"  class="needs-validation formPortada" novalidate>
+      
+                  <div class="col-12 formImgPortada">
+                    <img *ngIf="imL3 == false" src="../../../assets/img/interrogacion.jpg" class="img-fluid" alt="Responsive image">
+                    <img *ngIf="imL3 == true" src="{{imgUN3}}" class="img-fluid" alt="Responsive image">
+      
+                  </div>
+                  <div class="col s12 file-field input-field bntSelecPortada">
+                    <div class="btn">
+      
+                      <label for="file2" class="input-label2">Seleccionar portada</label>
+                      <input id="file2" (change)="fileChangeEvent3($event)" name="foto" #foto="ngModel"
+                        [(ngModel)]="portada.foto" type="file">
+                    </div>
+      
+                  </div>
+                  <div class="form-row datosUser">
+                  
+                    <div class="form-group col-md-12">
+    
+                        <mat-form-field appearance="standard">
+                            <mat-label>¿Algún mensaje corto de la portada?</mat-label>
+                          
+                            <input [formControl]="mensaje2" matInput  type="text" id="mensaje2" placeholder="Mensaje"  [class.is-invalid]="!mensaje2.valid && mensaje2.touched" [class.is-valid]="mensaje2.valid">
+                            <mat-icon matSuffix><i class="fa fa-paw" aria-hidden="true"></i></mat-icon>
+                            <mat-hint>Máximo 50 caracteres</mat-hint>
+                           <mat-error *ngIf="mensaje2.invalid">{{getErrorMessage2()}}</mat-error>
+                          </mat-form-field>
+    
+                    </div>
+      
+      
+                  </div>
+      
+      
+                  
+      
+      
+                </form>
+      
+              </div>
+      
+              <div class="modal-footer">
+                  <div class="btnsGuardarPortada">
+                      <button type="button" style="font-size: 1.5rem;" [disabled]="stUpload == true" (click)="registrarPortada(registerPortada)" class="btn btn-primary btnRGA" [disabled]="filesToUpload3 == null || filesToUpload3 == undefined">Guardar</button>
+                      
+                    </div>
+              </div>
+      
+      
+            </div>
+          </div>
+        </div>
+    
+         <!-- Modal 2 configuracion portadas-->
+         <div *ngIf="portadasFundacion.length > 0" class="modal fade bd-example-modal-xl" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" >
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Configurar portadas</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  
+                    <div cdkDropList class="example-list" >
+                        <div class="example-box" *ngFor="let p of portadasFundacion" cdkDrag>
+    
+                          <div class="imgPorOrden">
+                              <img src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                                p.foto}}" alt="..." >
+                          </div>
+                          <div class="btnEliminar">
+                              <button class="btn" (click)="eliminarPortada(p._id, p.foto)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                       
+                      </div>
+    
+    
+                </div>
+        
+        
+        
+              </div>
+            </div>
+          </div>
+    
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+          <span class="sr-only">Next</span>
+        </a>
+    
+      
+      </div>
+
+   
+    <section class="fundacion-perfil" *ngIf="portadasFundacion && usuarioFundacion">
+        <div class="fundacion-perfil-logo">
+            <div class="fundacion-perfil-logo-img">
+                <div class="img">
+                    <img src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                      usuarioFundacion.logo}}">
+                </div>
+            </div>
+        </div>
+        <div class="fundacion-pefil-datos">
+            <div class="fundacion-pefil-datos-nombre">
+                <h5>Fundación {{usuarioFundacion.nombreFundacion}}</h5>
+            </div>
+            <div class="fundacion-pefil-datos-perfil">
+                <p>{{usuarioFundacion.perfil}}</p>
+            </div>
+            <div class="info-add">
+              <div class="iconinf"><i class="fa fa-birthday-cake" aria-hidden="true"></i></div>
+              <div class="txtinf">
+                <p>{{usuarioFundacion.fechaFundacion}}</p>
+              </div>
+              
+            </div>
+            <div class="info-add" *ngIf="usuarioFundacion.link && usuarioFundacion.link != ''">
+              <div class="iconinf"><i class="fa fa-chain-broken" aria-hidden="true"></i></div>
+              <div class="txtinf" >
+                <a [href]="usuarioFundacion.link">{{usuarioFundacion.link}}</a>
+              </div>
+             
+            </div>
+        </div>
+    </section>
+  
+   
+    <div  class="container" *ngIf="portadasFundacion && usuarioFundacion">
+    
+       <!-- <div class="row">
+            <div class="col-12" style="padding-right: 0 !important;">
+              <div class="zn_separator clearfix eluid36c84ad4 zn_separator--icon-yes "><span class="zn_separator__line zn_separator__line--left"></span><span class="zn_separator__icon" data-zniconfam="glyphicons_halflingsregular" data-zn_icon=""><i class="fa fa-paw" aria-hidden="true"></i></span><span class="zn_separator__line zn_separator__line--right"></span></div>
+        
+          </div>
+          </div>-->
+    
+      
+     
+    
+        <!-- Modal para agregar historia-->
+        <div class="modal fade" id="modalHI" tabindex="-1" role="dialog" aria-labelledby="modalHI" aria-hidden="true" >
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+              <div class="modal-content">
+                <div class="modal-header" style="display: flex; align-items: center;">
+                  <h5 class="modal-title" id="exampleModalLabel" style="font-size: 1.5em;">Nueva historia</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="font-size: 23px;">&times;</span>
+                  </button>
+                </div>
+                
+                <div class="modal-body" style="font-size: 1.5rem;">
+                    <form  #registerFormHI="ngForm" (ngSubmit)="nuevaHI()" class="formRg needs-validation" novalidate>
+        
+                        <div class="form-row datosUser">
+    
+                            <div class="col-12 imgRG">
+                                <img *ngIf="imL2 == false" src="../../../assets/img/fondos-de-perros.jpg" class="img-fluid" alt="Responsive image">
+                                <img *ngIf="imL2 == true" src="{{imgUN2}}">
+                  
+                              </div>
+                              <div class="col-12 file-field input-field bntRG" style="text-align: center;">
+                                  <div class="btn">
+                        
+                                    <label for="file23" class="input-label2">Sube una foto</label>
+                                    <input id="file23" (change)="fileChangeEvent2($event)" 
+                                      type="file">
+                                  </div>
+                        
+                                </div>
+    
+                          <div class="form-group col-md-12">
+                              <mat-form-field hintLabel="Máximo 25 caracteres">
+                                  <textarea cdkTextareaAutosize
+                                  cdkAutosizeMinRows="2"
+                                  cdkAutosizeMaxRows="5" required type="text" class="form-control" id="titulo" placeholder="Título" name="titulo"
+                                  #titulo="ngModel" [(ngModel)]="historia.titulo" [class.is-invalid]="!titulo.valid && titulo.touched"
+                                  [class.is-valid]="titulo.valid" matInput maxlength="25" minlength="4"></textarea>
+        
+                                  <mat-hint align="end">{{titulo.value?.length || 0}}/25</mat-hint>
+                                </mat-form-field>
+        
+                           
+                          </div>
+        
+                          <div class="form-group col-md-12">
+        
+                              <mat-form-field hintLabel="Máximo 1000 caracteres">
+                                  <textarea cdkTextareaAutosize
+                                  cdkAutosizeMinRows="2"
+                                  cdkAutosizeMaxRows="5" required type="text" class="form-control" id="descripcion" placeholder="Descripción" name="descripcion"
+                                  #descripcion="ngModel" [(ngModel)]="historia.descripcion" [class.is-invalid]="!descripcion.valid && descripcion.touched"
+                                  [class.is-valid]="descripcion.valid" matInput minlength="15" maxlength="1000"></textarea>
+        
+                                  <mat-hint align="end">{{descripcion.value?.length || 0}}/1000</mat-hint>
+                                </mat-form-field>
+        
+                          </div>
+    
+                        </div>
+            
+            
+                        <div class="form-group col-md-12 btnsACP">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary btnRGA" [disabled]="!registerFormHI.form.valid || stUpload == true">Guardar</button>
+                        </div>
+        
+                       
+                      </form>
+                </div>
+              
+              </div>
+            </div>
+          </div>
+        
+    </div>
+    
+    <div  class="bgimg-4" *ngIf="portadasFundacion && usuarioFundacion">
+    
+        <div class="mision">
+          <h5>Misión</h5>
+          <div class="lineMV"></div>
+          <p>{{usuarioFundacion.mision}}</p>
+        </div>
+        <div class="vision">
+            <h5>Visión</h5>
+            <div class="lineMV"></div>
+            <p>{{usuarioFundacion.vision}}</p>
+          </div>
+      </div>
+      <div  class="bgimg-1" *ngIf="portadasFundacion && usuarioFundacion">
+    
+          <div class="mision">
+            <h5>Misión</h5>
+            <div class="lineMV"></div>
+            <p>{{usuarioFundacion.mision}}</p>
+          </div>
+         
+        </div>
+        <div  class="bgimg-2" *ngIf="portadasFundacion && usuarioFundacion">
+    
+            <div class="vision">
+                <h5>Visión</h5>
+                <div class="lineMV"></div>
+                <p>{{usuarioFundacion.vision}}</p>
+              </div>
+          </div>
+          
+         
+      <div *ngIf="portadasFundacion && usuarioFundacion"  class="historias">
+        <div class="ti3" *ngIf="currentUser && historiasF">
+        <h5 class="ti2">Historias inspiradoras</h5>
+        <button *ngIf="currentUser.usuario._id == idF "  type="button" class="btn " data-toggle="modal" data-target="#modalHI" ><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+    
+        </div>
+        <div class="ti3" *ngIf="!currentUser">
+            <h5 class="ti2">Historias inspiradoras</h5>
+        
+            </div>
+
+            <swiper *ngIf="largeHS == true" [config]="config" style="height: 50rem; cursor: pointer;">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" *ngFor="let his of historiasF"><div class="card" >
+                  <div class="imgHSI">
+      
+                           <img src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                            his.foto}}" class="card-img-top" alt="...">
+      
+                      </div>
+                    <div class="card-body" *ngIf="currentUser">
+                        <button class="btn" *ngIf="currentUser.usuario._id == idF" (click)="eliminarHistoria(his._id,his.foto)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+      
+                      <p class="card-text"><small class="text-muted">{{his.creadoEn }}</small></p>
+                      <p>{{his.titulo}}</p>
+                      <p>{{his.descripcion}}</p>
+                    </div>
+                    <div class="card-body" *ngIf="!currentUser">
+                       
+                      <p class="card-text"><small class="text-muted">{{his.creadoEn }}</small></p>
+                      <p>{{his.titulo}}</p>
+                      <p>{{his.descripcion}}</p>
+                    </div>
+                </div></div>
+                
+              </div>
+              <!-- Add Pagination -->
+              <div class="swiper-pagination"></div>
+              <!-- Add Arrows -->
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+            </swiper>
+            <swiper *ngIf="largeHS == false" [config]="config2" style="height: 50rem; cursor: pointer;">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" *ngFor="let his of historiasF"><div class="card" >
+                  <div class="imgHSI">
+      
+                           <img src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                            his.foto}}" class="card-img-top" alt="...">
+      
+                      </div>
+                    <div class="card-body" *ngIf="currentUser">
+                        <button class="btn" *ngIf="currentUser.usuario._id == idF" (click)="eliminarHistoria(his._id,his.foto)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+      
+                      <p class="card-text"><small class="text-muted">{{his.creadoEn }}</small></p>
+                      <p>{{his.titulo}}</p>
+                      <p>{{his.descripcion}}</p>
+                    </div>
+                    <div class="card-body" *ngIf="!currentUser">
+                       
+                      <p class="card-text"><small class="text-muted">{{his.creadoEn }}</small></p>
+                      <p>{{his.titulo}}</p>
+                      <p>{{his.descripcion}}</p>
+                    </div>
+                </div></div>
+                
+              </div>
+              <!-- Add Pagination -->
+              <div class="swiper-pagination"></div>
+              <!-- Add Arrows -->
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+            </swiper>
+
+
+
+
+
+
+            
+
+              
+ 
+      </div>
+
+

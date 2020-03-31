@@ -1,0 +1,299 @@
+.main{
+    min-height: 100vh;
+    padding-top: 7em;;
+}
+.container{
+    padding: 3rem 0px;
+}
+header{ 
+    padding-top: 0;
+    .titulo{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        h3{
+            font-family: 'Righteous', cursive;
+            font-size: 50px;
+            color: #3bbfad;
+        }
+        .lineTi{
+            width: 5%;
+            border-radius: 5px;
+            border-top: 3px solid #3bbfad;
+        }
+    }
+}
+
+h5,h4,h3,h2,h1{
+    font-family: 'Righteous', cursive;
+    margin: 0;
+}
+p,a,button,span{
+    font-family: 'Exo', sans-serif;
+    margin: 0;
+}
+.donadorData{
+    display: flex;
+    flex-wrap: wrap;
+}
+.adoptante-domicilio{
+    margin-bottom: 1em;
+}
+
+.preguntas .prg{
+    margin: .5rem 0;
+    font-weight: bolder;
+ }
+ .preguntas .prg p{
+     width: 100%;
+     word-wrap: break-word;
+     
+ }
+ .preguntas .prg p:nth-child(1){
+    width: 100%;
+    word-wrap: break-word;
+    font-weight: bolder;
+}
+.preguntas .prg p:nth-child(2){
+    width: 100%;
+    word-wrap: break-word;
+    font-weight: normal !important;
+}
+
+.formAdopcion{
+    padding: 2rem;
+}
+.mat-form-field {
+    width: 100%;
+}
+.btnEnv{
+    background: #3bbfad;
+    border: 1px solid #3bbfad;
+}
+.observaciones{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.observaciones .titu{
+    margin: 1rem 0;
+}
+.observaciones p:nth-child(1){
+    width: 100%;
+    word-wrap: break-word;
+}
+.observaciones p:nth-child(2){
+    width: 100%;
+    word-wrap: break-word;
+}
+@media only screen and (max-width:995px){
+    .container{
+        padding: 4rem 50px;
+    }
+    .formAdopcion{
+        padding: 2rem 3rem;
+    }
+    
+  }
+  @media only screen and (max-width:555px){
+    .container{
+        padding: 4rem 0px;
+    }
+    .formAdopcion{
+        padding: 2rem 0;
+    }
+    
+  }
+  .donacion-content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .donacion-content-img{
+        width: 100%;
+        max-height: 20rem;
+        overflow: hidden;
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .donacion-content-datos{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        p{
+            font-size: 1.5rem;
+            font-weight: bold;
+            width: 100%;
+            word-wrap: break-word;
+        }
+        .divider-titulo{
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin: 2rem 0 1rem 0;
+            p{
+                font-size: 1.3rem;
+                color: rgb(104, 104, 104);
+                text-transform: uppercase;
+                font-weight: normal !important;
+            }
+            span{
+                position: absolute;
+                bottom: 5px;
+                right: 0;
+                min-width: 15rem;
+                max-width: 10rem;
+                border-bottom: 1px solid #cacaca;
+            }
+        }
+        .divider-titulo2{
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin: 2rem 0 1rem 0;
+            p{
+                font-size: 1.3rem;
+                color: rgb(104, 104, 104);
+                text-transform: uppercase;
+                font-weight: normal !important;
+            }
+            span{
+                position: absolute;
+                bottom: 5px;
+                right: 0;
+                min-width: 12rem;
+                max-width: 10rem;
+                border-bottom: 1px solid #cacaca;
+            }
+        }
+    }
+}
+.donacion-info-content{
+
+    .donador,.retiro{
+        padding: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        margin: 0;
+        p,i,span{
+            font-size: 1.5rem;
+        }
+        i{
+            min-width: 3rem;
+        }
+        .info{
+            display: flex;
+            align-items: center;
+        }
+
+        .donador-photo{
+            padding: 1rem;
+            .photo{
+                width: 10rem;
+                height: 10rem;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+    .retiro{
+        span{
+            min-width: 10rem !important;
+            font-weight: bold;
+        }
+    }
+    .acciones{
+
+        #asignar{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            mat-form-field{
+                
+            }
+            padding: 2rem;
+            font-size: 1.5rem;
+            .message{
+                p{
+                    font-weight: bold;
+                    text-align: justify;
+                }
+            }
+            .cantidad-voluntarios{
+                display: flex;
+                flex-wrap: wrap;
+                max-width: 100%;
+                justify-content: center;
+                align-items: center;
+                button{
+                    background: #3bbfad;
+                    color: white;
+                    font-size: 1.5rem;
+                    margin: 0 1rem;
+                }
+            }
+        }
+        
+    }
+}
+.adoptante-additional{
+    margin-top: 1rem;
+   // border-top: 1px solid rgb(182, 182, 182);
+    h5{
+        font-size: 1.5rem;
+    }
+    span.p{
+        font-size: 1.5rem;
+    }
+    span{
+        font-weight: bold;
+    }
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    .ti{
+        margin: 0 0 1rem 0;
+    }
+    .adoptante-domicilio{
+        padding: 0 2rem;
+    }
+}
+.preguntas{
+    padding: 2rem 0;
+    
+}
+.prg p:nth-child(1){
+    font-weight: bold;
+}
+.accions{
+    font-size: 1.5rem;
+    h5{font-size: 2rem;}
+    button{
+        font-size: 1.5rem;
+    }
+}
+
+.direccion{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    .dirform{
+        width: 100%;
+        p{
+            font-size: 1.5rem;
+        }
+    }
+    .retiro-mapa{
+        width: 100%;
+      .mapcustom{
+        height: 25em;
+      }
+    }
+}

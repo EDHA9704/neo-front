@@ -1,0 +1,431 @@
+<ngx-ui-loader [loaderId]="'loader-02'" 
+bgsColor= "#fc7c7c"
+bgsOpacity= "0.7"
+bgsPosition= "bottom-right"
+bgsSize= "60"
+bgsType= "square-jelly-box"
+blur= "14"
+delay= "0"
+fastFadeOut= "true"
+fgsColor= "#3bbfad"
+fgsPosition= "center-center"
+fgsSize= "60"
+fgsType= "square-jelly-box"
+gap= "10"
+logoPosition= "center-center"
+logoSize= "120"
+logoUrl= "" 
+masterLoaderId= "master"
+overlayBorderRadius= "0"
+overlayColor= "rgba(40, 40, 40, 0.8)"
+pbColor= "rgba(40,0,248,0)"
+pbDirection= "rtl"
+pbThickness= "3"
+hasProgressBar= "false"
+text= ""
+textColor= "#FFFFFF"
+textPosition= "center-center"
+maxTime= "-1"
+minTime= "500"
+></ngx-ui-loader>
+<div class="main">
+    <header id="header" *ngIf="emergencia">
+
+        <div class="titulo">
+            <h3>Solicitud de emergencia</h3>
+            <span class="lineTi"></span>
+        </div>
+    
+    
+    </header>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modalAyudarEmergencia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered"  role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 1.5rem;">Emergencia acogida</h5>
+                    <button type="button" (click)="loadPage()" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+    
+                <div class="modal-body">
+                    <img src="../../../../assets/img/affirmative-156538_640.png">
+                    <p>{{mensajeAyuda}}</p>
+                </div>
+    
+    
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalAprobarNegar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 1.5rem;">{{tituloAP}}</h5>
+                <button type="button"  data-dismiss="modal" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+    
+            <div class="modal-body" >
+                <mat-form-field appearance="standard" >
+                    <mat-label>Mensaje para el usuario</mat-label>
+                    <textarea [formControl]="msjUsuario" matInput required type="text" id="msjDon" placeholder="Mensaje para el usuario"></textarea>
+                    <mat-icon matSuffix><i class="fa fa-user-circle-o" aria-hidden="true"></i>                </mat-icon>
+                  </mat-form-field>
+                  <mat-form-field appearance="standard" *ngIf="tipoAprobarNegar == 'aproVolun'">
+                    <mat-label>Instrucciones para los voluntarios</mat-label>
+                    <textarea [formControl]="msjVoluntarios" matInput required type="text" id="msjVol" placeholder="¿Qué instrucciones deben seguir los voluntarios?"></textarea>
+                    <mat-icon matSuffix><i class="fa fa-users" aria-hidden="true"></i></mat-icon>
+                  </mat-form-field>
+            </div>
+            <div class="modal-footer btnsConfirmacion">
+                <button type="button" class="btn btn-primary" (click)="executeFunctionAprobarNegar()">Enviar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              </div>
+          
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="modalConfirmacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 1.5rem;">{{tituloConfirmacion}}</h5>
+                <button type="button"  data-dismiss="modal" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+    
+            <div class="modal-body" >
+                    <img  src="../../../../../assets/img/adver.png">
+                    <p>{{mensajeConfirmacion}}</p>
+            </div>
+            <div class="modal-footer btnsConfirmacion">
+                <button type="button" class="btn btn-primary" (click)="executeFunction()">Aceptar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              </div>
+          
+        </div>
+    </div>
+    </div>
+    <div class="container" *ngIf="emergencia">
+        <div class="row">
+            <div class="col-12 col-md-3 donacion-content">
+                <div class="donacion-content-img">
+                    <img class="card-img-top" *ngIf="emergencia.fotoMascota"
+                        src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                            emergencia.fotoMascota}}" alt="Card image cap">
+                    <img class="card-img-top" *ngIf="!emergencia.fotoMascota" src="../../../../assets/img/Captura2.png"
+                        alt="Card image cap">
+                </div>
+    
+                <div class="donacion-content-datos">
+                    <div class="btnAcoger" *ngIf="!currentUser">
+                        <button mat-button (click)="redirectLogin()">Acoger emergencia</button>
+                    </div>
+                    <div class="divider-titulo">
+                        <p>Estado</p>
+                        <span></span>
+                    </div>
+                    <p>Publicado:&nbsp;{{emergencia.creadoEn }}</p>
+                    <div class="divider-titulo2">
+                        <p>Tipo:</p>
+                        <span></span>
+                    </div>
+                    <p>{{emergencia.tipoEmergencia}}</p>
+    
+                    <div class="divider-titulo2">
+                        <p>Descripción</p>
+                        <span></span>
+                    </div>
+                    <p style="font-size: 1.3rem !important;">{{emergencia.descripcion}}</p>
+    
+    
+                </div>
+            </div>
+            <div class="col-12 col-md-8 donacion-info-content">
+                <mat-tab-group (selectedIndexChange)="tabChanged($event)">
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <mat-icon class="example-tab-icon">person_pin </mat-icon>
+                            Publicado por
+                        </ng-template>
+                        <div class="donador">
+                            <div class="donador-photo">
+                                <div class="photo">
+                                    <img src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                                        emergencia.responsable.foto}}">
+                                </div>
+                            </div>
+                            <div class="donador-datos">
+                                <div class="info">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <p> {{emergencia.responsable.nombres}} {{emergencia.responsable.apellidos}}</p>
+                                </div>
+                                <div class="info">
+                                    <i class="fa fa-phone-square" aria-hidden="true"></i>
+                                    <p>{{emergencia.responsable.telefono}}</p>
+                                </div>
+                                <div class="info">
+                                    <i class="fa fa-mobile" aria-hidden="true"></i>
+                                    <p>{{emergencia.responsable.celular}}</p>
+                                </div>
+                                <div class="info">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    <p>{{emergencia.responsable.correo}}</p>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </mat-tab>
+                    <mat-tab *ngIf="emergencia.direccion">
+                        <ng-template mat-tab-label>
+                            <mat-icon class="example-tab-icon">room</mat-icon>
+                            Dirección
+                        </ng-template>
+                        <div class="retiro row">
+                            <div class="retiro-datos col-12 col-sm-12 col-md-6">
+                                <div class="info">
+                                    <span>Sector:</span>
+                                    <p> {{emergencia.direccionSector}}</p>
+                                </div>
+                                <div class="info">
+                                    <span>Ubicación:</span>
+                                    <p>{{emergencia.direccion.formmatedAddres}}</p>
+                                </div>
+                                <div class="info">
+                                    <span>Referencia:</span>
+                                    <p>{{emergencia.direccionReferencia}}</p>
+                                </div>
+                                <div class="info">
+                                    <span>Contacto extra:</span>
+                                    <p>{{emergencia.contactoExtra}}</p>
+                                </div>
+                         
+                            </div>
+                            <div class="retiro-mapa col-12 col-sm-12 col-md-6" >
+                                <div id="mapcustom" style="width: 100%; height: 25em;" >
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab *ngIf='currentUser'>
+                        <ng-template mat-tab-label>
+                            <mat-icon class="example-tab-icon">library_add_check
+                            </mat-icon>
+                            Acciones
+                        </ng-template>
+    
+                        <div class="acciones">
+                            <div class="ACOGIDAOTRA" style="font-size: 1.5rem;"
+                            *ngIf="(emergencia.estado == 1 || emergencia.estado == 2 || emergencia.estado == 4) && currentUser.usuario._id != emergencia.ayuda.fundacion">
+                            <img src="../../../../../assets/img/errorvolun.png">
+                            <p>La emergencia ya fue acogida por otra fundación.</p>
+                            </div>
+                            <div class="ACOGIDAOTRA" style="font-size: 1.5rem;"
+                            *ngIf="emergencia.estado == 3">
+                            <img src="../../../../../assets/img/errorvolun.png">
+                            <p style="color: #bf3b3b; font-weight: bold;">Se marcó esta emergencia como falsa</p>
+                            <div class="mensj" style="width: 100%; margin: 1rem 0;">
+                                <div class="titul" >
+                                    <p style="font-weight: bold;">Mensaje para el usuario:</p>
+                                    <p>{{emergencia.observacionUsuario}}</p>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="ACOGIDA" style="font-size: 1.5rem;" *ngIf="emergencia.estado == 2 && currentUser && emergencia.ayuda.fundacion &&  currentUser.usuario._id == emergencia.ayuda.fundacion">
+                                <div class="acciones-info">
+                                        <h5 style="font-size: 2rem;">Aprobaste está emergencia.</h5>
+                                    </div>
+                                    <div class="observacionesDonacion">
+                                        <div class="titulo">
+                                            Observaciones
+                                        </div>
+                                        <p>Usuario: {{emergencia.observacionUsuario}}</p>
+                                        <p *ngIf="emergencia.observacionVoluntarios && emergencia.observacionVoluntarios != ''">Voluntarios: {{emergencia.observacionVoluntarios}}</p>
+                                    </div> 
+                            <div class="row voluntarios" >
+                                <div class="col-12 tituloV">
+                                    <p>Voluntarios seleccionados para la emergencia:</p>
+                                </div>
+                                <div class="col-12">
+                                        <div class="info" *ngIf="voluntariosAS.length > 0">
+                                            <p *ngFor="let vl of voluntariosAS">{{vl.voluntarioC.nombres}} {{vl.voluntarioC.apellidos}} 
+                                                
+                                                <span *ngIf="vl.estadoD == '0'">( Aún no acepta la solicitud)</span>
+                                                <span *ngIf="vl.estadoD == '2'">( No aceptó la solicitud)</span>
+                                                <span *ngIf="vl.estadoD == '1'">( Aceptó la solicitud)</span>
+                                            
+                                            </p>
+                                           
+                                        </div>
+                                        <div class="info" *ngIf="voluntariosAS.length == 0">
+                                                <p >No existe voluntarios
+                                                </p>
+                                               
+                                            </div>
+                                    </div>
+                            </div>
+                           
+                            <div class="btnsACCIONES">
+                                  
+                                        <button  *ngIf="emergencia.estado == 2 && currentUser.usuario._id == emergencia.ayuda.fundacion" (click)="marcarAtentida()"class="btn btn-primary bnMA">Marcar como ATENTIDA</button>
+            
+                            </div>
+                        </div>
+                        <div class="ACOGIDA"  style="font-size: 1.5rem;" *ngIf="emergencia.estado == 4 && currentUser && currentUser.usuario._id == emergencia.ayuda.fundacion">
+                            <div class="acciones-info" >
+                                    <h5 style="font-size: 2rem;">Marcaste esta emergencia como atentida</h5>
+                                </div>
+                                <div class="observacionesDonacion">
+                                    <div class="titulo">
+                                        Observaciones
+                                    </div>
+                                    <p>Usuario: {{emergencia.observacionUsuario}}</p>
+                                    <p *ngIf="emergencia.observacionVoluntarios && emergencia.observacionVoluntarios != ''">Voluntarios: {{emergencia.observacionVoluntarios}}</p>
+                                </div>  
+                        <div class="row voluntarios" >
+                            <div class="col-12 tituloV">
+                                <p>Voluntarios seleccionados para la emergencia:</p>
+                            </div>
+                            <div class="col-12">
+                                    <div class="info" *ngIf="voluntariosAS.length > 0">
+                                        <p *ngFor="let vl of voluntariosAS">{{vl.voluntarioC.nombres}} {{vl.voluntarioC.apellidos}} 
+                                            
+                                            <span *ngIf="vl.estadoD == '0'">( Aún no acepta la solicitud)</span>
+                                            <span *ngIf="vl.estadoD == '2'">( No aceptó la solicitud)</span>
+                                            <span *ngIf="vl.estadoD == '1'">( Aceptó la solicitud)</span>
+                                        
+                                        </p>
+                                       
+                                    </div>
+                                    <div class="info" *ngIf="voluntariosAS.length == 0">
+                                            <p >No existe voluntarios
+                                            </p>
+                                           
+                                        </div>
+                                </div>
+                        </div>
+                       
+                       
+                    </div>
+                            <div class="AYUDA" *ngIf="emergencia.estado == 0">
+                                <p [class.error]="statusAyuda == 'errorVoluntario'">
+                                    Se publicó una emergencia. Por favor en base a la imagen 
+                                    selecciona los voluntarios que puedan ayudar:
+                                    </p>
+                                <div class="row justify-content-center">
+                                    <div class="col-12 col-md-10">
+                                        <form class="formulario needs-validation" 
+                                            (ngSubmit)="registrarAyuda()" novalidate>
+                                            <div class="SCROLVOLSE">
+                
+                                                <div class="form-check" *ngFor="let volun of voluntarios">
+                                                    <input *ngIf="emergencia.responsable._id != volun._id" required type="checkbox"
+                                                        name="checkbox" id="{{volun._id}}" value="{{volun._id}}">
+                                                    <label *ngIf="volun.foto && emergencia.responsable._id != volun._id"
+                                                        for="{{volun._id}}">{{volun.nombres}} {{volun.apellidos}}
+                                                        <div class="imgVol">
+                                                            <img src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                                                                volun.foto}}">
+                                                        </div>
+                                                    </label>
+                                                    <label *ngIf="!volun.foto && emergencia.responsable._id != volun._id"
+                                                        for="{{volun._id}}">{{volun.nombres}} {{volun.apellidos}}
+                                                        <div class="imgVol">
+                                                            <img src="../../../assets/img/user.png">
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                
+                                            <div class="btnm" style="border: 0 !important;">
+                                                <button type="submit" class="btn btn-primary btnRGA"
+                                                    [disabled]="statusAyuda == 'procesando'">Asignar<div
+                                                        *ngIf=" statusAyuda == 'procesando'" style="margin-left: 5px;
+                                                                    font-size: 1rem;
+                                                                    width: 1rem;
+                                                                    height: 1rem;" class="spinner-border text-primary" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div></button>
+                                                    <button  [disabled]="statusAyuda == 'procesando'"  (click)="executeConfirmacionAprobarNegar('negar','')" type="button" class="btn btn-primary btnRGA2" >Marcar como emergencia falsa</button>
+                
+                                            </div>
+                
+                                        </form>
+                                    </div>
+                                </div>
+                
+                
+                            </div>
+                            <div class="AYUDA" *ngIf="emergencia.estado == 1 && currentUser && emergencia.ayuda && currentUser.usuario._id == emergencia.ayuda.fundacion">
+                                <p  *ngIf="emergencia.estado == 1" style="text-align: justify !important;">
+                                    Esta emergencia fue asignada a voluntarios. Debes marcar la emergencia como aprobada para
+                                que los voluntarios puedan ver la información del usuario que publicó la emergencia. Recuerda que dicha información
+                            solo será visible a los voluntarios asignados que aceptaron la solicitud. </p>
+                                <div class="row justify-content-center">
+                                    <div class="col-12 col-md-10">
+                                            <form class="formulario needs-validation"  novalidate style="margin: 2rem 0;">
+                                                    <div class="SCROLVOLSE" *ngIf="emergencia.estado == 1">
+                                                        
+                                                           <div class="form-check" *ngFor="let volun of voluntariosMix">
+                                                                   <input *ngIf="emergencia.responsable._id != volun._id"  (change)="hola($event)"  required type="checkbox" [checked]="volun.seleccionado == true" [disabled]="volun.seleccionado == true"  name="checkbox" id="{{volun._id}}" value="{{volun._id}}">
+                                                                   <label *ngIf="volun.foto &&  emergencia.responsable._id != volun._id" for="{{volun._id}}" class="voluntarioLabelCheck">
+                                                                    <span>{{volun.nombres}} {{volun.apellidos}} </span>
+                                                                    <span *ngIf="volun.estadoD == '0'">( Pendiente)</span>
+                                                                    <span *ngIf="volun.estadoD == '2'" style="color: red;">( No aceptó la solicitud)</span>
+                                                                    <span *ngIf="volun.estadoD == '1'">( Aceptó la solicitud)</span>
+                                                                       <div class="imgVol">
+                                                                           <img src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                                                                            volun.foto}}">
+                                                                       </div>
+                                                                   </label>
+                                                                   <span (click)="executeConfirmacion('delVol',volun._id)" *ngIf="volun.seleccionado == true" style="border: 1px solid #bf3b3b;
+                                                                                                                            margin: 5px;
+                                                                                                                            padding: .5rem;
+                                                                                                                            border-radius: 4px;
+                                                                                                                            cursor: pointer;">
+                                                                   <i class="fa fa-trash" aria-hidden="true" style="font-size: 1.7rem; color: #bf3b3b;"></i></span>
+            
+                                                               </div>
+                                                    </div>
+                                                      
+                                                     
+                                                   </form>
+            
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="btnsACCIONES" *ngIf="anadirVoluntarios == false">
+                                      
+                                            <button  *ngIf="emergencia.estado == 1 " (click)="executeConfirmacionAprobarNegar('aproVolun','')"class="btn btn-primary bnMA">Aprobar</button>
+                                            <button  *ngIf="emergencia.estado == 1 " (click)="executeConfirmacionAprobarNegar('negar','')" class="btn btn-primary bnMA">Marcar como Falsa</button>
+                                            <button  *ngIf="emergencia.estado == 1 " (click)="executeConfirmacion('reasignar','')"class="btn btn-primary bnMA">Reasignar voluntarios</button>
+            
+                                </div>
+                                <div class="btnsACCIONES " *ngIf="anadirVoluntarios == true">
+                                      
+                                    <button  *ngIf="emergencia.estado == 1 " (click)="anadirVoluntariosToEmergencia()"class="btn btn-primary bnMA">Añadir voluntarios seleccionados</button>
+                                    
+            
+                        </div>
+                                    </div>
+                                </div>
+                               
+                              
+                        </div>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+    
+        </div>
+    
+    
+    </div>
+</div>

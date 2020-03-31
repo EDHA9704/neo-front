@@ -1,0 +1,366 @@
+*,
+*::before,
+*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+a{
+    text-decoration: none;
+}
+ul{
+    list-style: none;
+}
+
+p{
+    font-size: 1.6rem;
+}
+img{
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+section{
+    padding: 5rem 0;
+}
+
+header{
+    width: 100%;
+    height: 5rem;
+   // position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+.container{
+    width: 100%;
+    max-width: 98rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+nav{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,.2);
+}
+.nav-brand{
+    width: 4rem;
+}
+.menu-icons i{
+    font-size: 3.5rem;
+    color: #fafafa;
+    cursor: pointer;
+}
+.nav-brand img{
+    border-radius: 50%;
+}
+.close i{
+    color: #3bbfa0;
+}
+.nav-list{
+    font-family: 'Righteous', cursive;
+    width: 25rem;
+    height: 100vh;
+    background-color: #000000ed;
+    position: fixed;
+    top: 0;
+    right: -26rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1500;
+    transition: all 650ms ease-in-out;
+}
+.nav-list.active{
+    right: 0;
+}
+.close{
+    position: absolute;
+    top: 1rem;
+    left: 1.5rem;
+}
+.nav-item{
+    margin: 1.5rem 0;
+}
+.login{
+    cursor: pointer;
+    padding: 0rem;
+    border-radius: 5px;
+    a{
+        font-family: 'Righteous', cursive;
+        font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+    i{
+        margin-right: 10px;
+    }
+    }
+}
+.nav-link{
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    color: #3bbfa0;
+}
+
+.darkHeader{
+    background: #2e2e2e;
+}
+@media screen and (min-width:992px){
+    header{
+        height: 5rem;
+    }
+    .nav-brand{
+        width: 4.5rem;
+    }
+    .nav-list{
+        width: initial;
+        height: initial;
+        background-color: transparent;
+        position: initial;
+        top: initial;
+        right: initial;
+        flex-direction: row;
+        transition: initial;
+    }
+    .menu-icons{
+        display: none;
+    }
+    .nav-item{
+        margin: 0 2.5rem;
+    }
+    .nav-link, .current{
+        color: #fafafa;
+        position: relative;
+        font-size: 1rem;
+    }
+    .nav-link::before, .current::before{
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -.5rem;
+        background-color: #555;
+        width: 100%;
+        height: 2px;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 650ms;
+    }
+    .current::before{
+        transform: scaleX(1);
+    }
+    .nav-link:hover::before{
+        transform: scaleX(1);
+    }
+    .hero{
+        height: 80vh;
+    }
+    .main-message{
+        transform: translateY(50%);
+    }
+    .title-heading h1{
+        font-size: 3.5rem;
+    }
+}
+
+
+.dropNAV button{
+    background: transparent;
+    border: none;
+ }
+ .dropNAV button span
+ {
+    position: absolute !important;
+    top: 29% !important;
+    right: 3% !important;
+    display: inline-block !important;
+    height: 9px !important;
+    background: red;
+ }
+
+ /*----ESTILO PARA NOTIFICACIOM---*/
+.DROP{
+    width: 40rem !important;
+    height: 35rem !important;
+    padding: 0;
+    
+ }
+ 
+ .DROP .containerNotifi{
+    width: 100%;
+    height: 100%;
+    position: relative;
+ }
+ .notificacion{
+    width: 100%;
+    height: 89%;
+    overflow: auto;
+ }
+ .notificacion .notiS{
+    width: 100%;
+    height: 5rem;
+    background-color: #edf2fa;
+    cursor: pointer;
+    
+ }
+ .activeNT{
+    background-color: white !important;
+ }
+ .notificacion .notiS .contNot{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0 1rem;
+    border-bottom: 1px solid #dadada;
+ }
+ 
+ .notificacion .notiS .contNot .imgnotiS{
+    width: 3.4rem;
+    height: 3.4rem;
+    margin-right: 5px;
+ 
+ }
+ .notificacion .notiS .contNot .imgnotiS img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+ }
+ .notificacion .notiS .contNot .imgnotiS2{
+    width: 12%;
+    height: 3.4rem;
+    margin-left: 5px;
+ 
+ }
+ .notificacion .notiS .contNot .imgnotiS2 img{
+    width: 100%;
+    height: 100%;
+   
+ }
+ .notificacion .notiS .contNot .textnotiS{
+    width: 65%;
+    height: 4rem;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-weight: 600 !important;
+     font-size: 14px !important;
+ 
+ }
+ 
+ .btnAllNoti{
+    position: absolute;
+    padding: .3rem;
+    width: 100%;
+    border-top: 1px solid #dadada;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    bottom: 0;
+ }
+ 
+ .btnAllNoti button{
+    color: #3bbfad;
+ 
+ }
+ .titulo{
+    width: 100%;
+    padding: 1rem 1rem;
+ }
+ .titulo h4{
+    font-size: 16px;
+ }
+ 
+ .dropdown-divider{
+    margin: 0 !important;
+ }  
+
+ @media only screen and (max-width:780px){
+    .dropNAV {
+       position: relative !important;
+       display: flex !important;
+       flex-direction: column !important;
+       vertical-align: bottom !important;
+       justify-content: flex-start !important;
+       align-items: flex-start !important;
+    }
+    .DROP{
+       width: 21rem !important;
+       height: 13rem !important;
+    }
+  }
+ 
+  .btnDROPOP{
+   
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     align-items: center;
+  }
+ 
+  .btnDROPOP img{
+     width: 2rem;
+     height: 2rem;
+     border-radius: 50%;
+     margin-right: 5px;
+  }
+ 
+  .carga{
+     width: 100%;
+     display: flex;
+     justify-content: center;
+     position: absolute;
+     bottom: 0;
+  }
+  .text-primary {
+    color: #3bbfad !important;
+ }
+#divNotificacion::-webkit-scrollbar {
+    width: 8px;     /* Tamaño del scroll en vertical */
+    height: 8px;    /* Tamaño del scroll en horizontal */
+    
+ }
+ #divNotificacion::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+ }
+ 
+ /* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+ #divNotificacion::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+ }
+ 
+ /* Cambiamos el fondo cuando esté en active */
+ #divNotificacion::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+ }
+ 
+ .nav-list2{
+    list-style: none;
+    width: 10%;
+    display: flex;
+    li{
+        margin: 5px;
+    }
+    i{
+        font-size: 2rem;
+        
+    }
+    button{
+        background: transparent;
+        border: 0;
+    }
+ }
+#dropNOTIF{
+     padding: 1rem;
+     font-size: 1.4rem;
+ }

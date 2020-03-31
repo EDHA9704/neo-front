@@ -1,0 +1,401 @@
+
+
+<div class="container">
+    <div class="titulo"> 
+      <h3 style="font-size: 2.5rem;">Actualizar perfil</h3>
+    </div>
+  
+    <div class="row" *ngIf="currentUser && usuarioFundacion">
+      <div class="col-3" style="padding-right: 0 !important;">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Perfil</a>
+          <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Datos de la cuenta</a>
+          <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Contraseña</a>
+  
+        </div>
+      </div>
+      <div class="col-9" style="padding-left: 0 !important; background: white" >
+        <div class="tab-content" id="v-pills-tabContent">
+          <div class="tab-pane show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            <div class="formP" >
+                <mat-accordion>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Perfil, misión y visión
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          Describe la misión y visión de tu fundación
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                  
+                      <form #registerFormMV="ngForm"  class="formRg needs-validation" novalidate>
+                          <div class="form-row datosUser">
+                              <div class="form-group col-md-12">
+                                  <mat-form-field hintLabel="Máximo 300 caracteres">
+                                      <textarea cdkTextareaAutosize
+                                      cdkAutosizeMinRows="2"
+                                      cdkAutosizeMaxRows="5" required type="text" class="form-control" id="perfil" placeholder="Perfil" [formControl]="perfil" [class.is-invalid]="!perfil.valid && perfil.touched"
+                                      [class.is-valid]="perfil.valid" matInput minlength="15" maxlength="300"></textarea>
+              
+                                      <mat-hint align="end">{{perfil.value?.length || 0}}/300</mat-hint>
+                                      <mat-error *ngIf="perfil.invalid">{{getErrorMessage()}}</mat-error>
+  
+                                    </mat-form-field>
+              
+                               
+                              </div>
+              
+                              <div class="form-group col-md-12">
+              
+                                  <mat-form-field hintLabel="Máximo 300 caracteres">
+                                      <textarea cdkTextareaAutosize
+                                      cdkAutosizeMinRows="2"
+                                      cdkAutosizeMaxRows="5" required type="text" class="form-control" id="mision" placeholder="Misión" [formControl]="mision" [class.is-invalid]="!mision.valid && mision.touched"
+                                      [class.is-valid]="mision.valid" matInput  minlength="15" maxlength="300"></textarea>
+              
+                                      <mat-hint align="end">{{mision.value?.length || 0}}/300</mat-hint>
+                                      <mat-error *ngIf="mision.invalid">{{getErrorMessage2()}}</mat-error>
+  
+                                    </mat-form-field>
+              
+                              </div>
+                              <div class="form-group col-md-12">
+              
+                                  <mat-form-field hintLabel="Máximo 300 caracteres">
+                                      <textarea cdkTextareaAutosize
+                                      cdkAutosizeMinRows="2"
+                                      cdkAutosizeMaxRows="5" required type="text" class="form-control" id="vision" placeholder="Visión"  [formControl]="vision" [class.is-invalid]="!vision.valid && vision.touched"
+                                      [class.is-valid]="vision.valid" matInput minlength="15" maxlength="300"></textarea>
+              
+                                      <mat-hint align="end">{{vision.value?.length || 0}}/300</mat-hint>
+                                      <mat-error *ngIf="vision.invalid">{{getErrorMessage3()}}</mat-error>
+  
+                                    </mat-form-field>
+              
+                                  
+                                </div>
+                              
+              
+                            </div>
+                            <div class="form-group col-md-12 btnsACP">
+                    
+                                <button type="button" (click)="actualizarFundacion('mv')" class="btn btn-primary btnRGA" [disabled]="perfil.invalid || mision.invalid || vision.invalid">Actualizar</button>
+                            </div>
+                      </form>
+  
+                    </mat-expansion-panel>
+                    <mat-expansion-panel 
+                                         >
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Depósitos
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Información para depósitos y transferencias bancarias
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <form #registerFormMV="ngForm" (ngSubmit)="actualizarFundacion(registerFormMV)" class="formRg needs-validation " novalidate>
+                          <div class="form-row datosUser customFRM">
+                              <mat-form-field class="example-full-width">
+                                  <input required matInput type="text" placeholder="Titular de la cuenta" id="titular" [formControl]="titular" [class.is-invalid]="!titular.valid && titular.touched"
+                                  [class.is-valid]="titular.valid">
+                                  <mat-error *ngIf="titular.invalid">{{getErrorMessage4()}}</mat-error>
+  
+                                </mat-form-field>
+                                <mat-form-field class="example-full-width">
+                                  <input pattern="" required matInput type="text" placeholder="Cédula del titular" id="cedulaCuenta" [formControl]="cedulaCuenta"
+                                 >
+                                  <mat-error *ngIf="cedulaCuenta.invalid">{{getErrorMessage21()}}</mat-error>
+
+                                </mat-form-field>
+                                <mat-form-field class="example-full-width">
+                                  <input pattern="" required matInput type="text" placeholder="Correo del titular" id="correoCuenta" [formControl]="correoCuenta"
+                                 >
+                                  <mat-error *ngIf="correoCuenta.invalid">{{getErrorMessage22()}}</mat-error>
+
+                                </mat-form-field>
+                                <mat-form-field class="example-full-width">
+                                    <input required matInput type="text" placeholder="Nombre del Banco" id="banco" [formControl]="banco" [class.is-invalid]="!banco.valid && banco.touched"
+                                    [class.is-valid]="banco.valid">
+                                    <mat-error *ngIf="banco.invalid">{{getErrorMessage5()}}</mat-error>
+  
+                                  </mat-form-field>
+                                  <mat-form-field>
+                                    <mat-label>Tipo de cuenta</mat-label>
+                                    <mat-select id="tipoCuenta" [formControl]="tipoCuenta">
+                                      <mat-option value="Cuenta corriente">
+                                        Cuenta corriente
+                                      </mat-option>
+                                      <mat-option value="Cuenta de ahorros">
+                                        Cuenta de ahorros
+                                      </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="tipoCuenta.invalid">{{getErrorMessage23()}}</mat-error>
+                                  </mat-form-field>
+                                  <mat-form-field class="example-full-width">
+                                      <input pattern="" required matInput type="text" placeholder="Número de cuenta" id="cuenta" [formControl]="cuenta" [class.is-invalid]="!cuenta.valid && cuenta.touched"
+                                      [class.is-valid]="cuenta.valid">
+                                      <mat-error *ngIf="cuenta.invalid">{{getErrorMessage6()}}</mat-error>
+  
+                                    </mat-form-field>
+                                  
+                                 
+                          </div>
+                          <div class="form-group col-md-12 btnsACP">
+                    
+                              <button type="button" (click)="actualizarFundacion('tb')" class="btn btn-primary btnRGA" [disabled]="titular.invalid || banco.invalid || cuenta.invalid || cedulaCuenta.invalid || correoCuenta.invalid || tipoCuenta.invalid">Actualizar</button>
+                            </div>
+                      </form>
+                    </mat-expansion-panel>
+                      <mat-expansion-panel 
+                                        >
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Contactos
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Información para contactos con la fundación
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <form #registerFormMV="ngForm" (ngSubmit)="actualizarFundacion(registerFormMV)" class="formRg needs-validation" novalidate>
+                          <div class="form-row datosUser">
+                              <mat-form-field class="example-full-width">
+                                  <input pattern=""  required matInput type="tel" placeholder="Teléfono (domicilio)" id="telefono" [formControl]="telefono" [class.is-invalid]="!telefono.valid && telefono.touched"
+                                  [class.is-valid]="telefono.valid">
+                                  <mat-error *ngIf="telefono.invalid">{{getErrorMessage9()}}</mat-error>
+  
+                                </mat-form-field>
+                                <mat-form-field class="example-full-width">
+                                    <input pattern=""  required matInput type="text" placeholder="Celular" id="celular" [formControl]="celular" [class.is-invalid]="!celular.valid && celular.touched"
+                                    [class.is-valid]="celular.valid">
+                                    <mat-error *ngIf="celular.invalid">{{getErrorMessage10()}}</mat-error>
+  
+                                  </mat-form-field>
+                          </div>
+                          <div class="form-group col-md-12 btnsACP">
+                    
+                              <button type="button" (click)="actualizarFundacion('tc')" class="btn btn-primary btnRGA" [disabled]="telefono.invalid || celular.invalid ">Actualizar</button>
+                            </div>
+                      </form>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+           
+            </div>
+          </div>
+          <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+  
+            <div class="formP" *ngIf="currentUser && usuarioFundacion">
+                <mat-accordion>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                         Foto y nombre
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          Foto que te representa y el nombre
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                  
+                      <form #registerFormMV="ngForm"  class="formRg needs-validation" novalidate>
+                          <div class="form-row datosUser justify-content-center">
+                              <div class="col-12 imgRG">
+                                  <img *ngIf="usuarioFundacion.logo != null " src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                                    usuarioFundacion.logo}}" class="img-fluid" alt="Responsive image">
+                                  
+                                  <button type="button" *ngIf="usuarioFundacion.logo" class="btn btnElimLog" (click)="eliminarLogo(usuarioFundacion._id,usuarioFundacion.logo)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                 
+                                  <img *ngIf="!usuarioFundacion.logo && imL3 == false" src="../../../../assets/img/fondos-de-perros.jpg" class="img-fluid" alt="Responsive image">
+                                  <img *ngIf="!usuarioFundacion.logo && imL3 == true" src="{{imgUN3}}">
+                                </div>
+                              <div *ngIf="!usuarioFundacion.logo" class="col s12 file-field input-field btnf">
+                                  <div class="btn ">
+                    
+                                    <label for="file23" class="input-label2">Seleccionar logo</label>
+                                    <input id="file23" (change)="fileChangeEvent3($event)"
+                                      type="file">
+                                  </div>
+                    
+                                </div>
+                                <div class="form-group col-md-10">
+      
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Nombre de la fundación</mat-label>
+                                      
+                                        <input required [formControl]="nombres" matInput type="text" id="nombre" placeholder="Nombres de la fundación"  [class.is-invalid]="!nombres.valid && nombres.touched" [class.is-valid]="nombres.valid">
+                                        <mat-icon matSuffix><i class="fa fa-university" aria-hidden="true"></i></mat-icon>
+                                       <mat-error *ngIf="nombres.invalid">{{getErrorMessage11()}}</mat-error>
+                                      </mat-form-field>
+                                      <p id="nmbr" class="errNC" *ngIf="statusValid == 'errorNombre'">El nombre ya está en uso</p>
+              
+                                  </div>
+              
+                                  <div class="form-group col-md-10">
+      
+                                      <mat-form-field appearance="standard">
+                                          <mat-label>Nombres/Apellidos del representante legal de la fundación</mat-label>
+                                        
+                                          <input required [formControl]="representante" matInput type="text" id="representante" placeholder="Representante legal de la fundación"  [class.is-invalid]="!representante.valid && representante.touched" [class.is-valid]="representante.valid">
+                                          <mat-icon matSuffix><i class="fa fa-user" aria-hidden="true"></i></mat-icon>
+                                         <mat-error *ngIf="representante.invalid">{{getErrorMessage12()}}</mat-error>
+                                        </mat-form-field>
+                                      
+                                    </div>
+                            </div>
+                            <div class="form-group col-md-12 btnsACP">
+                    
+                                <button type="button" (click)="actualizarFundacion2('fn')" class="btn btn-primary btnRGA" [disabled]="nombres.invalid || representante.invalid">Actualizar</button>
+                            </div>
+                      </form>
+  
+                    </mat-expansion-panel>
+                    <mat-expansion-panel 
+                                         >
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Fecha de fundación y  correo electrónico
+                        </mat-panel-title>
+                         
+                      </mat-expansion-panel-header>
+                      <form  class="formRg needs-validation" novalidate>
+                          <div class="form-row datosUser justify-content-center">
+                              <div class="form-group col-md-6">
+                                  <mat-form-field appearance="standard">
+                                      <input required [min]="minDate" [max]="maxDate" [formControl]="fechaFunda" matInput [matDatepicker]="picker" placeholder="Fecha en que fue fundada">
+                                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker></mat-datepicker>
+                                      <mat-error *ngIf="fechaFunda.invalid">{{getErrorMessage13()}}</mat-error>
+                                    </mat-form-field>
+          
+                                </div>
+                  
+                                <div class="form-group col-md-6">
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Correo electrónico</mat-label>
+                                      
+                                        <input required [formControl]="correo2" matInput type="text" id="correo2" placeholder="Correo electrónico"  [class.is-invalid]="!correo2.valid && correo2.touched" [class.is-valid]="correo2.valid">
+                                        <mat-icon matSuffix><i class="fa fa-envelope" aria-hidden="true"></i></mat-icon>
+                                       <mat-error *ngIf="correo2.invalid">{{getErrorMessage18()}}</mat-error>
+                                      </mat-form-field>
+                                      <p id="corr" class="errNC" *ngIf="statusValid == 'errorCorreo'">El correo electrónico ya está en uso</p>
+                
+                                </div>
+                                <div class="form-group col-md-10">
+                     
+                                    <mat-form-field class="example-full-width">
+                                      
+                                      <input matInput  type="url" [formControl]="link" class="form-control"
+                                        id="link" placeholder="Página web"  [class.is-invalid]="!link.valid && link.touched"
+                                        [class.is-valid]="link.valid ">
+                                        <mat-error *ngIf="link.invalid">{{getErrorMessage19()}}</mat-error>
+    
+                                    </mat-form-field>
+                                 
+                                  </div>
+                  
+                             
+                          </div>
+                          <div class="form-group col-md-12 btnsACP">
+                    
+                              <button type="button" (click)="actualizarFundacion2('fc')" class="btn btn-primary btnRGA" [disabled]="fechaFunda.invalid || correo2.invalid">Actualizar</button>
+                            </div>
+                      </form>
+                    </mat-expansion-panel>
+                      <mat-expansion-panel >
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Dirección
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Ubicación de la fundación y pagina web en caso de poseer
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <form #registerFormMV="ngForm" (ngSubmit)="actualizarFundacion(registerFormMV)" class="formRg needs-validation" novalidate>
+                          <div class="form-row datosUser">
+                              <div class="form-group col-md-6">
+  
+                                  <mat-form-field appearance="standard">
+                                      <mat-label>Sector</mat-label>
+                                      <mat-select required [formControl]="sector">
+                                        <mat-option *ngFor="let s of sector2" [value]="s.value">
+                                          {{s.value}}
+                                        </mat-option>
+                                      </mat-select>
+                                      <mat-error *ngIf="fechaFunda.invalid">{{getErrorMessage17()}}</mat-error>
+  
+                                    </mat-form-field>
+                                  </div>
+                                  <div class="form-group col-md-6">
+                    
+                                      <mat-form-field appearance="standard">
+                                          <mat-label>Barrio</mat-label>
+                                        
+                                          <input required [formControl]="barrio" matInput type="text" id="barrio" [class.is-invalid]="!barrio.valid && barrio.touched" [class.is-valid]="barrio.valid">
+                                          <mat-icon matSuffix><i class="fa fa-home" aria-hidden="true"></i></mat-icon>
+                                         <mat-error *ngIf="barrio.invalid">{{getErrorMessage14()}}</mat-error>
+                                        </mat-form-field>
+                                  </div>
+                                  <div class="form-group col-md-6" style="display: flex; align-items: center;">
+                    
+                                      <p *ngIf="usuarioFundacion.direccionMap"><strong>Dirección: </strong>{{usuarioFundacion.direccionMap.formmatedAddres}}</p>
+                                  </div>
+                                  <div class="form-group col-md-6">
+                    
+                                    <button (click)="openDialogMap()" class="btnDir">Cambiar dirección <i class="fa fa-map-marker" aria-hidden="true"></i></button>
+
+                                  </div>
+                             
+                          </div>
+                          <div class="form-group col-md-12 btnsACP">
+                    
+                              <button type="button" (click)="actualizarFundacion2('sb')" class="btn btn-primary btnRGA" [disabled]="sector.invalid || barrio.invalid ">Actualizar</button>
+                            </div>
+                      </form>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+             
+            </div>
+          </div>
+          <div class="tab-pane fade" style="background: white !important" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+  
+              <form style="padding: 10px 25px;" class="formRg needs-validation" novalidate>
+                 
+                  <div class="containerACTUALIZAR">
+                   
+               
+                    <div class="form-row datosUser" style="margin-bottom: 2rem;">
+                      <div class="form-group col-md-12">
+                        <mat-form-field appearance="standard">
+                          <mat-label>Contraseña</mat-label>
+                          <input matInput placeholder="Contraseña" [type]="hide2 ? 'password' : 'text'" [formControl]="password2" id="password2" required>
+                          <mat-icon style="cursor: pointer;" matSuffix (click)="hide2 = !hide2">{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                          <mat-hint id="passwordHelpBlock" class="form-text text-muted">
+                            La contraseña debe contener entre 8-20 caracteres, al menos 1 letra mayúscula, 1 letra minúscula, 1 número y un caracter no alfanumérico.
+                          </mat-hint>
+                          <mat-error *ngIf="password2.invalid">{{getErrorMessage20()}}</mat-error>
+                      </mat-form-field>
+                        
+                        
+                      
+                      </div>
+     
+                    </div>
+                  </div>
+                           
+                
+                
+                            <div class="form-group col-md-12" style="text-align: center;">
+                            <button style="background: #3bbfa0" (click)="actualizarFundacion3()" type="submit" class="btn btn-primary btnRGA" [disabled]="password2.invalid">Actualizar</button>
+                           </div>
+                          </form>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  
+  
+  
+   
+  
+  </div>

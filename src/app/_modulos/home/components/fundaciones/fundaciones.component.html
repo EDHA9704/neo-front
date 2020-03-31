@@ -1,0 +1,108 @@
+
+<app-titulo-page [titulo]="titulo" [descripcion]="descripcion" [img]="img" [descripcion2]="descripcion2"></app-titulo-page>
+
+<section class="main">
+    <div class="row content-grid">
+        <div class="col-12 col-sm-3 content-grid-filtros">
+            <form>
+
+                <h5>Ordenar por</h5>
+              
+                <div class="form-group btnDPR">
+                    <label for="sectorDrop">Sector</label>
+                    <select class="form-control" id="sectorDrop">
+                      <option *ngFor="let s of sectores" [disabled]="s == 'Todos'" [value]="s" (click)="filtroBSQD(s)" >{{s}}</option>
+              
+                    </select>
+                  </div>
+                 
+              
+                  <button *ngIf="( busqueda == true || filtroBTN == true)" class="btn btn-danger" type="button" (click)="cancelarBusqueda()">Limpiar filtros <i class="fa fa-times-circle" aria-hidden="true"></i></button>
+              
+              </form>
+              <div class="container dividerTi" *ngIf="advertencia == false">
+                <span *ngIf="itemsFund > 1">Total fundaciones registradas: {{total}}</span>
+               
+              </div> 
+        </div>
+        <div class="col-12 col-sm-9 custom-cards" >
+            <app-empty-element *ngIf="advertencia == true" [foto]="'fundacion.png'" [mensaje]="'No se encontro fundaciones.'"></app-empty-element>
+            <app-loading-custom class="spinn" *ngIf="loading == true"></app-loading-custom>
+            <div class=" content-grid-cards">
+                <mat-card *ngFor="let fund of fundaciones">
+                    <div class="card-header">
+                        <div class="card-header-tex">
+                            <h5>Sector {{fund.sector}}</h5>
+                        </div>
+                        <a type="button" class="card-header-icon" [routerLink]="['/fundacion',fund._id,'nosotros']" target="_blank" >
+                            <i class="fa fa-external-link" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="card-status">
+                        <span>{{fund.telefono}} / {{fund.celular}}</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body-title">
+                            <div class="card-body-title-text">
+                                <p>{{fund.nombreFundacion}}</p>
+                            </div>
+                            <div class="card-body-title-photo">
+                                <img  src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                                    fund.logo}}" class="d-block w-100" alt="mascota">
+                            </div>
+                        </div>
+                        <div class="card-body-subtitle">
+                            <div class="biography">{{fund.perfil}}</div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-footer-title">
+                                 <span>Representante</span>
+                            </div>
+                            <div class="card-footer-text">
+                                <p >{{fund.representante}}</p>
+                            </div>
+                        </div>
+    
+                    </div>
+                </mat-card>
+            </div>
+           
+        </div>
+        <div class="col-12 col-sm-3"></div>
+        <div class="col-12 col-sm-9">
+            <div class="selectPages" >
+                <div class="pageAnt2">
+                    <a  [routerLink]="['/home/fundaciones', type, '1']"
+                      class="btn btn-primary">
+                      <i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                  </div>
+              <div class="pageAnt">
+                <button [disabled]="page == 1"  [routerLink]="['/home/fundaciones', type, prev_page]"
+                  class="btn btn-primary">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i></button>
+              </div>
+              <div class="pagess">
+        
+               <a  [routerLink]="['/home/fundaciones', type, p]" *ngFor="let p of pagesSelec" [class.pgActive]="page == p">{{p}}</a>
+           
+              </div>
+              <div class="pageNex">
+                <button [disabled]="page == pages"  [routerLink]="['/home/fundaciones', type, next_page]"
+                class="btn btn-primary">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="pageNex2">
+                  <a  [routerLink]="['/home/fundaciones', type, pages]"
+                  class="btn btn-primary">
+                  <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+   
+
+</section>

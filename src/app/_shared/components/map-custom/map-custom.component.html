@@ -1,0 +1,32 @@
+<div class="content">
+  <div class="content-location">
+    <mat-form-field appearance="outline" style="font-size: 1.5em;">
+        <mat-label>Escribe tu dirección</mat-label>
+      
+        <input  [formControl]="bsMap" id="bsMap" (keyup)="updateSearchResults($event)" matInput type="text" [matAutocomplete]="auto" >
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let item of autocompleteItems" (click)="selectSearchResult(item)" >
+                {{ item.description }}
+            </mat-option>
+          </mat-autocomplete>
+      </mat-form-field>
+     
+   
+    <div class="content-map">
+     
+        <div id="map" style="width: 100%; height: 100%;">
+      
+        </div>
+    </div>
+    <div class="location-selected">
+      <p>Tu dirección: </p>
+      <p>{{userTextActualLocation}}</p>
+    </div>
+    
+  </div>
+  <div class="actions">
+    <button mat-button (click)="sendDireccion('ok')" class="acp">Aceptar</button>
+    <button mat-button (click)="sendDireccion('none')"  class="ng">Cancelar</button>
+  </div>
+</div>

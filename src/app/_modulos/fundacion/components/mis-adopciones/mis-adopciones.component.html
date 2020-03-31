@@ -1,0 +1,165 @@
+
+<section class="tituloPage" *ngIf="fundacion">
+ <!--<div class="tituloPage-logo">
+    <img src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+      fundacion.logo}}">
+  </div>-->
+    <div class="tituloPage-name">
+      <h3>Adopciones</h3>
+      <span class="lineTi"></span>
+    </div>
+  </section>
+<section class="main" *ngIf="fundacion">
+    <div class="row content-grid">
+        <div class="col-12 col-sm-3 content-grid-filtros">
+            
+              <form>
+    
+                <h5>Ordenar por</h5>
+          
+                <div class="form-group btnDPR">
+                    <label for="tamDrop">Estado</label>
+                    <select class="form-control" id="tamDrop">
+                      <option *ngFor="let t of estados" [disabled]="t == 'Todos'" [value]="t" (click)="filtroBSQD(t)" >
+                        <p *ngIf="t == 0">Pendiente</p>
+                        <p *ngIf="t == 1">Aprobado</p>
+                        <p *ngIf="t == 2">Negado</p>
+                        <p *ngIf="t == 'Todos'">Todos</p>
+      
+                      </option>
+          
+                    </select>
+                  </div>
+                
+          
+                <button class="btn btn-danger" (click)="cancelarBus()" *ngIf="filtroBTN == true">Limpiar filtros <i class="fa fa-times-circle" aria-hidden="true"></i></button>
+             
+              </form>
+          
+          
+              <div class="container dividerTi" *ngIf="carga == false">
+              
+                <span >Total solicitudes: {{total}}</span>
+                
+              </div>
+        </div>
+        <div class="col-12 col-sm-9 custom-cards">
+          <app-empty-element *ngIf="advertencia == true" [foto]="'adopcion.png'" [mensaje]="'No se encontro adopciones.'"></app-empty-element>
+          <app-loading-custom class="spinn" *ngIf="loading == true"></app-loading-custom>
+          <div class="content-grid-cards">
+            <mat-card *ngFor="let adop of adopciones">
+                <div class="card-header">
+                    <div class="card-header-tex">
+                        <h5> Solicitado: {{adop.creadoEn }}</h5>
+                    </div>
+                    <button type="button" class="card-header-icon" (click)="redirectAdopcion(currentUser.usuario._id,adop._id)">
+                      <i class="fa fa-external-link" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="card-status" [class.card-statusNeg]="adop.estado == 0">
+                        <span  *ngIf="adop.estado == 0" >Pendiente</span>
+                         <span *ngIf="adop.estado == 1">Aprobado</span>
+                        <span *ngIf="adop.estado == 2" >Negado</span>
+
+                </div>
+                <div class="card-body">
+                    <div class="card-body-title">
+                        <div class="card-body-title-text">
+                            <p>{{adop.adoptante.nombres}} {{adop.adoptante.apellidos}}</p>
+                        </div>
+                        <div class="card-body-title-photo">
+                            <img matTooltip="Ver foto" (click)="verFoto(adop.adoptante.foto, 'v')" *ngIf="adop.adoptante.foto && adop.adoptante.password" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                              adop.adoptante.foto}}" class="card-img-top" alt="...">
+                           <img matTooltip="Ver foto"  *ngIf="!adop.adoptante.foto && !adop.adoptante.password" src="{{adop.adoptante.foto}}" class="card-img-top" alt="...">
+              
+                        </div>
+                    </div>
+                    <div class="card-body-title">
+                        <div class="card-body-title-text">
+                            <p>{{adop.mascota.nombre}}</p>
+                        </div>
+                        <div class="card-body-title-photo">
+                            <img (click)="verFoto(adop.mascota.fotos[0].name,'m')" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                              adop.mascota.fotos[0].name}}" class="d-block w-100" alt="...">
+
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-footer-title">
+                             <span>Contactos</span>
+                        </div>
+                        <div class="card-footer-text">
+                            <p >{{adop.adoptante.telefono}} / {{adop.adoptante.celular}}
+                              </p>
+                        </div>
+                    </div>
+
+                </div>
+            </mat-card>
+            </div>
+        </div>
+        <div class="col-12 col-sm-3"></div>
+        <div class="col-12 col-sm-9">
+            <div class="selectPages" >
+                <div class="pageAnt2">
+                    <a  [routerLink]="['/fundacion',idFun,'adopciones', type, '1']"
+                      class="btn btn-primary">
+                      <i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                  </div>
+              <div class="pageAnt">
+                <button [disabled]="page == 1"  [routerLink]="['/fundacion',idFun,'adopciones', type, prev_page]"
+                  class="btn btn-primary">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i></button>
+              </div>
+              <div class="pagess">
+        
+               <a  [routerLink]="['/fundacion',idFun,'adopciones', type, p]" *ngFor="let p of pagesSelec" [class.pgActive]="page == p">{{p}}</a>
+           
+              </div>
+              <div class="pageNex">
+                <button [disabled]="page == pages"  [routerLink]="['/fundacion',idFun,'adopciones', type, next_page]"
+                class="btn btn-primary">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="pageNex2">
+                  <a  [routerLink]="['/fundacion',idFun,'adopciones', type, pages]"
+                  class="btn btn-primary">
+                  <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+   
+
+</section>
+
+ <!-- Modal para ver foto del adoptante / mascota-->
+ <div class="modal fade" id="modalComprobante" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+       
+        <div class="modal-body" *ngIf="imgCom">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="imgModalCom">
+                  
+                  <img *ngIf="imgCom == 's' && opAd == 'v'"   class="profile-img card-img-top" src="../../../../assets/img/ab893f9074d536e3e940d61f0fc62b39-los-usuarios-firman-en-rojo-by-vexels.png" alt="Card image cap" >
+                  <img *ngIf="imgCom != 's' && opAd == 'v'"  src="
+                  https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                    imgCom}}"  class="profile-img card-img-top">
+                  <img *ngIf="imgCom != 's' && opAd == 'm'"  src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                    imgCom}}"  class="profile-img card-img-top">
+
+              </div>
+          
+        </div>
+       
+      </div>
+    </div>
+  
+  </div>

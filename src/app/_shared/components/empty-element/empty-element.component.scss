@@ -1,0 +1,21 @@
+.advertencia{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .advertencia-img{
+        width: 10em;
+        height: 10em;
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+    p{
+        font-size: 2em;
+        color: #3bbfad;
+        margin: 0;
+        font-weight: bolder;
+    }
+}

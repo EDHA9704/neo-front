@@ -1,0 +1,408 @@
+p,label,span,option{
+    font-family: 'Exo', sans-serif;
+    margin: 0;
+}
+h5,h4,h3,h2,h1{
+    font-family: 'Righteous', cursive;
+    color: #555;
+    margin: 0;
+}
+img{
+    width: 100%;
+    height: 100%;
+}
+.header{
+    margin-top: 11rem;
+    width: 100%;
+   
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .titulo{
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-direction: column;
+            align-items: center;
+            h3{
+                font-size: 5rem;
+                color: #555;
+            }
+            span{
+                max-width: 40%;
+                min-width: 40%;
+                border: 1px solid #3bbfad;
+            }
+        }
+        
+        .header-descrip{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            .header-photo{
+                width: 10rem;
+                height: 10rem;
+                margin:1rem;
+                img{
+                    width: 100%;
+                    border-radius: 10px;
+                }
+            }
+            .header-text{
+                display: flex;
+                align-items: center;
+                max-width: 50%;
+                p{
+                    font-size: 1.7rem;
+                }
+            }
+    
+        }
+    }
+   
+}
+.main{
+    padding: 6rem;
+    min-height: 38em;
+ 
+}
+.custom-cards{
+    position: relative; 
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .spinn{
+        position: absolute;
+    }
+}
+.input-label2{
+    background: #3bbfad;
+
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-weight: bold;
+}
+.input-label2:hover{
+    cursor: pointer;
+}
+
+#file2{
+    display: none;
+}
+#modalComprobante .modal-body{
+    position: relative;
+    padding: 0;
+}
+
+#modalComprobante .modal-body{
+    position: relative;
+}
+
+
+#modalComprobante .modal-body button{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    background: black;
+    padding: 0 .5rem;
+    border-radius: 50%;
+    color: white;
+    span{
+        font-size: 3rem;
+    }
+}
+
+#modalComprobante .modal-body .imgModalCom{
+    width: 100%;
+    height: 50rem;
+}
+#modalComprobante .modal-body .imgModalCom img{
+    width: 100%;
+    height: 100%;
+}
+/*----PAGES---*/
+.pgActive{
+    background: #3bbfad;
+    color: white !important;
+    padding: .1rem .8rem;
+    border-radius: 25%;
+}
+.dividerTi{
+    border-bottom: 1px solid #bfbebecc;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    padding: 0;
+    margin: 2rem 0;
+    font-size: 1.5rem;
+    color: #656363;
+}
+
+
+.btnRGM{
+    width: 100%;
+    margin-bottom: 2rem;
+    text-align: center;
+    .dropdown-menu{
+        font-size: 1.4rem;
+    }
+}
+.btnRGM button{
+    background: #3bbfad;
+    color: white;
+}
+.imgRG{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+padding-top: 10px;
+padding-bottom: 10px;
+}
+.imgRG .imgRD{
+    position: relative;
+    width: 7rem;
+    height: 7rem;
+    img{
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.btnIM{
+    position: absolute;
+    top: 5%;
+    right: -15%;
+}
+
+.btnNEXT, .btnNEXT2{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    button{
+        background: #3bbfad;
+        color: white;
+        min-height: 3rem;
+    }
+}
+
+.btnNEXT2 button:nth-child(1){
+    margin-right: 10px;
+}
+.btnNEXT button:nth-child(2){
+    margin-left: 10px;
+}
+::ng-deep .cdk-overlay-container{
+    z-index: 1200 !important;
+}
+
+.input-label2{
+    background: #3bbfad;
+
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-weight: bold;
+}
+.input-label2:hover{
+    cursor: pointer;
+}
+.biography {
+    display: block;
+    display: -webkit-box;
+    max-width: 100%;
+    height: 50px;
+    font-size: 1.7rem;
+    margin: .5rem auto;
+    line-height: 1;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#file{
+    display: none;
+}
+.modal-body{
+    font-size: 1.4rem;
+    button{
+        border: 0;
+        border-radius: 5px;
+    }
+}
+.noval{
+    opacity: .6;
+}
+#userSlc{
+    margin: 0 8rem 1rem 8rem;
+    box-shadow: 0px 0px 8px 0px #444;
+    border-radius: 5px;
+    .usrsImg{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        .Img{
+            width: 7rem;
+            height: 7rem;
+            img{
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+            }
+        }
+    }
+    .usrsInf{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+        p{
+            position: relative;
+            font-family: 'Exo', sans-serif;
+        }
+        button{
+            position: absolute;
+            right: 0;
+            top: 0;
+            i{
+                color: red;
+                font-size: 2rem;
+            }
+        }
+    }
+}
+
+.inforDONACIONES{
+    padding: 0 5rem !important;
+    .cardD{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 2rem;
+        .titulo{
+            margin-bottom: 1rem;
+            h5{
+                font-size: 2rem;
+            }
+        }
+        .infor{
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+    }
+    p{
+        font-size: 1.6rem;
+    }
+}
+
+ .tituloPage{
+     display: flex;
+     flex-direction: row;
+     flex-wrap: wrap;
+     justify-content: center;
+     padding: 8rem 0 0rem 0;
+     .tituloPage-name{
+        margin: .5rem;
+        display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+        h3{
+            font-family: 'Righteous', cursive;
+            font-size: 5rem;
+            color: #3bbfad;
+        }
+        .lineTi{
+            width: 5%;
+            border-radius: 5px;
+            border-top: 3px solid #3bbfad;
+        }
+     }
+ }
+ @media only screen and (max-width:400px){
+   
+    .content-grid-cards{
+        padding: 0 !important;
+    }
+    
+  }
+
+  @media only screen and (max-width:992px){
+   
+    .card-donacion{
+        margin: 0 0 8em 0;
+    }
+    
+  }
+ 
+  .card-donacion{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      align-items: center;
+      min-height: 20em;
+      border-radius: 10px;
+      border: 1px solid #55555538;
+      box-shadow: 0px 0px 4px 0px #444;
+      .card-foto{
+        position: absolute;
+        top: -18%;
+        width: 7em;
+        height: 7em;
+        border-radius: 50%;
+        border: 2px solid #3bbfad;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
+          img{
+            width: 85%;
+            height: 85%;
+          }
+      }
+      .card-datos{
+          width: 100%;
+          height: 17em;
+          display: flex;
+          flex-direction: column;
+          background-color: #3bbfad;
+          justify-content: center;
+          padding: 2em 1em;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          p{
+              width: 100%;
+              word-wrap: break-word;
+              color: white;
+          }
+      }
+      .card-titulo{
+        padding:  2em 1em;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 3em;
+        background-color: white;
+        border-bottom-left-radius: 10px ;
+        border-bottom-right-radius: 10px;
+        h5{
+            margin: 0;
+            font-size: 2em;
+        }
+      } 
+  }

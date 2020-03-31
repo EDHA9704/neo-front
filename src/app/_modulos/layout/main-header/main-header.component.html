@@ -1,0 +1,337 @@
+<header id="header" class="transparentHeader">
+    <div class="container">
+        <nav>
+            <div class="nav-brand">
+                <a style="cursor: pointer;" (click)="redirect()">
+
+
+                    <img *ngIf="!currentUser && keyUrl[1] == 'home'" src="../../../../../assets/img/Captura2.png">
+                    <img *ngIf="!currentUser && keyUrl[1] == 'perfil' && keyUrl[4] == 'home' " src="../../../../../assets/img/Captura2.png">
+                    <img *ngIf="!currentUser && keyUrl[1] == 'perfil' && keyUrl[2] != 'mascota' " src="../../../../../assets/img/Captura2.png">
+                    <img *ngIf="!currentUser && keyUrl[1] == 'fundacion' && photoFF" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                        photoFF}}">
+                        <img *ngIf="currentUser && keyUrl[1] == 'fundacion' && photoFF" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                            photoFF}}">
+                            <img *ngIf="currentUser && keyUrl[1] == 'perfil' && photoFF" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                                photoFF}}">
+                        <img *ngIf="!currentUser && keyUrl[1] == 'perfil' && keyUrl[4] == 'fund' && photoFF" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                            photoFF}}">
+
+                    
+                </a>
+                
+            </div>
+            <div class="menu-icons open" >
+                <i class="fa fa-bars" aria-hidden="true" *ngIf="toggleBTN == false" ></i>
+                <i class="fa fa-bars" aria-hidden="true" *ngIf="toggleBTN == true" ></i>
+            </div>
+            <ul class="nav-list">
+                <div class="menu-icons close">
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                </div>
+                <li class="nav-item" *ngFor = "let link of mainLinks">
+                    <a [routerLinkActive]="['current']"   routerLink="/{{link.root}}" (click)="styleHeader()"  class="nav-link">{{link.name}}</a>
+                </li>
+                <!--<li class="nav-item" >
+                    <a [routerLinkActive]="['current']"   routerLink="/home/nosotros"  class="nav-link">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a [routerLinkActive]="['current']" [routerLink]="['/home/mascotas','todos','1']" class="nav-link">Mascotas</a>
+                </li>
+                <li class="nav-item">
+                    <a [routerLinkActive]="['current']" [routerLink]="['/home/fundaciones','todos','1']" class="nav-link">Fundaciones</a>
+                </li>
+                <li class="nav-item">
+                    <a [routerLinkActive]="['current']" [routerLink]="['/home/emergencias','todos','1']" class="nav-link">Emergencias</a>
+                </li>-->
+                <li class="nav-item login" *ngIf="!currentUser">
+                    <a [routerLinkActive]="['current']" [routerLink]="['/autenticacion']" class="nav-link"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+                </li>
+            </ul>
+            <ul class="nav-list2" *ngIf="currentUser && currentUser.usuario.rol == '4'">
+                <li class="nav-item" *ngIf="currentUser">
+                    <div class="btn-group dropNAV"> 
+                        <p (click)="obtallnotificaciones(1);" style="margin:0 1em; cursor: pointer;" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                      
+                            <mat-icon  style="color: white;" matBadge="{{totalNt}}" matBadgeColor="warn">notifications_active</mat-icon>
+                              <!-- Include text description of the icon's meaning for screen-readers -->
+                             
+                          </p>
+                        <!--<button  type="button" class="btn btn-secondary" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="fa fa-bell" aria-hidden="true"></i> <span class="badge badge-light"></span>
+                        </button>-->
+                        <div class="dropdown-menu DROP dropdown-menu-right" id="dropNOTIF">
+                            <div class="containerNotifi">
+                                <div class="titulo">
+                                    <h4>Notificaciones</h4>
+                                 
+                                </div>
+    
+                                <div class="dropdown-divider"></div>
+                                <div id="divNotificacion" class="notificacion">
+    
+                                    <p style="padding: 1rem 1rem;" *ngIf="cargaN == false && notificaciones.length == 0 && currentUser.usuario.estado != 2 ">No existe notificaciones</p>
+                                    <p style="padding: 1rem 1rem;" *ngIf="currentUser.usuario.estado == 2" >Tu cuenta aún no se encuentra activa. Para activarla <a [routerLink]="['/fundacion',currentUser.usuario._id,'perfil']">actualiza tus datos</a></p>
+    
+                                    <div class="notiS" *ngFor="let not of notificaciones" [class.activeNT]="not.estado == 1">
+                                        <!--NOTIFICACION TIPO EMERGENCIA-->
+                                        <div class="contNot" (click) ="reloadD(not._id)"  [routerLink]="['/perfil/emergencia',not.emergencia._id]" *ngIf="not.tipo == 2">
+                                            <div class="imgnotiS" *ngIf="not.voluntario">
+     
+                                                <img *ngIf="not.voluntario.foto" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.voluntario.foto}}">
+                                                <img *ngIf="!not.voluntario.foto" src="../../../../assets/img/Captura2.png">
+                                            </div>
+                                            <div class="imgnotiS" *ngIf="not.ciudadano">
+    
+                                                <img *ngIf="not.ciudadano.foto" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.ciudadano.foto}}">
+                                                <img *ngIf="!not.ciudadano.foto" src="../../../../assets/img/Captura2.png">
+                                            </div>
+                                            <div class="textnotiS" >
+                                                <p *ngIf="not.ciudadano">{{not.ciudadano.nombres}} {{not.ciudadano.apellidos}} a publicado una nueva emergencia de nivel {{not.emergencia.nivelEmergencia}}</p>
+                                                <p *ngIf="not.voluntario">{{not.voluntario.nombres}} {{not.voluntario.apellidos}} a publicado una nueva emergencia de nivel {{not.emergencia.nivelEmergencia}}</p>
+                                            </div>
+                                         
+                                    
+                                            <div class="imgnotiS2" >
+                                                    <img *ngIf="not.tipo == 'emergencia' && not.emergencia.fotoMascota" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.emergencia.fotoMascota}}">
+                                                    <img *ngIf="!not.emergencia.fotoMascota" src="../../../../assets/img/Captura2.png">
+                                            </div>
+                                           
+                                        </div> 
+                                        <!--NOTIFICACION TIPO ADOPCION-->
+                                        <div class="contNot" (click) ="reloadD(not._id)"  [routerLink]="['/perfil/adopcion',currentUser.usuario._id,not.adopcion._id]" *ngIf="not.tipo == 1 ">
+                                            <div class="imgnotiS" *ngIf="not.voluntario">
+    
+                                                <img *ngIf="not.voluntario.foto" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.voluntario.foto}}">
+                                                <img *ngIf="!not.voluntario.foto" src="../../../../assets/img/Captura2.png">
+                                            </div>
+                                            <div class="imgnotiS" *ngIf="not.ciudadano">
+    
+                                                <img *ngIf="not.ciudadano.foto" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.ciudadano.foto}}">
+                                                <img *ngIf="!not.ciudadano.foto" src="../../../../assets/img/Captura2.png">
+                                            </div>
+                                            <div class="textnotiS">
+                                                <p *ngIf="not.ciudadano">{{not.ciudadano.nombres}} {{not.ciudadano.apellidos}} a solicitado adoptar a {{not.mascota.nombre}}</p>
+                                                <p *ngIf="not.voluntario">{{not.voluntario.nombres}} {{not.voluntario.apellidos}} a solicitado adoptar a {{not.mascota.nombre}}</p>
+    
+                                            </div>
+                        
+                                    
+                                            <div class="imgnotiS2" >
+                                                
+                                                    <img *ngIf="not.mascota.fotos.length > 0" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.mascota.fotos[0].name}}">
+                                                    <img *ngIf="not.mascota.fotos.length == 0" src="../../../../assets/img/Captura2.png">
+                                            </div>
+                                        </div>
+                                         <!--NOTIFICACION TIPO ADOPCION-->
+                                         <div class="contNot" (click) ="reloadD(not._id)"  [routerLink]="['/perfil/adopcion',currentUser.usuario._id,not.adopcion._id]" *ngIf="not.tipo == 9 ">
+                                            <div class="imgnotiS" *ngIf="not.voluntario">
+    
+                                                <img *ngIf="not.voluntario.foto" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.voluntario.foto}}">
+                                                <img *ngIf="!not.voluntario.foto" src="../../../../assets/img/Captura2.png">
+                                            </div>
+                                            <div class="imgnotiS" *ngIf="not.ciudadano">
+    
+                                                <img *ngIf="not.ciudadano.foto" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.ciudadano.foto}}">
+                                                <img *ngIf="!not.ciudadano.foto" src="../../../../assets/img/Captura2.png">
+                                            </div>
+                                            <div class="textnotiS">
+                                                <p >Aprobaste la adopción para {{not.mascota.nombre}}</p>
+                                            </div>
+                                            <div class="imgnotiS2" >
+                                                
+                                                    <img *ngIf="not.mascota.fotos.length > 0" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.mascota.fotos[0].name}}">
+                                                    <img *ngIf="not.mascota.fotos.length == 0" src="../../../../assets/img/Captura2.png">
+                                            </div>
+                                        </div>
+                                        <!--NOTIFICACION TIPO AYUDA - (ACOGIDA-ATENDIDA) -->
+                                        <div class="contNot" (click) ="reloadD(not._id)"  [routerLink]="['/perfil/emergencia', not.emergencia._id]" *ngIf="not.tipo == 5 || not.tipo == 6">
+                                            <div class="imgnotiS">
+    
+                                                    <img *ngIf="not.fundacion.logo" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.fundacion.logo}}">
+                                                    <img *ngIf="!not.fundacion.logo" src="../../../../assets/img/Captura2.png">
+                                                </div>
+                                           
+                                            <div class="textnotiS" >
+                                                <p *ngIf="not.tipo == 5">Has acogido una emergencia de tipo Urgente</p>
+                                                <p *ngIf="not.tipo == 6">Marcaste como atentida una emergencia de tipo Urgente</p>
+                                            </div>
+                                            <div class="imgnotiS2" >
+                                                    <img *ngIf=" not.emergencia.fotoMascota != null" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.emergencia.fotoMascota}}">
+                                                    <img *ngIf="not.emergencia.fotoMascota == null" src="../../../../assets/img/Captura2.png">
+                                            </div>
+                                          
+                                        </div>
+                                        <!--NOTIFICACION TIPO APROBADA - NEGAr EMERGENCIA ASIGNADA VOLUNTARIO -->
+                                        <div class="contNot" (click) ="reloadD(not._id)"  routerLink="/perfil/emergencia/{{not.emergencia._id}}" *ngIf="not.tipo == 7 || not.tipo == 8">
+                                            <div class="imgnotiS">
+    
+                                                    <img *ngIf="not.voluntario.foto" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.voluntario.foto}}">
+                                                    <img *ngIf="!not.voluntario.foto" src="../../../../assets/img/Captura2.png">
+                                                </div>
+                                        
+                                            <div class="textnotiS" >
+                                                <p *ngIf="not.tipo == 7">{{not.voluntario.nombres}} {{not.voluntario.apellidos}} atenderá la emergencia asignada</p>
+                                                <p *ngIf="not.tipo == 8">{{not.voluntario.nombres}} {{not.voluntario.apellidos}} no atenderá la emergencia asignada</p>
+                                            </div>
+                                            <div class="imgnotiS2" >
+                                                    <img *ngIf="not.emergencia.fotoMascota != null" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.emergencia.fotoMascota}}">
+                                                    <img *ngIf="not.emergencia.fotoMascota == null" src="../../../../assets/img/Captura2.png">
+                                            </div>
+                                        
+                                        </div>
+                                         <!--NOTIFICACION TIPO DONACION -->
+                                         <div class="contNot" (click) ="reloadD(not._id)"   *ngIf="not.tipo == 3" [routerLink]="['/perfil/donacion',currentUser.usuario._id,not.donacion._id]" >
+                                            <div class="imgnotiS" *ngIf="not.voluntario">
+    
+                                                    <img *ngIf="not.voluntario.foto" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.voluntario.foto}}">
+                                                    <img *ngIf="!not.voluntario.foto" src="../../../../assets/img/Captura2.png">
+                                                    
+                                                </div>
+                                                <div class="imgnotiS" *ngIf="not.ciudadano">
+    
+                                                    <img *ngIf="not.ciudadano.foto" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.ciudadano.foto}}">
+                                                    <img *ngIf="!not.ciudadano.foto" src="../../../../assets/img/Captura2.png">
+                                                    
+                                                </div>
+                                            <div class="textnotiS" >
+                                                <p *ngIf="not.voluntario">{{not.voluntario.nombres}} {{not.voluntario.apellidos}} realizó una nueva donación</p>
+                                                <p *ngIf="not.ciudadano">{{not.ciudadano.nombres}} {{not.ciudadano.apellidos}} realizó una nueva donación</p>
+                                            </div>
+                                            <div class="imgnotiS2" >
+                                                    <img *ngIf="not.donacion.comprobante" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.donacion.comprobante}}">
+                                                    <img *ngIf="not.donacion.foto" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.donacion.foto}}">
+                                            </div>
+                                        
+                                        </div>
+                                                          <!--NOTIFICACION TIPO DONACION ap - ng  -->
+                                                          <div class="contNot" (click) ="reloadD(not._id)"   *ngIf="not.tipo == 13 || not.tipo == 14" [routerLink]="['/perfil/donacion',currentUser.usuario._id,not.donacion._id]">
+                                                            <div class="imgnotiS" *ngIf="not.voluntario">
+                    
+                                                                    <img *ngIf="not.voluntario.foto" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.voluntario.foto}}">
+                                                                    <img *ngIf="!not.voluntario.foto" src="../../../../assets/img/Captura2.png">
+                                                                    
+                                                                </div>
+                                                             
+                                                            <div class="textnotiS" >
+                                                                <p *ngIf="not.voluntario">{{not.voluntario.nombres}} {{not.voluntario.apellidos}} aprobó la donación asignada</p>
+                                                            </div>
+                                                            <div class="imgnotiS2" >
+                                                                    <img *ngIf="not.donacion && not.donacion.comprobante" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.donacion.comprobante}}">
+                                                                    <img *ngIf="not.donacion && not.donacion.foto" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.donacion.foto}}">
+                                                            </div>
+                                                        
+                                                        </div>
+                                    </div>
+    
+                                </div>
+                                <div class="carga" *ngIf="cargaN == true">
+                                        <div class="spinner-border text-primary" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                              </div>
+                                </div>
+                              
+                            </div>
+    
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="nav-item no" *ngIf="currentUser">
+                    <div class="btn-group opciones">
+                        <button type="button" class="btn btn-secondary btnDROPOP" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" id="dropNOTIF" >
+                            <div class="containerNotifi">
+                               
+                                <div class="contentD">
+                                        <button class="dropdown-item" type="button" (click)="cerrarSesion()">Cerrar sesión</button>
+                                        <a class="dropdown-item"  [routerLink]="['/fundacion',currentUser.usuario._id,'perfil']">Actualizar perfil</a>
+                                </div>
+                                
+                            </div>
+    
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="nav-list2" *ngIf="currentUser && currentUser.usuario.rol == '1'">
+                <li class="nav-item" *ngIf="currentUser">
+                    <div class="btn-group dropNAV"> 
+
+                        <p (click)="obtallnotificaciones2(1);" style="margin:0 1em; cursor: pointer;" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                      
+                            <mat-icon  style="color: white;" matBadge="{{totalNt}}" matBadgeColor="warn">notifications_active</mat-icon>
+                              <!-- Include text description of the icon's meaning for screen-readers -->
+                             
+                          </p>
+                       
+                        <div class="dropdown-menu DROP dropdown-menu-right" id="dropNOTIF">
+                            <div class="containerNotifi">
+                                <div class="titulo">
+                                    <h4>Notificaciones</h4>
+                                 
+                                </div>
+    
+                                <div class="dropdown-divider"></div>
+                                <div id="divNotificacion" class="notificacion">
+                                    <p style="padding: 1rem 1rem;" *ngIf="notificaciones.length == 0">No existe notificaciones</p>
+                                <div class="notiS" *ngFor="let not of notificaciones" [class.activeNT]="not.estado == 0">
+                                    <div class="contNot" (click) ="reloadD(not._id)"  [routerLink]="['/admin/cuentas', not._id,not.fundacion._id]" *ngIf="not.tipo == 4">
+                                        <div class="imgnotiS" *ngIf="not.tipo == 4">
+ 
+                                            <img *ngIf="not.fundacion.logo" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.fundacion.logo}}">
+                                            <img *ngIf="!not.fundacion.logo" src="../../../../assets/img/Captura2.png">
+                                        </div>
+                                      
+                                        <div class="textnotiS">
+                                            <p>La fundación: {{not.fundacion.nombreFundacion}} solicitó unirse a la plataforma</p>
+                                        </div>
+                                     
+                                
+                                        
+                                       
+                                    </div>
+
+                                </div>
+
+                            </div>
+                                <div class="carga" *ngIf="cargaN == true">
+                                        <div class="spinner-border text-primary" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                              </div>
+                                </div>
+                              
+                            </div>
+    
+                        </div>
+                    </div>
+                </li>
+               
+                <li class="nav-item no" *ngIf="currentUser">
+                    <div class="btn-group opciones">
+                        <button type="button" class="btn btn-secondary btnDROPOP" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" id="dropNOTIF" >
+                            <div class="containerNotifi">
+                               
+                                <div class="contentD">
+                                        <button class="dropdown-item" type="button" (click)="cerrarSesion()">Cerrar sesión</button>
+                                </div>
+                                
+                            </div>
+    
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header> 
