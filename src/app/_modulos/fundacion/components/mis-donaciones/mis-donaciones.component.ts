@@ -177,10 +177,8 @@ nombres = new FormControl('', [Validators.required, Validators.pattern('^[a-z A-
     this.type = '';
     this.pagesSelec = []
     this._route.params.subscribe(params =>{
-     
       let tipo = params['tipo'];
       this.type = tipo;
-      console.log(this.keyUrl)
       this.idFun = this.keyUrl[2]
 
       this.obtFundacion(this.idFun)
@@ -207,9 +205,6 @@ nombres = new FormControl('', [Validators.required, Validators.pattern('^[a-z A-
           
           if(this.type == 'busqueda'){
             this.filtroBTN = true;
-            //devolver listado de usuarios
-            console.log(this.filtroBSQ)
-           
             $(document).ready(()=>{
             this.filtroBSQ.forEach(elem => {
               if(elem.tipo == 'tipo'){
@@ -223,8 +218,6 @@ nombres = new FormControl('', [Validators.required, Validators.pattern('^[a-z A-
             $("#tamDrop").val('Todos')
           });
             this.filtroBTN = false;
-            //devolver listado de usuarios
-            
           }
       }
   
@@ -235,8 +228,6 @@ nombres = new FormControl('', [Validators.required, Validators.pattern('^[a-z A-
 
     this._userService.obtUsuario(id).subscribe(
       response=>{
-        console.log("entro")
-        
         this.carga == false
         this.fundacion = response.usuario;
         if(this.currentUser && this.currentUser.usuario._id == this.idFun){
@@ -251,7 +242,6 @@ nombres = new FormControl('', [Validators.required, Validators.pattern('^[a-z A-
       },
       error=>{
         this.router.navigate(['**']);  
-        console.log(<any>error);
       }
     )
     
@@ -265,13 +255,11 @@ nombres = new FormControl('', [Validators.required, Validators.pattern('^[a-z A-
       response =>{
         this.carga = false;
         this.donaciones = response.donaciones;
-        console.log(this.donaciones)
         this.total = response.total;
           this.pages = response.pages;
           this.itemsPerPage = response.itemsPerPage;
           for (let i = 1; i <= this.pages; i++) {
             this.pagesSelec.push(i)
-            
           }
           this.advertencia = false;
           this.loading = false;
@@ -288,16 +276,11 @@ nombres = new FormControl('', [Validators.required, Validators.pattern('^[a-z A-
         this.loading = false;
         this.advertencia = true;
         var errorMessage = <any>error;
-          console.log(errorMessage)
-         
           if(errorMessage != null && error.error.n == '2'){
-          
             this.mensaje = 'Lo sentimos, no existe donaciones registradas';
           }else if(errorMessage != null && error.error.n == '3'){
-           
             this.mensaje = error.error.message;
           }else{
-         
             this.mensaje = 'Algo salio mal, intentalo mas tarde'
           }
       }
@@ -311,12 +294,7 @@ nombres = new FormControl('', [Validators.required, Validators.pattern('^[a-z A-
       response=>{
         this.carga = false;
         if(response.donaciones && response.n == '1'){
-          
-
-          
           $(".carga").fadeOut("slow");
-         
-         // this.fotos = response.fot;
           this.total = response.donaciones.length;
           this.pages = response.pages;
           this.itemsPerPage = response.itemsPerPage;
@@ -328,9 +306,7 @@ nombres = new FormControl('', [Validators.required, Validators.pattern('^[a-z A-
          })
           for (let i = 1; i <= this.pages; i++) {
             this.pagesSelec.push(i)
-            
           }
-          //this.obtFotos(response.mascotas._id, page);
           
         }
       },
@@ -342,39 +318,23 @@ nombres = new FormControl('', [Validators.required, Validators.pattern('^[a-z A-
         this.carga = false;
         $(".carga").fadeOut("slow");
         var errorMessage = <any>error;
-       
-        
         if(errorMessage != null && error.error.n == '2'){
           this.mensaje = 'Lo sentimos, '+error.error.message;
-         
-         
         }else if(errorMessage != null && error.error.n == '5'){
           this.mensaje = 'No se ha elegigo filtros';
-         
-         
         }
-        
         else{
-  
-         
           this.mensaje = 'Algo salio mal, intentalo mas tarde'
-         
-          
         }
       }
     )
   }
   filtroBSQD(option){
-
-    
     var optionFinal = option;
     if(optionFinal == 'Económica' || optionFinal == 'Producto'){
-      
       if(this.filtroBSQ == null){
-       
         this.filtroBSQ = [];
         this.filtroBSQ.push({tipo:'tipo',option:optionFinal})
-        
       }else{
        var ok = false;
         this.filtroBSQ.forEach(fl => {
@@ -382,14 +342,11 @@ nombres = new FormControl('', [Validators.required, Validators.pattern('^[a-z A-
             ok = true;
             fl.option = optionFinal;
           }
-  
         });
-
         if(ok == false){
           this.filtroBSQ.push({tipo:'tipo',option:optionFinal})
         }
       }
-
       localStorage.setItem('busquedaDonaciones', JSON.stringify(this.filtroBSQ));
     }
 
@@ -398,9 +355,6 @@ nombres = new FormControl('', [Validators.required, Validators.pattern('^[a-z A-
     }
 
     this._router.navigate(['/fundacion',this.idFun,'donaciones','busqueda','1']);
-    
-    
-
   }
   cancelarBus(){ 
     localStorage.removeItem('busquedaDonaciones');
@@ -409,11 +363,8 @@ nombres = new FormControl('', [Validators.required, Validators.pattern('^[a-z A-
   verComprobante(comprobante){
     $('#modalComprobante').modal('show')
     this.imgCom =comprobante;
-    console.log(comprobante)
-
   }
   prob2(){
-
     $("#cedula").keyup(()=>{
       $("#nmbr4").fadeOut("fast")
       this.cedula.setValue(this.limpiarCampo(this.cedula.value));
@@ -448,17 +399,12 @@ $("#direccion").keyup(()=>{
    
       this.descripcion.setValue(this.limpiarCampo(this.descripcion.value));
       }); 
-   
 
   }
   limpiarCampo(text){
-
     var textFin = text.replace(/([\\ \\]+(?=[\\ \\])|^\\s+|\\s+$)/g, '');
-  
     text = textFin;
-  
     return text;
-  
   }
   mostrarTab1(){
     $('#nav-tab a[href="#nav-home"]').tab('show');
@@ -472,9 +418,7 @@ $("#direccion").keyup(()=>{
   }
   selectTipo(tipo){
     this.donacion = new Donacion("","","","","","","","","","","","","","");
-
     $("#modalDonacion").modal("show")
-  
     if(tipo == 'econ'){
       this.tipE = true;
       this.tipP = false;
@@ -491,53 +435,33 @@ $("#direccion").keyup(()=>{
           });
       this.tipE = false;;
       this.tipP = true;
- 
-      
     }
-    
-    
   }
   prob(event){
-  
-   
     this.obtnerUsuarioApellidos();
-     console.log("hola")
-
-
  }
  obtnerUsuarioApellidos(){
   this.usuarios=[];
   const apels = this.myControl.value;
-
-
   if(apels != ''){
     $("#busquedaUsers").fadeIn("slow");
     this._userService.obtUsuariosByApellidos(apels).subscribe(
       response=>{
-
-
      this.usuarios = response.usuarios
-
       },
       error=>{
-        console.log(<any>error)
       }
     )
   }else{
-    
-   // $("#busquedaUsers").fadeOut("fast");
   }
 
 }
 seleccionarUsuario(user){
-    
   this.userSelect = user;
-
 }
 eliminarSeleccion(){
   this.userSelect = '';
 }
-
   public filesToUpload2: Array<File>;
   urls2 = new Array<string>();
   fileChangeEvent2(event:any){
@@ -545,7 +469,6 @@ eliminarSeleccion(){
     this.imageObj= FILE;
     if(this.imageObj.type ==  "image/jpeg" || this.imageObj.type ==  "image/png" || this.imageObj.type ==  "image/jpg"){
     this.filesToUpload2 = <Array<File>>event.target.files;
-    
      let files = <Array<File>>event.target.files;
     this.urls2 = [];
      if (files) {
@@ -571,18 +494,15 @@ eliminarSeleccion(){
   }
 
  async registrarDonacion(stepper: MatStepper){
-
   var valido = await this.validarRegistro()
   if(valido == 'ok'){
     var donacionPost = await this.prepareData()
     this._donacionService.registerDonacion(donacionPost,donacionPost.tipo).subscribe(
       response=>{
- 
         if(response.donacion && response.n == '1'){
           const imageForm = new FormData();
           imageForm.append('image', this.imageObj);
           this._uploadService.imageUpload(imageForm,'subir-comprobante/',response.donacion._id).subscribe(res => {
-            
             this._messageService.showSuccess('Donación','Registro exitoso')
             this.userSelect = "";
             this.actualPage2()
@@ -593,32 +513,10 @@ eliminarSeleccion(){
             this.filesToUpload2 = undefined;
             this.imL2 = false;
           });
-          /*this._uploadService.makeGileRequest(this.url+'subir-comprobante/'+response.donacion._id,[],this.filesToUpload2,'comprobante')
-          .then((result:any)=>{
-            //alert('si')
-             if(result.n == '1'){
-              //form.reset();
-              
-              this._messageService.showSuccess('Donación','Registro exitoso')
-              this.userSelect = "";
-              this.actualPage2()
-              $("#modalDonacion").modal("hide")
-              $("#RGDO")[0].reset();
-              $("#RGF2")[0].reset();
-              stepper.selectedIndex = 0;
-              this.filesToUpload2 = undefined;
-              this.imL2 = false;
-            
-            }
-           
-          });*/
         }
-      
-       
          
       },
       error=>{
-        console.log(<any>error)
         this._messageService.showError('Donación','Algo salio mal, inténtalo de nuevo')
       
       }
@@ -634,12 +532,8 @@ eliminarSeleccion(){
     stepper.selectedIndex = 1;
     this._messageService.showError('Foto','Selecciona una foto que válide la donación')
   }
-
-
     }
   async  validarRegistro(){
-
-
     if(this.formSelect == true){
       if(this.nombres.valid && this.apellidos.valid && this.cedula.valid && this.telefono.valid
       &&  this.celular.valid && this.direccion.valid && this.correo.valid){

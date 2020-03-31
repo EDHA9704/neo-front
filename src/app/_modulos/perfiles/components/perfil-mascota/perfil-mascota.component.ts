@@ -168,7 +168,6 @@ especie = new FormControl('', [Validators.required]);
     this.loadPage();
     this.fullUrl = this._router.url.toString()
     this.keyUrl = this.fullUrl.split('/')
-    console.log(this.keyUrl)
  
     $( document ).ready(()=> {
       if(this.keyUrl[4] == 'home'){
@@ -182,16 +181,10 @@ especie = new FormControl('', [Validators.required]);
   }
   obtMascota(id){
     this.images = []
-     
-    
      this._mascotaService.obtMascota(id).subscribe(
        response =>{
- 
          if(response.mascota && response.n == '1'){
           this.ngxService.stopLoader('loader-02');
-          // this.obtFotosMascotas(response.mascota._id);
-           //this.nObtMasc = response.n;
-           //this.vmas = true;
            this.mascota= response.mascota;
            this._comunicationService.perfilFundacionSelec(this.mascota.responsable.logo)
           $( document ).ready(()=> {
@@ -202,9 +195,6 @@ especie = new FormControl('', [Validators.required]);
               $(".mascota-header").removeClass('headerName')
             }
         });
-           console.log(this.mascota)
- 
- 
            var con = 0;
            this.mascota.fotos.forEach(element => {
              con++;
@@ -216,23 +206,16 @@ especie = new FormControl('', [Validators.required]);
              imag.image = "https://fundacionesbckimg.s3.us-east-2.amazonaws.com/"+element.name;
              imag._id = element._id;
              imag.name = element.name;
-             console.log(con)
              this.images.push(imag)
              
            });
-           console.log(this.images)
            this.mscEstado = response.mascota.estado;
-          // $('.containerLoad').fadeOut('slow')
-           
            this.mensaje = response.message;
- 
-         
          }
        },
        error=>{
          var errorMessage = <any>error;
          this._router.navigate(['**']);  
-           console.log(errorMessage)
            if(errorMessage != null && error.error.n == '2'){
              this.mensaje = 'La mascota ya no existe en el sistema.';
            }else{
@@ -248,15 +231,12 @@ especie = new FormControl('', [Validators.required]);
       this.idM = params['idM'];
       this.idFun = params['id'];
       this.name = params['mascota']
-      console.log(params)
-
       if(this.currentUser && this.currentUser.usuario._id == this.idFun){
         this.permission = true;
       }else{
         this.permission = false;
       }
        this.obtMascota(this.idM);
-       
      })
    }
    editarModal(){
@@ -266,7 +246,6 @@ especie = new FormControl('', [Validators.required]);
             this.sexo.setValue(this.mascota.sexo)
             this.raza.setValue(this.mascota.raza)
             this.color.setValue(this.mascota.color)
-            console.log(this.mascota.color)
             this.esterilizado.setValue(this.mascota.esterilizado)
             this.tamanio.setValue(this.mascota.tamanio)
             this.edadT.setValue(this.mascota.edadT)
@@ -276,10 +255,8 @@ especie = new FormControl('', [Validators.required]);
             this.descripcion.setValue(this.mascota.descripcion)
             $(document).ready(()=>{
               this.prob()
-                    
                 });
             if(this.especie.value == 'Canino'){
-  
               if(this.mascota.vacunas.Puppy == true){
                 this.ppy2.setValue(true)
               }
@@ -292,9 +269,7 @@ especie = new FormControl('', [Validators.required]);
               if(this.mascota.vacunas.Bronchicine == true){
                 this.bro.setValue(true)
               }
-                
             }else{
-              
               if(this.mascota.vacunas.TrFelina == true){
                 this.ppy.setValue(true)
               }
@@ -302,32 +277,24 @@ especie = new FormControl('', [Validators.required]);
                 this.ant.setValue(true)
               }
             }
-            
   }
   prob(){
     $("#nombre").keyup(()=>{
-         
       this.nombre.setValue(this.limpiarCampo(this.nombre.value));
 }); 
 $("#descripcion").keyup(()=>{
-         
   this.descripcion.setValue(this.limpiarCampo(this.descripcion.value));
 }); 
      
   }
   limpiarCampo(text){
-
     var textFin = text.replace(/([\\ \\]+(?=[\\ \\])|^\\s+|\\s+$)/g, '');
-  
     text = textFin;
-  
     return text;
-  
   }
   restablecerDatos(){
     this._route.params.subscribe(params =>{
       let id = params['idM'];
-     
       this.especie.setValue(this.mascota.especie)
           this.nombre.setValue(this.mascota.nombre)
           this.sexo.setValue(this.mascota.sexo)
@@ -339,12 +306,9 @@ $("#descripcion").keyup(()=>{
           this.anios.setValue(this.mascota.anios)
           this.meses.setValue(this.mascota.meses)
           this.descripcion.setValue(this.mascota.descripcion)
-     
     })
   }
   actualizarMascota(){
-    console.log(this.mascota);
-    
     this.mascota.especie = this.especie.value;
     this.mascota.nombre = this.nombre.value;
     this.mascota.sexo = this.sexo.value;
@@ -357,12 +321,9 @@ $("#descripcion").keyup(()=>{
     this.mascota.descripcion = this.descripcion.value;
     this.mascota.otherVacunas = this.otherVacunas.value
     if(this.mascota.especie == 'Felino'){
-     console.log("entroAC")
       this.mascota.vpp = this.ppy.value;
       this.mascota.va = this.ant.value;
-
     }else{
-     
       this.mascota.vpp = this.ppy2.value;
       this.mascota.vm = this.mul.value;
       this.mascota.vb = this.bro.value;
@@ -371,67 +332,46 @@ $("#descripcion").keyup(()=>{
 
     if(this.anios.value == 0 && this.meses.value == 0){
       this._messageService.showError('Edad','La edad de la mascota no puede ser 0 años 0 meses')
-      
     }else{
       this._mascotaService.actualizarMascota(this.mascota,this.currentUser.usuario._id,).subscribe(
         response=>{
   
           if(response.mascota && response.n == '1'){
             this._messageService.showSuccess('Mascota','Datos actualizados')
-
-            
             this.loadPage()
             $('#mdalEditar').modal('hide');
-           
           }else{
             this._messageService.showError('Error','No se pudo actualizar, inténtalo de nuevo')
           }
         }, 
         error=>{
           this._messageService.showError('Error','No se pudo actualizar, inténtalo de nuevo')
-
-         
         }
       );
     }
-   
-    
-  
   }
 
   imageChangedEvent: any = '';
   croppedImage: any = '';
   public nameCropFoto:any=''
   fileChangeEvent(event: any): void {
-    console.log(event)
       this.imageChangedEvent = event;
       this.nameCropFoto  = event.target.files[0].name
       this.imageReady = 'load'
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
   }
-  //para registro de mascota
-
-
   imageCropped(event: any) {
       this.croppedImage = event.base64;
-      console.log(event)
       const FILE = event.file;
       this.imageObj = FILE;
   }
-  imageLoaded() {
-   // this.imageReady= 'ok';
-      // show cropperad
-  }
+
   cropperReady() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-      // cropper ready
       this.imageReady= 'ok';
-     
   }
-  loadImageFailed() {
-      // show message
-  }
+
   subirFoto(){
     this.subiendoImage = true
     var body = {
@@ -449,63 +389,36 @@ $("#descripcion").keyup(()=>{
           this._messageService.showSuccess('Mascota','Imagen guardada.')
   
         });
-   /*this._mascotaService.registerFotoMascota(body,this.idM).subscribe(
-      response=>{
-        this.obtMascota(this.idM)
-        console.log(response)
-        this.croppedImage = ''
-        this.imageReady = ''
-        this._messageService.showSuccess('Mascota','Imagen guardada.')
-
-      },
-      error=>{
-        this._messageService.showError('Error','No se pudo guardar la imagen')
-        console.log(<any>error)
-      }
-    )
-  */
+   
   }
   //establecer como foto principal de la mascota
  fotoPrincipalMascota(id,idfoto){
-      
   this._mascotaService.establecerFTM(id,idfoto).subscribe(
     response=>{
-
       if(!response.mascota){
-        
-        console.log("mal")
       }else{
         this._messageService.showSuccess('Perfil','Foto establecida como principal')
         this.obtMascota(this.idM)
-
       }
     }, 
     error=>{
-      console.log(<any>error);
       this._messageService.showError('Error','No se pudo actualizar, inténtalo nuevamente')
 
     }
   );
 }
 eliminarFotoMascota(mid,id,path){
-  
-  console.log(mid,id,path)
   this._mascotaService.eliminarFotoMascota(mid,id,path).subscribe(
     response=>{
-      console.log(response)
       if(response.n == '1'){
         this._messageService.showSuccess('Perfil','Imagen eliminada')
         this.obtMascota(this.idM);
-
       }else if(response.n == '5'){
         this._messageService.showError('Error','La imagen de perfil ni se puede eliminar')
-       
       }
     },
     error=>{
-      console.log(<any>error)
       this._messageService.showError('Error','No se pudo actualizar, inténtalo nuevamente')
-
     }
   )
 
@@ -513,29 +426,20 @@ eliminarFotoMascota(mid,id,path){
 eliminarEstadoMascota(){
   this._mascotaService.eliminarMascotaEstado(this.mascota,this.idM).subscribe(
     response=>{
-
       if(response.mascota && response.n == '1'){
         this._messageService.showSuccess('Mascota','Mascota eliminada correctaente')
-       
         this._router.navigate([this.name,this.idFun,'mascotas','todos','1']);
-       
       }else if(response.n == '4'){
         this._messageService.showError('Permisos','No tienes permisos para esta acción')
-
-
       }
     }, 
     error=>{
       if((error != null && error.error.n == '2')){
         this._messageService.showError('Error','La mascota no existe')
-
       }else{
         this._messageService.showError('Error','Algo salió mal, inténtalo nuevamente')
 
       }
-
-
-      
     }
   );
 }

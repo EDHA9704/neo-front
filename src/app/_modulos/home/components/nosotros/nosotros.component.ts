@@ -21,15 +21,9 @@ export class NosotrosComponent implements OnInit {
   ngOnInit() {
     this._comunicationService.perfilFundacionSelec('')
     this.loading = true;
-    console.log("HOMEEEEE") 
     $( document ).ready(()=> {
-      console.log( "ready!" );
       this.toggle()
   });
-       /* this.userService.getById(this.currentUser.id).pipe(first()).subscribe(user => {
-            this.loading = false;
-            this.userFromApi = user;
-        });*/
   }
 
   toggle(){

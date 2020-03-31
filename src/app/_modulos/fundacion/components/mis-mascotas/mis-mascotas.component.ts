@@ -145,16 +145,11 @@ export class MisMascotasComponent implements OnInit {
     }
 
   ngOnInit() {
-    console.log("entro MASC")
     this.actualPage2();
     $(document).ready(()=>{
       this.prob()
-            
         });
-   
       this.changeFiltro()
-
-  
   }
 
   changeFiltro(){
@@ -180,15 +175,11 @@ $("#edadDrop").change(()=>{
     this.type = '';
     this.pagesSelec = [];
     this._route.params.subscribe(params =>{
-     
       this.type= params['tipo'];
       this.idFun =this.keyUrl[2]
-
       this.obtFundacion(this.idFun)
-
       let page = +params['page'];
           this.page = page;
-          console.log(page)
           if(!params['page']){
             page = 1;
             this.page = 1;
@@ -207,9 +198,6 @@ $("#edadDrop").change(()=>{
         
         if(this.type == 'busqueda'){
           this.filtroBTN = true;
-          //devolver listado de usuarios
-          console.log("entroB")
-          
           $(document).ready(()=>{
           this.filtroBSQ.forEach(elem => {
             if(elem.tipo == 'tam'){
@@ -229,21 +217,15 @@ $("#edadDrop").change(()=>{
           $("#sexoDrop").val('Todos')
           $("#edadDrop").val('Todos')
           })
-          console.log("entroN")
           this.filtroBTN = false;
-          //devolver listado de usuarios
           this.loading = true
-          
         }
     });
     
   }
   obtFundacion(id){
-
     this._userService.obtUsuario(id).subscribe(
       response=>{
-        console.log("entro")
-        
         this.carga == false
         this.fundacion = response.usuario;
         this.changeFiltro()
@@ -263,8 +245,7 @@ $("#edadDrop").change(()=>{
        
       },
       error=>{
-        //this.router.navigate(['**']);  
-        console.log(<any>error);
+        this.router.navigate(['**']);  
       }
     )
     
@@ -277,19 +258,15 @@ $("#edadDrop").change(()=>{
       this.mascotas = []
       this._mascotaService.obtMisMascotas(this.idFun,page).subscribe(
           response=>{
-            console.log(response)
             this.carga = false;
             if(response.mascotas && response.n == '1'){
-  
               $('.conL').fadeOut('fast');
-             
               this.total= response.total;
               this.pages = response.pages;
               this.itemsPerPage = response.itemsPerPage;
               response.mascotas.forEach(ms => {
                 var tem =  ms.fotos.filter(ph => ph.estado == 'activo' );
                 this.mascotas.push({ms:ms,photo:tem[0]})
-                
               });
               this.loading = false;
               $(document).ready(()=>{
@@ -297,37 +274,25 @@ $("#edadDrop").change(()=>{
               })
               for (let i = 1; i <= this.pages; i++) {
                 this.pagesSelec.push(i)
-                
               }
               this.advertencia =false;
-              
               this.itemsMSC = this.mascotas.length;
               this.mensaje = response.message;
-             
-    
             }else{
-            //this.status = 'error';
             }
           },
           error=>{
             this.pagesSelec = []
       this.mascotas = []
-           console.log(<any>error)
             this.loading = false;
-            //this.status = 'error';  
           this.carga = false;
            this.advertencia = true;
             var errorMessage = <any>error;
-            
-            //this.status = 'error';
             if(errorMessage != null && error.error.n == '2'){
-             
               this.mensaje = 'Lo sentimos, '+error.error.message;
             }else if(errorMessage != null && error.error.n == '3'){
-             
               this.mensaje = error.error.message;
             }else{
-              
               this.mensaje = 'Algo salio mal.'
             }
           }
@@ -343,19 +308,15 @@ $("#edadDrop").change(()=>{
       this.mascotas = []
       this._mascotaService.obtMisMascotas2(this.idFun,page).subscribe(
           response=>{
-            console.log(response)
             this.carga = false;
             if(response.mascotas && response.n == '1'){
-  
               $('.conL').fadeOut('fast');
-             
               this.total= response.total;
               this.pages = response.pages;
               this.itemsPerPage = response.itemsPerPage;
               response.mascotas.forEach(ms => {
                 var tem =  ms.fotos.filter(ph => ph.estado == 'activo' );
                 this.mascotas.push({ms:ms,photo:tem[0]})
-                
               });
               this.loading = false;
               $(document).ready(()=>{
@@ -369,31 +330,21 @@ $("#edadDrop").change(()=>{
               
               this.itemsMSC = this.mascotas.length;
               this.mensaje = response.message;
-             
-    
             }else{
-            //this.status = 'error';
             }
           },
           error=>{
             this.pagesSelec = []
             this.mascotas = []
-           console.log(<any>error)
             this.loading = false;
-            //this.status = 'error';  
           this.carga = false;
            this.advertencia = true;
             var errorMessage = <any>error;
-            
-            //this.status = 'error';
             if(errorMessage != null && error.error.n == '2'){
-             
               this.mensaje = 'Lo sentimos, '+error.error.message;
             }else if(errorMessage != null && error.error.n == '3'){
-             
               this.mensaje = error.error.message;
             }else{
-              
               this.mensaje = 'Algo salio mal.'
             }
           }
@@ -404,37 +355,27 @@ $("#edadDrop").change(()=>{
   }
   buscarMascotas(page,adding=false){
     this.loading = true;
-    console.log("ENTROBUSQUDA")
     this.pagesSelec = []
     this.mascotas = []
     this._mascotaService.filtroMascotas2(this.idFun,this.filtroBSQ,page).subscribe(
       response=>{
         this.carga = false;
         if(response.mascotas && response.n == '1'){
-  
           $(".carga").fadeOut("slow");
-         
           this.total = response.total;
           this.pages = response.pages;
           this.itemsPerPage = response.itemsPerPage;
           response.mascotas.forEach(ms => {
             var tem =  ms.fotos.filter(ph => ph.estado == 'activo' );
             this.mascotas.push({ms:ms,photo:tem[0]})
-            
           });
           for (let i = 1; i <= this.pages; i++) {
             this.pagesSelec.push(i)
-            
           }
           this.advertencia =false;
           this.loading = false;
           $(".content-grid-cards").addClass('visible')
           this.itemsMSC = this.mascotas.length;
-       
-          //this.obtFotos(response.mascotas._id, page);
-          /*if(page > this.pages){
-            this._router.navigate[('/login')]
-          }*/
         }
       },
       error=>{
@@ -443,10 +384,8 @@ $("#edadDrop").change(()=>{
         this.carga = false;
         $(".carga").fadeOut("slow");
         var errorMessage = <any>error;
-       console.log(<any>error)
        this.loading = false;
        this.advertencia = true;
-      
         if(errorMessage != null && errorMessage.error.n == '2'){
           this.mensaje = 'Lo sentimos, '+error.error.message;
           this.mascotas = null;
@@ -469,37 +408,27 @@ $("#edadDrop").change(()=>{
   }
   buscarMascotas2(page,adding=false){
     this.loading = true;
-    console.log("ENTROBUSQUDA")
     this.pagesSelec = []
     this.mascotas = []
     this._mascotaService.filtroMascotas22(this.idFun,this.filtroBSQ,page).subscribe(
       response=>{
         this.carga = false;
         if(response.mascotas && response.n == '1'){
-  
           $(".carga").fadeOut("slow");
-         
           this.total = response.total;
           this.pages = response.pages;
           this.itemsPerPage = response.itemsPerPage;
           response.mascotas.forEach(ms => {
             var tem =  ms.fotos.filter(ph => ph.estado == 'activo' );
             this.mascotas.push({ms:ms,photo:tem[0]})
-            
           });
           for (let i = 1; i <= this.pages; i++) {
             this.pagesSelec.push(i)
-            
           }
           this.advertencia =false;
           this.loading = false;
           $(".content-grid-cards").addClass('visible')
           this.itemsMSC = this.mascotas.length;
-       
-          //this.obtFotos(response.mascotas._id, page);
-          /*if(page > this.pages){
-            this._router.navigate[('/login')]
-          }*/
         }
       },
       error=>{
@@ -508,7 +437,6 @@ $("#edadDrop").change(()=>{
         this.carga = false;
         $(".carga").fadeOut("slow");
         var errorMessage = <any>error;
-       console.log(<any>error)
        this.loading = false;
        this.advertencia = true;
       
@@ -535,10 +463,8 @@ $("#edadDrop").change(()=>{
   verFoto(foto){
     $('#modalComprobante').modal('show')
     this.imgCom = foto;
-
   }
   cancelarBus(){
-   
     this.bus = false;
     localStorage.removeItem('busquedaMascotasFnd');
     this._router.navigate(['/fundacion',this.idFun,'mascotas','todos','1']);
@@ -548,7 +474,6 @@ $("#edadDrop").change(()=>{
     $('#modalMascota').modal('show')
     $(document).ready(()=>{
       this.prob()
-            
         });
   }
   busc(){
@@ -556,15 +481,11 @@ $("#edadDrop").change(()=>{
   }
   filtroBSQD(option){
     this.pagesSelec = []
-    
     var optionFinal = option;
     if(optionFinal == 'Pequeño' || optionFinal == 'Mediano' || optionFinal == 'Grande'){
-      
       if(this.filtroBSQ == null){
-       
         this.filtroBSQ = [];
         this.filtroBSQ.push({tipo:'tam',option:optionFinal})
-        
       }else{
        var ok = false;
         this.filtroBSQ.forEach(fl => {
@@ -572,9 +493,7 @@ $("#edadDrop").change(()=>{
             ok = true;
             fl.option = optionFinal;
           }
-  
         });
-
         if(ok == false){
           this.filtroBSQ.push({tipo:'tam',option:optionFinal})
         }
@@ -585,7 +504,6 @@ $("#edadDrop").change(()=>{
 
     if(optionFinal == 'Macho' || optionFinal == 'Hembra'){
       if(this.filtroBSQ == null){
-       
         this.filtroBSQ = [];
         this.filtroBSQ.push({tipo:'sexo',option:optionFinal})
       }else{
@@ -595,16 +513,11 @@ $("#edadDrop").change(()=>{
             ok2 = true;
             fl.option = optionFinal;
           }
-
-  
         });
-
-       
         if(ok2 == false){
           this.filtroBSQ.push({tipo:'sexo',option:optionFinal})
         }
       }
-
       localStorage.setItem('busquedaMascotasFnd', JSON.stringify(this.filtroBSQ));
     }
     if(optionFinal == 'Cachorro' || optionFinal == 'Joven' || optionFinal == 'Adulto'){
@@ -620,7 +533,6 @@ $("#edadDrop").change(()=>{
             ok = true;
             fl.option = optionFinal;
           }
-  
         });
 
         if(ok == false){
@@ -628,24 +540,15 @@ $("#edadDrop").change(()=>{
         }
       }
       localStorage.setItem('busquedaMascotasFnd', JSON.stringify(this.filtroBSQ));
-
     }
       if(this.type == 'busqueda'){
         this.buscarMascotas(this.page)
       }
-      
-    
-   
     this._router.navigate(['/fundacion',this.idFun,'mascotas','busqueda','1']);
-    
-    
-
   }
 
   
   cancelarReg(form){
-  
-    //form.reset();
     this.resets();
     this.filesToUpload2 = undefined;
   }
@@ -662,14 +565,9 @@ $("#edadDrop").change(()=>{
     this.mul.setValue(null)
     this.ant.setValue(null)
     this.bro.setValue(null)
-
-
     $("#RGF2")[0].reset();
-
     $("#RGF3")[0].reset();
-   
   }
-   //para registro de mascota
    public filesToUpload2: Array<File>;
    urls2 = new Array<string>();
    fileChangeEvent2(event:any){
@@ -677,7 +575,6 @@ $("#edadDrop").change(()=>{
     this.imageObj= FILE;
     if(this.imageObj.type ==  "image/jpeg" || this.imageObj.type ==  "image/png" || this.imageObj.type ==  "image/jpg"){
      this.filesToUpload2 = <Array<File>>event.target.files;
-     
       let files = <Array<File>>event.target.files;
      this.urls2 = [];
       if (files) {
@@ -702,16 +599,13 @@ $("#edadDrop").change(()=>{
     }
    }
    registrarMascota(stepper: MatStepper){
-    
     this.mascota = new Mascota("","","","","","","","","","","","","","","","","","","","","");
-
     this.mascota.nombre = this.nombre.value;
     this.mascota.nombreFundacion = this.fundacion.nombreFundacion
     if(this.nuevoReg == 'f'){
       this.mascota.especie = 'Felino';
       this.mascota.vpp = this.ppy.value;
       this.mascota.va = this.ant.value;
-
     }else{
       this.mascota.especie = 'Canino';
       this.mascota.vpp = this.ppy.value;
@@ -730,42 +624,22 @@ $("#edadDrop").change(()=>{
     this.mascota.descripcion = this.descripcion.value;
     this.mascota.otherVacunas = this.otherVacunas.value;
 
-    if(
-
-
-      this.mascota.nombre == "" ||
-    
-    this.mascota.sexo == "" ||
-    this.mascota.raza == "" ||
-    this.mascota.color == "" ||
-    this.mascota.tamanio == "" ||
-    this.mascota.esterilizado== "" ||
-    this.mascota.edadT == "" ||
-    this.mascota.anios== "" ||
-    this.mascota.meses== "" ||
+    if(this.mascota.nombre == "" || this.mascota.sexo == "" || this.mascota.raza == "" ||
+    this.mascota.color == "" || this.mascota.tamanio == "" || this.mascota.esterilizado== "" ||
+    this.mascota.edadT == "" || this.mascota.anios== "" || this.mascota.meses== "" ||
     this.mascota.descripcion== ""
     ){
-      
       this._messageService.showError('Formulario','Por favor, llena todos los campos')
     }else{
-
- 
       if(this.anios.value == 0 && this.meses.value == 0){
         stepper.selectedIndex = 1;
-        
         this._messageService.showError('Formulario','La edad de la mascota debe ser mayor a cero')
-
       }else{
-        
-        
     if(this.filesToUpload2 != undefined){
       this.registrando = true;
-      
       this._messageService.showInfo('Formulario','Procesando registro') 
        this._mascotaService.registerMascota(this.mascota, this.idFun).subscribe(
          response =>{
-          
-         
            if(response.mascota && response.mascota._id && response.n == '1'){
             const imageForm = new FormData();
             imageForm.append('image', this.imageObj);
@@ -792,13 +666,8 @@ $("#edadDrop").change(()=>{
           this.registrando = false;
            if(error.error.n == '3' || error.error.n == '2'){
             this._messageService.showError('Registro',error.error.message)
-
-           
            }else{
             this._messageService.showError('Registro','Algo salio mal, inténtalo de nuevo')
-
-             
-            
            }
          }
        );
@@ -806,11 +675,8 @@ $("#edadDrop").change(()=>{
      }else{
       this._messageService.showError('Foto mascota','Selecciona una imagen')
        stepper.selectedIndex = 0;
-      
      }
       }
-      
-   
   }
   }
   prob(){
@@ -819,11 +685,9 @@ $("#edadDrop").change(()=>{
       this.nombre.setValue(this.limpiarCampo(this.nombre.value));
 }); 
 $("#vacunas").keyup(()=>{
-         
   this.otherVacunas.setValue(this.limpiarCampo(this.otherVacunas.value));
 }); 
 $("#descripcion").keyup(()=>{
-         
   this.descripcion.setValue(this.limpiarCampo(this.descripcion.value));
 }); 
       $("#nmbr").fadeOut("fast")
@@ -832,18 +696,13 @@ $("#descripcion").keyup(()=>{
 
   }
   limpiarCampo(text){
-
     var textFin = text.replace(/([\\ \\]+(?=[\\ \\])|^\\s+|\\s+$)/g, '');
-  
     text = textFin;
-  
     return text;
-  
   }
 
   redirectMascota(nombre,id,idr){
     this._router.navigate(['/perfil/mascota/',idr,'fund',nombre,id]); 
-    
   }
  public croppedImage
  public nameCropFoto
@@ -854,15 +713,10 @@ $("#descripcion").keyup(()=>{
     }
     this._mascotaService.registerFotoMascota(body,id).subscribe(
       response=>{
-        
         this.croppedImage = ''
-        
-      
-
       },
       error=>{
         this._messageService.showError('Error','No se pudo guardar la imagen')
-        console.log(<any>error)
       }
     )
   

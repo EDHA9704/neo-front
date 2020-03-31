@@ -21,12 +21,9 @@ export class AvoluntariosComponent implements OnInit {
 
   public usuarioFundacion:UsuarioFundacion;
   displayedColumns: string[] = ['nombres','cedula','correo','telefono','celular','estado'];
- 
-
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
- // displayedColumns: string[] = ['nombre'];
-  //dataSource = ELEMENT_DATA;
+
   dataSource:any;
   
   applyFilter(filterValue: string) {
@@ -45,12 +42,10 @@ export class AvoluntariosComponent implements OnInit {
     this._route.params.subscribe(params =>{
 
         this.obtVoluntarios()
-
     });
    
   }
   obtVoluntarios(){
-    
     this._usuarioService.obtUsuariosRolSP('2').subscribe(
       response=>{
         if(response.usuarios && response.n == '1'){
@@ -59,12 +54,10 @@ export class AvoluntariosComponent implements OnInit {
             this.dataSource = new MatTableDataSource<UsuarioFundacion>(this.fundaciones);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
-            console.log(this.fundaciones)
         }
       },
       error=>{
         this.carga = false;
-        console.log(<any>error)
       }
     )
   }

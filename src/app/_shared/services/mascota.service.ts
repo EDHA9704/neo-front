@@ -27,44 +27,35 @@ export class MascotaService {
     
   }
   registerFotoMascota(body,idm):Observable<any>{
-    //let params = JSON.stringify(body);
-    console.log(body)
     let headers = new HttpHeaders().set('Content-Type','application/json')
     return this._http.post(this.url+'subir-foto-mascota/'+idm, body, {headers:headers});
-    
   }
   obtMascotas(page=1):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
-
     return this._http.get(this.url+'obtener-mascotas/'+page, {headers:headers});
   }
 
   obtMascota(id):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
-
     return this._http.get(this.url+'obtener-mascota/'+id, {headers:headers});
   }
 
   obtMisMascotas(id, page = 1):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
-
     return this._http.get(this.url+'obtener-mis-mascotas/'+id+'/'+page, {headers:headers});
   }
   obtMisMascotas2(id, page = 1):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
-
     return this._http.get(this.url+'obtener-mis-mascotas2/'+id+'/'+page, {headers:headers});
   }
   obtFotosMascotas(id):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
-
     return this._http.get(this.url+'obtener-fotos-mascota/'+id, {headers:headers});
   }
 
   actualizarMascota(mascota:Mascota,id):Observable<any>{
     let params = JSON.stringify(mascota);
     let headers = new HttpHeaders().set('Content-Type','application/json')
-    
     return this._http.put(this.url+'actualizar-mascota/'+id+'/'+mascota._id,params,{headers:headers});
 }
 

@@ -15,27 +15,21 @@ export class DonacionService {
   }
 
   registerDonacion(donacion:Donacion,tipo):Observable<any>{
-    console.log(tipo)
     let params = JSON.stringify(donacion);
     let headers = new HttpHeaders().set('Content-Type','application/json')
-                                  
     return this._http.post(this.url+'nueva-donacion/'+tipo, params, {headers:headers});
-    
   }
 
   obtDonaciones(id,page=1):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json')
-
     return this._http.get(this.url+'obtener-donaciones/'+id+'/'+page, {headers:headers});
   }
 
   obtDonacion(id):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
-
     return this._http.get(this.url+'obtener-donacion/'+id, {headers:headers});
   }
   aprobarDonacion( body,idD, idF,tipo,rol):Observable<any>{
-    //let params = JSON.stringify(donacion);
     let headers = new HttpHeaders().set('Content-Type','application/json')
     return this._http.put(this.url+'aprobar-donacion/'+idD+'/'+idF+'/'+tipo+'/'+rol,body,{headers:headers});
   }
@@ -45,14 +39,11 @@ export class DonacionService {
     return this._http.put(this.url+'aprobar-donacion/'+idD+'/'+idF+'/'+tipo+'/'+rol,params,{headers:headers});
   }
   aprobarDonacionProductoVl(body,idD, idF,token,rol):Observable<any>{
-    console.log(idD)
-    //let params = JSON.stringify(donacion);
     let headers = new HttpHeaders().set('Content-Type','application/json')
     return this._http.put(this.url+'aprobarDonacionPorductoVl/'+idD+'/'+idF+'/'+rol,body,{headers:headers});
   }
 
   negarDonacion( body,idD, idF,rol):Observable<any>{
-    //let params = JSON.stringify(donacion);
     let headers = new HttpHeaders().set('Content-Type','application/json')
     return this._http.put(this.url+'negar-donacion/'+idD+'/'+idF+'/'+rol,body,{headers:headers});
   }
@@ -83,7 +74,6 @@ export class DonacionService {
     }else{
         this.filtro = null;
     }
-  
     return this.filtro;
   }
 }

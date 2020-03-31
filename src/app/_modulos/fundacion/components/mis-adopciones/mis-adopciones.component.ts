@@ -107,8 +107,6 @@ export class MisAdopcionesComponent implements OnInit,DoCheck {
       if(this.type == 'busqueda'){
         this.filtroBTN = true;
         //devolver listado de usuarios
-        console.log(this.filtroBSQ)
-        
         $(document).ready(()=>{
         this.filtroBSQ.forEach(elem => {
           if(elem.tipo == 'tam'){
@@ -128,7 +126,6 @@ export class MisAdopcionesComponent implements OnInit,DoCheck {
         $("#sexoDrop").val('Todos')
         $("#edadDrop").val('Todos')
         })
-        console.log("entroN")
         this.filtroBTN = false;
         //devolver listado de adopciones
          }
@@ -142,7 +139,6 @@ export class MisAdopcionesComponent implements OnInit,DoCheck {
 
     this._userService.obtUsuario(id).subscribe(
       response=>{
-        console.log("entro")
         
         this.carga == false
         this.fundacion = response.usuario;
@@ -155,15 +151,12 @@ export class MisAdopcionesComponent implements OnInit,DoCheck {
       },
       error=>{
         this._router.navigate(['**']);  
-        console.log(<any>error);
       }
     )
     
 
   }
   cancelarBus(){
-   
-    //this.bus = false;
     localStorage.removeItem('busquedaAdopciones');
     this._router.navigate(['/fundacion',this.idFun,'adopciones','todos','1']);
   }
@@ -172,8 +165,6 @@ export class MisAdopcionesComponent implements OnInit,DoCheck {
     this.imgCom = foto;
     this.opAd = op;
     $('#modalComprobante').modal('show')
-    console.log(this.imgCom)
-
   }
 
   obtAdopciones(page){
@@ -184,7 +175,6 @@ export class MisAdopcionesComponent implements OnInit,DoCheck {
        
         this.carga = false;
         this.adopciones = response.adopciones;
-        console.log(this.adopciones)
          this.total = response.total;
           this.pages = response.pages;
           this.itemsPerPage = response.itemsPerPage;
@@ -205,9 +195,7 @@ export class MisAdopcionesComponent implements OnInit,DoCheck {
         this.carga = false;
         this.loading = false;
         this.advertencia = true;
-        console.log(<any>error)
         var errorMessage = <any>error;
-        console.log(errorMessage)
         this.carga = false;
         this.advertencia = true;
        this.status = "error"
@@ -232,17 +220,12 @@ export class MisAdopcionesComponent implements OnInit,DoCheck {
         this.carga = false;
         if(response.adopciones && response.n == '1'){
           
-
           $(".carga").fadeOut("slow");
-      
-         // this.fotos = response.fot;
           this.total = response.total;
           this.pages = response.pages;
           this.itemsPerPage = response.itemsPerPage;
           this.adopciones = response.adopciones;
-         // this.itemsMSC = this.mascotas.length;
           this.status ='success';
-         
           for (let i = 1; i <= this.pages; i++) {
             this.pagesSelec.push(i)
             
@@ -274,21 +257,13 @@ export class MisAdopcionesComponent implements OnInit,DoCheck {
 
           this.adopciones = null;
         }
-        
         else{
-  
-          //this.n = 'n';
-          
           this.mensaje = 'Algo salio mal, intentalo mas tarde'
-
-          
         }
       }
     )
   }
   filtroBSQD(option){
-
-    console.log("entrp")
     var optionFinal = option;
     if(optionFinal == '0' || optionFinal == '1' || optionFinal == '2'){
       
@@ -306,22 +281,16 @@ export class MisAdopcionesComponent implements OnInit,DoCheck {
           }
   
         });
-
         if(ok == false){
           this.filtroBSQ.push({tipo:'estado',option:optionFinal})
         }
       }
-
       localStorage.setItem('busquedaAdopciones', JSON.stringify(this.filtroBSQ));
     }
-
     if(this.type == 'busqueda'){
       this.buscarAdopciones(this.page)
     }
     this._router.navigate(['/fundacion',this.idFun,'adopciones','busqueda','1']);
-    
-    
-
   }
   redirectAdopcion(idr,id){
     this._router.navigate(['/perfil/adopcion/',idr,id]); 

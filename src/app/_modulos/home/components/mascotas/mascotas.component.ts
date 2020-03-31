@@ -58,14 +58,10 @@ export class MascotasComponent implements OnInit {
   }
 
   ngOnInit() {
-    
     this._comunicationService.perfilFundacionSelec('')
- 
-    //this.obtMascotas(this.page)
     this.loadPage()
     $(document).ready(()=>{
       $("#tamDrop").change(()=>{
-
         this.select = $("#tamDrop").val();
         this.filtroBSQD(this.select)
     });
@@ -83,26 +79,20 @@ export class MascotasComponent implements OnInit {
   });  
   }
   ngDoCheck(){
-
     this.filtroBSQ = this._mascotaService.obtFiltro();
-    
   }
   obtMascotas(page,adding=false){
-    //this.ngxService.startLoader('loader-01');
    this.pagesSelec = []
     this.mascotas = []
     this.status = 'procesando';
 
     this._mascotaService.getList().pipe(first()).subscribe(
       res=>{
-        console.log()
         var response:any = res
         this.carga = false;
         $(".carga").fadeOut("slow");
         if(response.mascotas && response.n == '1'){
           $(".carga").fadeOut("slow");
-          
-          
           this.fotos = response.fot;
           this.total = response.total;
           this.pages = response.pages;
@@ -124,16 +114,8 @@ export class MascotasComponent implements OnInit {
           this.advertencia = false;
           this.status ='success';
           $('.containerLoad').fadeOut('slow');
-      
-          //this.obtFotos(response.mascotas._id, page);
-         /* if(page > this.pages){
-            this._router.navigate[('/login')]
-          }*/
-         
-
         }else{
           
-          console.log(response.n)
           this.status = 'error';
           this.pagesSelec = []
     this.mascotas = []
@@ -149,7 +131,6 @@ export class MascotasComponent implements OnInit {
         this.loading = false;
         $(".carga").fadeOut("slow");
         var errorMessage = <any>error;
-        console.log(errorMessage)
         this.status = 'error';
         if(errorMessage != null && error.error.n == '2'){
           this.n = error.error.n;
@@ -182,10 +163,7 @@ export class MascotasComponent implements OnInit {
       let tipo = params['tipo'];
       this.type = tipo
       let page = +params['page'];
-     
-      console.log(tipo)
       this.page = page;
-
       if(!params['page']){
         page = 1;
         this.page = 1;
@@ -204,8 +182,6 @@ export class MascotasComponent implements OnInit {
       if(this.type == 'busqueda'){
         
         this.filtroBTN = true;
-        //devolver listado de usuarios
-        console.log(this.filtroBSQ)
         this.buscarMascotas(page)
         this.filtroBSQ.forEach(elem => {
           $(document).ready(()=>{
@@ -229,9 +205,7 @@ export class MascotasComponent implements OnInit {
         $("#sexoDrop").val('Todos')
         $("#edadDrop").val('Todos')
         })
-        console.log("entroN")
         this.filtroBTN = false;
-        //devolver listado de usuarios
         this.obtMascotas(page);
       }
     
@@ -252,16 +226,11 @@ export class MascotasComponent implements OnInit {
   buscarMascotas(page,adding=false){
     this.pagesSelec =[]
     this.mascotas = []
-     console.log(this.filtroBSQ)
     this._mascotaService.filtroMascotas(this.filtroBSQ,page).subscribe(
       response=>{
-        console.log(response)
         this.carga = false;
         $(".carga").fadeOut("slow");
-
         if(response.mascotas && response.n == '1'){
-         
-         
           this.advertencia = false;
           this.fotos = response.fot;
           this.total = response.total;
@@ -270,7 +239,6 @@ export class MascotasComponent implements OnInit {
           response.mascotas.forEach(ms => {
             var tem =  ms.fotos.filter(ph => ph.estado == 'activo' );
             this.mascotas.push({ms:ms,photo:tem[0]})
-            
           });
           for (let i = 1; i <= this.pages; i++) {
             this.pagesSelec.push(i)
@@ -280,8 +248,6 @@ export class MascotasComponent implements OnInit {
           this.status ='success';
           this.loading = false;
           $(".content-grid-cards").addClass('visible')
-          console.log(this.mascotas)
-          //this.obtFotos(response.mascotas._id, page);
           if(page > this.pages){
             this._router.navigate[('/mascotas/todos/1')]
           }
@@ -353,31 +319,18 @@ export class MascotasComponent implements OnInit {
     }else{
       edad = 'edadNull';
     }
-
     busqueda.push(valoresTamanio, valoresSexo, valoresEdad);
-    
     localStorage.setItem('busquedaMascotas2', JSON.stringify(busqueda));
-    
     this._router.navigate(['mascotas',tam,sex,edad]);
    this.loadPage()
-    
-  }
-
-  cancelarBusqueda(){
-    
   }
 
   filtroBSQD(option){
-
-    
     var optionFinal = option;
     if(optionFinal == 'Pequeño' || optionFinal == 'Mediano' || optionFinal == 'Grande'){
-      
       if(this.filtroBSQ == null){
-       
         this.filtroBSQ = [];
         this.filtroBSQ.push({tipo:'tam',option:optionFinal})
-        
       }else{
        var ok = false;
         this.filtroBSQ.forEach(fl => {
@@ -387,7 +340,6 @@ export class MascotasComponent implements OnInit {
           }
   
         });
-
         if(ok == false){
           this.filtroBSQ.push({tipo:'tam',option:optionFinal})
         }
@@ -398,7 +350,6 @@ export class MascotasComponent implements OnInit {
 
     if(optionFinal == 'Macho' || optionFinal == 'Hembra'){
       if(this.filtroBSQ == null){
-       
         this.filtroBSQ = [];
         this.filtroBSQ.push({tipo:'sexo',option:optionFinal})
       }else{
@@ -408,11 +359,7 @@ export class MascotasComponent implements OnInit {
             ok2 = true;
             fl.option = optionFinal;
           }
-
-  
         });
-
-       
         if(ok2 == false){
           this.filtroBSQ.push({tipo:'sexo',option:optionFinal})
         }
@@ -421,9 +368,7 @@ export class MascotasComponent implements OnInit {
       localStorage.setItem('busquedaMascotas2', JSON.stringify(this.filtroBSQ));
     }
     if(optionFinal == 'Cachorro' || optionFinal == 'Joven' || optionFinal == 'Adulto'){
-      
       if(this.filtroBSQ == null){
-       
         this.filtroBSQ = [];
         this.filtroBSQ.push({tipo:'edad',option:optionFinal})
       }else{
@@ -433,7 +378,6 @@ export class MascotasComponent implements OnInit {
             ok = true;
             fl.option = optionFinal;
           }
-  
         });
 
         if(ok == false){
@@ -445,15 +389,10 @@ export class MascotasComponent implements OnInit {
     }
     if(this.type == 'busqueda'){
       this.buscarMascotas(this.page)
-
     }
     this._router.navigate(['/home/mascotas','busqueda','1']);
-    
-    
-
   }
   redirectMascota(nombre,name,id,idr){
     this._router.navigate(['perfil/mascota',idr,'home',nombre,id]);
-    
   }
 }

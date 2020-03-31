@@ -69,13 +69,10 @@ export class FundacionesComponent implements OnInit {
       this.page = page;
       let tipo = params['tipo'];
       this.type = tipo;
-      console.log(this.type)
-     
       if(!params['page']){
         page = 1;
         this.page = 1;
       }
-      
       if(!page){
         page = 1;
         
@@ -88,9 +85,7 @@ export class FundacionesComponent implements OnInit {
         }
       }
       if(this.type == 'busqueda'){
-        console.log("actypeBUS")
         this.filtroBTN = true;
-       
         this.buscarFundaciones(page)
         this.filtroBSQ.forEach(elem => {
           if(elem.tipo == 'sec'){
@@ -106,24 +101,18 @@ export class FundacionesComponent implements OnInit {
        
        
       }else{
-        console.log("actypeOBT")
         $(document).ready(()=>{
           $("#sectorDrop").val('Todos')
         });
-       
         this.filtroBTN = false;
-        //devolver listado de usuarios
         this.obtFundacionesActivas(page);
       }
-      //devolver listado de usuarios
     });
   }
  prob(){
-
     $("#bsFunNombre").keyup(()=>{
       this.obtnerFundacionesByNombre();
       this.busqueda = true;
-  
   }); 
   }
 
@@ -132,17 +121,10 @@ export class FundacionesComponent implements OnInit {
     this.pagesSelec = []
     this.loading = true
     const nombre = $("#bsFunNombre").val();
-   
-    const resultado = document.querySelector('#busquedaUsers');
-
     if(nombre != ''){
       this._usuarioService.obtFundacionesByNombre(nombre).subscribe(
         response=>{
-         
           if(response.usuarios && response.n == '1'){
-
-             
-            
             this.fundaciones = response.usuarios;
             this.itemsFund = this.fundaciones.length;
             this.total = this.fundaciones.length;
@@ -155,11 +137,9 @@ export class FundacionesComponent implements OnInit {
           this.fundaciones = []
           this.loading = false;
     this.pagesSelec = []
-          console.log(<any>error)
           this.carga = false;
           $(".carga").fadeOut("slow");
           var errorMessage = <any>error;
-          console.log(errorMessage);
           this.advertencia = true;
           this.status = 'error';
           if(errorMessage != null && error.error.n == '2'){
@@ -189,19 +169,14 @@ export class FundacionesComponent implements OnInit {
     
   }
   obtFundacionesActivas(page){
-    console.log("ENTROOOOOO")
     this.fundaciones = []
     this.pagesSelec = []
     let rol = 4;
-   
     this.status = 'procesando';
-    
     this._usuarioService.obtUsuariosRol(page, rol).subscribe(
       response=>{
-        console.log(response)
         if(response.usuarios && response.n == '1'){
           this.carga = false;
-
           $(".carga").fadeOut("slow");
           this.total = response.total;
           this.pages = response.pages;
@@ -219,11 +194,8 @@ export class FundacionesComponent implements OnInit {
           if(page > this.pages){
             this._router.navigate(['/fundaciones/todos/1'])
           }
-          
-
         }else{
           this.loading = false;
-          console.log(response.n)
           this.status = 'error';
           this.mensaje = 'Algo salió mal.'
         }
@@ -232,11 +204,9 @@ export class FundacionesComponent implements OnInit {
         this.fundaciones = []
         this.pagesSelec = []
         this.loading = false;
-        console.log(error)
         this.carga = false;
         $(".carga").fadeOut("slow");
         var errorMessage = <any>error;
-        console.log(errorMessage);
         this.advertencia = true;
         this.status = 'error';
         if(errorMessage != null && error.error.n == '2'){
@@ -254,16 +224,11 @@ export class FundacionesComponent implements OnInit {
     )
   }
   filtroBSQD(option){
-
-    
     var optionFinal = option;
     if(optionFinal == 'Norte' || optionFinal == 'Centro' || optionFinal == 'Sur'){
-      
       if(this.filtroBSQ == null){
-       
         this.filtroBSQ = [];
         this.filtroBSQ.push({tipo:'sec',option:optionFinal})
-        
       }else{
        var ok = false;
         this.filtroBSQ.forEach(fl => {
@@ -271,35 +236,24 @@ export class FundacionesComponent implements OnInit {
             ok = true;
             fl.option = optionFinal;
           }
-  
         });
-
         if(ok == false){
           this.filtroBSQ.push({tipo:'sec',option:optionFinal})
         }
       }
-
       localStorage.setItem('busquedaFundacionesSC', JSON.stringify(this.filtroBSQ));
     }
-
-    
     if(this.type == 'busqueda'){
       this.buscarFundaciones(this.page)
     }
-      
     this._router.navigate(['/home/fundaciones','busqueda','1']);
-    
-    
-
   }
   buscarFundaciones(page,adding=false){
-    console.log("ENTROBUSQUEDA")
     this.pagesSelec = []
     this.fundaciones = []
     this.loading = true;
         this._usuarioService.filtroFundaciones(this.filtroBSQ,page).subscribe(
           response=>{
-           
             this.carga = false;
             $(".carga").fadeOut("slow");
             if(response.fundaciones && response.n == '1'){
@@ -310,12 +264,10 @@ export class FundacionesComponent implements OnInit {
               this.fundaciones = response.fundaciones;
               for (let i = 1; i <= this.pages; i++) {
                 this.pagesSelec.push(i)
-                
               }
               this.itemsFund = this.fundaciones.length * page;
               this.advertencia = false;
               this.status ='success';
-              //this.obtFotos(response.mascotas._id, page);
               this.loading = false;
               $(".content-grid-cards").addClass('visible')
               if(page > this.pages){
@@ -331,18 +283,13 @@ export class FundacionesComponent implements OnInit {
             this.loading = false;
             $(".carga").fadeOut("slow");
             var errorMessage = <any>error;
-           
-            
             if(errorMessage != null && error.error.n == '2'){
               this.mensaje = 'Lo sentimos, '+error.error.message;
             }else if(errorMessage != null && error.error.n == '5'){
               this.mensaje = 'No se ha elegigo filtros';
             }
-            
             else{
-      
               this.n = 'n';
-              
               this.mensaje = 'Algo salio mal, intentalo mas tarde'
             }
           }

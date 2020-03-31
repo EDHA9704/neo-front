@@ -104,20 +104,14 @@ public cargaPortads = false;
       this.ngxService.startLoader('loader-02');
       this.url = environment.apiUrl;
       this.currentUser = this.authenticationService.currentUserValue;
-      console.log(this.currentUser)
       this.historia = new Historia("","","","");
       this.portada = new PortadaFundacion("","","","","")
       this.lgtHI = false;
-     /* $(document).ready(()=>{
-        this.prob()
-              
-          });*/
      }
 
   ngOnInit() {
     this.loadPage()
     $( document ).ready(()=> {
-      console.log( "ready fundaicon!" );
       this.toggle()
       if($( window ).width() <= 720){
         this.largeHS = false;
@@ -134,31 +128,25 @@ public cargaPortads = false;
         this.largeHS = true;
       }
 });
-
   }); 
   }
   loadPage(){
     this.fullUrl = this.router.url.toString()
     this.keyUrl = this.fullUrl.split('/')
- 
     this.idF = this.keyUrl[2];    
     this.obtFundacion2()
     this.obtenerHistorias(this.idF);
     this.obtPortadasFundacion(this.idF)
-      
       if(this.currentUser && this.currentUser.usuario._id == this.idF){
-
        this.valid = true;
     }else{
       this.valid = false;
     }
-  
   }
   toggle(){
     const selectElement = (s:any) => document.querySelector(s)
     selectElement('.open').addEventListener('click',()=>{
       selectElement('.nav-list').classList.add('active')
-
     })
     selectElement('.close').addEventListener('click',()=>{
       selectElement('.nav-list').classList.remove('active')
@@ -169,11 +157,6 @@ public cargaPortads = false;
 
     this.userService.obtUsuario(this.idF).subscribe(
       response=>{
-        console.log(response)
-        /*$(document).ready(()=>{
-          this.prob()
-                
-            });*/
         this.usuarioFundacion = response.usuario;
         this.ngxService.stopLoader('loader-02');
         this.carga = true
@@ -184,21 +167,13 @@ public cargaPortads = false;
     )
   }
   nuevaHI(){
-   /* $(document).ready(()=>{
-      this.prob()
-            
-        });*/
-    console.log(this.historia.titulo.length);
-    console.log(this.historia.descripcion.length);
     if((this.historia.titulo.length >= 4 && this.historia.titulo.length <= 25) && (this.historia.descripcion.length >= 15 && this.historia.descripcion.length <= 1000)){
-
       if((this.filesToUpload2 != undefined && this.filesToUpload2 != null)){
         this._messageService.showInfo('Historia','Procesando')
         this.stUpload = true;
         this._fundacionService.registerHistoria(this.historia,this.currentUser.usuario._id).subscribe(
           response=>{
             if(response.historia && response.n == '1'){
-                
               const imageForm = new FormData();
               imageForm.append('image', this.imageObj2);
               this._uploadService.imageUpload(imageForm,'subir-foto-historia/',response.historia._id).subscribe(res => {
@@ -207,19 +182,12 @@ public cargaPortads = false;
                   this.filesToUpload2 = undefined;
                   this.imL2 = false; 
                   $("#modalHI").modal('hide')
-                 // $("#registerFormHI")[0].reset();historia.foto
                  this.historia = new Historia("","","","");
                   this.stUpload = false;
               });
-  
-             
-            
           }
           },
           error=>{
-            /* this.snackBar.open('Algo salio mal, intentalo de nuevo','Cerrar', {
-                    duration: 2000,
-                  });*/
                   this._messageService.showError('Historia','Algo salio mal, intentalo de nuevo')
           }
         )
@@ -228,24 +196,15 @@ public cargaPortads = false;
       }
     
     }else{
-      /*this.snackBar.open('No cumple con el número de caracteres','Cerrar', {
-        duration: 2000,
-      });*/
       this._messageService.showError('Historia','No cumple con el número de caracteres')
-
     }
-
-
   }
-  //para registro de mascota
   public filesToUpload2: Array<File>;
   urls2 = new Array<string>();
   fileChangeEvent2(event: any){
     const FILE = (event.target as HTMLInputElement).files[0];
     this.imageObj2= FILE;
-    console.log(this.imageObj2)
     this.filesToUpload2 = <Array<File>>event.target.files;
-    
      let files = <Array<File>>event.target.files;
     this.urls2 = [];
      if (files) {
@@ -263,18 +222,12 @@ public cargaPortads = false;
       this.imL2 = false;
     }
   }
-
-
   obtenerHistorias(id){
     this.historiasF = []
     this._fundacionService.obtHistoriasFundacion(id).subscribe(
       response=>{
         if(response.historias && response.n == '1'){
             this.historiasF = response.historias;
-           /* $(document).ready(()=>{
-              this.prob()
-                    
-                });*/
             if(response.historias.length == 7 ){
               this.lgtHI = true;
             }else{
@@ -283,21 +236,17 @@ public cargaPortads = false;
         }
       },
       error=>{
-        console.log(<any>error)
       }
     )
   }
   eliminarPortada(id,file){
-    console.log(file)
     if(this.portadasFundacion.length > 1){
       this._fundacionService.eliminarLogo(id,file,'FP').subscribe(
         response=>{
-          console.log(response)
          this.loadPage();
         }
       ),
       error=>{
-        console.log(<any>error)
       }
     }else{
       this._messageService.showError('Error','Debe quedar al menos una portada')
@@ -309,7 +258,6 @@ public cargaPortads = false;
   eliminarHistoria(id,image){
     this._fundacionService.eliminarHistoria(id,image).subscribe(
       response=>{
-        console.log(response)
         if(response.n == '1')
         this._messageService.showSuccess('Historia','Historia eliminada')
 
@@ -327,9 +275,7 @@ public cargaPortads = false;
         if(response.portadasFundacion){
          
           this.portadasFundacion= response.portadasFundacion;
-          console.log(this.portadasFundacion)
           this.cargaPortads = true
-         // this.hh = []
         if(this.p == 1){
           for(var i=0; i < this.portadasFundacion.length; i++){
 
@@ -337,31 +283,19 @@ public cargaPortads = false;
               "numero":i
             })
             this.p++;
-
-
           }
         }
-         
-      
-          
         }else{
-
-          //this.status = 'error';
-         console.log("mal")
-
         }
       },
       error=>{
         this.portadasFundacion = []
         this.cargaPortads = true
-        console.log(<any>error);
-        //this._router.navigate(['/mascotas']);
       }
     );
   }
 
   registrarPortada(form){
-
     if(this.filesToUpload3 != undefined){
       this.advertenciaNewPor = true;
       this.statusNewPor = 'procesando';
@@ -378,65 +312,14 @@ public cargaPortads = false;
               this.imageUrl = res['image'];
               this._messageService.showSuccess('Portada','Se subió la portada correctamente')
               this.statusNewPor='success';
-              //this.mensajeNewPor = response.message;
               this.loadPage()
               $("#exampleModal").modal('hide')
               $("#mdalPOR")[0].reset();
-             
-             
               this.filesToUpload3 = undefined;
               this.imL3 = false;
               this.stUpload = true;
              
             });
-           
-            //this.portada.foto = result.foto;
-              /*this._uploadService.makeGileRequest(this.url+'subir-portada-fundacion/'+this.idF+'/'+response.portada._id,[],this.filesToUpload3,'foto')
-              .then((result:any)=>{
-                //alert('si')
-
-                if(result.n == '6' || result.n == '5' || result.n == '4' || result.n == '2'  || result.n == '1'){
-                  this.statusNewPor='error';
-                  this.mensajeNewPor = result.message;
-                  this.imL3 = false;
-                  this.filesToUpload3 = undefined;
-                  form.reset();
-                  
-                  setTimeout(()=>{ this.advertenciaNewPor = false;}, 5000);
-                  this._fundacionService.borrarPortada(response.portada._id).subscribe(
-                    response=>{
-                      
-                    },
-                    error=>{
-
-                })
-                }else if(result.n == '3'){
-                  this.statusNewPor='success';
-                  //this.mensajeNewPor = response.message;
-                  this.loadPage()
-                  $("#exampleModal").modal('hide')
-                  $("#mdalPOR")[0].reset();
-                 
-                 
-                  this.filesToUpload3 = undefined;
-                  this.imL3 = false;
-                 
-                  this.portada.foto = result.foto;
-                 
-                }
-                console.log(result)
-                //this.status = 'success';
-               // $('#modalFundacion').modal('show');
-              
-              });*/
-
-             /* this.statusNewPor='success';
-              this.mensajeNewPor = response.message;
-              
-              form.reset();
-              this.filesToUpload3 = undefined;
-              this.imL3 = false;
-              setTimeout(()=>{ this.advertenciaNewPor = false;}, 3000);*/
           }else if(response.n == '5'){
             this.statusNewPor='error';
               this.mensajeNewPor = response.message;
@@ -452,7 +335,6 @@ public cargaPortads = false;
           }
         },
         error =>{
-          console.log(<any>error);
           if(error.error.n == '4' || error.error.n == '3' || error.error.n == '2'){
             this.statusNewPor='error';
             this.mensajeNewPor = error.error.message;
@@ -471,21 +353,16 @@ public cargaPortads = false;
     }else{
       this.statusNewPor= 'error';
       this.mensajeNewPor = 'Por favor, debes subir una foto para tu portada';
-     
       setTimeout(()=>{ this.advertenciaNewPor = false;}, 5000);
     }
     
    }
-
-      //para registro de portada
       public filesToUpload3: Array<File>;
       urls3 = new Array<string>();
       fileChangeEvent3(event: any){
         const FILE = (event.target as HTMLInputElement).files[0];
         this.imageObj = FILE;
- 
         this.filesToUpload3 = <Array<File>>event.target.files;
-        
          let files = <Array<File>>event.target.files;
         this.urls3 = [];
          if (files) {

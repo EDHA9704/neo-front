@@ -75,7 +75,6 @@ validarCorreo(stepper: MatStepper){
     var usuario = this.firstFormGroup.value;
     this._usuarioService.obtUsuarioCorreo(usuario).subscribe(
       response=>{
-        console.log(response)
         if(response.usuario && response.n == '1'){
 
           this.user._id = response.usuario._id;
@@ -88,7 +87,6 @@ validarCorreo(stepper: MatStepper){
       },
       error =>{
         var errorMessage = <any>error;
-        console.log(error)
         if(error.error.n == '2' ){
           this.vall = false;
           this.mensaje = 'No existe una cuenta asociada al correo electrónico.'
@@ -106,10 +104,8 @@ validarCorreo(stepper: MatStepper){
 
 
 enviarCodigoRecover(usuario:UsuarioFundacion,id, stepper: MatStepper){
-  
   this._usuarioService.enviarCodigoRecover(usuario,id).subscribe(
     response=>{
-      console.log(response)
       if(response.codigo && response.n == '3'){
         this.vall = true;
         this.codi = response.codigo;
@@ -117,15 +113,11 @@ enviarCodigoRecover(usuario:UsuarioFundacion,id, stepper: MatStepper){
             stepper.next();
             this.vallE = true;
            }, 1);
-
       }
-
 
     },
     error=>{
       var errorMessage = <any>error;
-
-      console.log(<any>error)
         this.vall = false;
         this.mensaje = 'Algo salió mal, intentalo mas tarde...'
       
@@ -175,9 +167,6 @@ eliminarCodigo(stepper: MatStepper){
       }
     },
     error=>{
-      var errorMessage = <any>error;
-
-      console.log(<any>error)
       this.vall2 = false;
       this.mensaje2 = 'Algo salió mal, intentalo mas tarde...'
     }
@@ -210,9 +199,6 @@ eliminarCodigoPrev(stepper: MatStepper){
       }
     },
     error=>{
-      var errorMessage = <any>error;
-
-      console.log(<any>error)
       this.vall2 = false;
       this.mensaje2 = 'Algo salió mal, intentalo mas tarde...'
     }
@@ -241,9 +227,6 @@ eliminarCodigoPrev2(stepper: MatStepper){
       }
     },
     error=>{
-      var errorMessage = <any>error;
-
-      console.log(<any>error)
       this.vall2 = false;
       this.mensaje2 = 'Algo salió mal, intentalo mas tarde...'
     }
@@ -266,7 +249,6 @@ cambiarPassword(){
       
     },
     error=>{
-      console.log(<any>error)
       this._meesageService.showError('Error','No se pudo actualizar')
        
     }

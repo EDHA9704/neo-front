@@ -58,39 +58,18 @@ export class AprobarComponent implements OnInit {
     this.carga = true;
     this.msjPer = false;
     this.mail = new Mail("","","","","","");
-  /*  if(this.identity != null){
-      if(this.identity.rol == '1'){
-       this.valid == true;
-       
-      }else if(this.identity.rol == '4'){
-        this._router.navigate(['fundacion',this.identity._id,'nosotros','all']);
-      }else{
-       this._router.navigate(['mascotas','todos']);
-  
-      }
-  
-    }else{
-     this._router.navigate(['mascotas','todos']);
-    }
-*/
-
   }
 
   ngOnInit() {
     $(document).ready(()=>{
       $('input[type=checkbox]').on('change', function() {
         if ($(this).is(':checked') ) {
-            console.log("Checkbox " + $(this).prop("id") +  " (" + $(this).val() + ") => Seleccionado");
         } else {
-            console.log("Checkbox " + $(this).prop("id") +  " (" + $(this).val() + ") => Deseleccionado");
         }
     });
   })
   this.valid == true;
   this.loadPage();
-
-    
-
   }
 
   loadPage() {
@@ -99,14 +78,10 @@ export class AprobarComponent implements OnInit {
       let id;
       let page;
       let idSOlicitud = params['tipo'];
-     console.log(idSOlicitud)
-
-
       if(idSOlicitud != 'all'){
         id = params['page'];
 
       }else{
-        console.log("entro")
         page = +params['page'];
         this.page = page;
         if(!params['page']){
@@ -124,8 +99,6 @@ export class AprobarComponent implements OnInit {
           }
         }
       }
-     
-
       if(idSOlicitud != 'all' && idSOlicitud != 'fundaciones' && idSOlicitud != 'voluntarios'
       && idSOlicitud != 'ciudadanos' && idSOlicitud != 'newFundacion'){
         this.verTodas = 'no';
@@ -135,9 +108,6 @@ export class AprobarComponent implements OnInit {
         this.obtFundacionesNA(this.page);
         this.verTodas = 'si';
       }
-
-
-
     })
   }
 
@@ -146,37 +116,27 @@ export class AprobarComponent implements OnInit {
     this.fundacionesNA = []
       this._usuarioService.obtFundacionesNa(page).subscribe(
         response => {
-          
-
           if (response.fundacionesNA && response.n === '1') {
             this.carga = false;
             this.advertencia = false;
             this.total = response.total;
             this.pages = response.pages;
-            console.log(this.pages + "AQUII")
             this.itemsPerPage = response.itemsPerPage;
             for (let i = 1; i <= this.pages; i++) {
               this.pagesSelec.push(i)
-              
             }
             response.fundacionesNA.forEach(e => {
                 var ff =   new Date(e.fechaFundacion);
                 var fin = ff.toLocaleDateString()
                 e.fechaFundacion = fin;
- 
                 this.fundacionesNA.push(e)
-            
             });
             $(".fundaciones").addClass('visible')
-             
             if (page > this.pages) {
-              console.log("AQUIIentro")
-
               this._router.navigate(['admin','cuentas','all','1']);
             }
           } else {
             this.carga = false;
-           // this.status = 'error';
           }
         },
         error => {
@@ -191,10 +151,7 @@ export class AprobarComponent implements OnInit {
           }else if(errorMessage != null && error.error.n == '2'){
               this._router.navigate(['admin','cuentas','all','1']);
               this.mensaje2 = error.error.message;
-
           } 
-          
-          
           else {
            
             this.mensaje2 = 'Algo salio mal.'
@@ -204,12 +161,10 @@ export class AprobarComponent implements OnInit {
 
 
   }
-
   // Obtener datos de la mascota segun su id
   obtFundacion(id) {
       this._usuarioService.obtFundacionNa(id).subscribe(
         response => {
-          console.log(response)
           if (response.n == '1') {
             
             this.carga = false;
@@ -217,9 +172,7 @@ export class AprobarComponent implements OnInit {
             if(this.fundacion.estado != 0){
               this.advertencia = true;
               this.mensaje2 = "No se pudo encontrar la fundación"
-             
             }else{
-              console.log("AQUI * *****",this.verTodas)
               this.advertencia = false;
               $(".fundaciones").addClass('visible')
             }
@@ -235,7 +188,6 @@ export class AprobarComponent implements OnInit {
         },
         error => {
           var error = <any>error;
-          console.log(error)
           this.carga = false;
           this.advertencia = true;
           if ((error != null && error.error.n == '6') || (error != null && error.error.n == '5') || (error != null && error.error.n == '4') || (error != null && error.error.n == '3')) {
@@ -246,24 +198,16 @@ export class AprobarComponent implements OnInit {
           }
         }
       );
-    
-
   }
-
-
   // activar una cuenta de fundacion
-
   aprobarCuenta(id) {
     this.status = 'procesando';
     this.idFunAD = id;
     this._usuarioService.aprobarFundacion(this.fundacion2, id).subscribe(
       response => {
         if (response.fundacion && response.n == '1') {
-
-          
           var as = "APROBADMIN";
           this.mail.asunto = as;
-
           if(this.msjPer == false){
             this.mail.mensaje = "La cuenta de "+this.fundacion2.nombreFundacion+" ha sido aprobada exitosamente. ya puedes iniciar sesión, actualizar tus datos de perfil y comenzar a publicar en nuestra plataforma."
           }
@@ -275,53 +219,37 @@ export class AprobarComponent implements OnInit {
           
     this._usuarioService.enviarEmail(this.mail).subscribe(
       res=>{
-        
         if(res.n == '3'){
           $('#modalPro').modal('hide')
           if(this.msjPer == true){
             $("#formMsjPer")[0].reset();
           }
           this._messageService.showSuccess('Cuenta','Se aprobó correctamente la cuenta. Se envió un correo a la fundación')
-      
- 
             if (this.verTodas === 'no') {
               this.status = '';
               this._router.navigate(['/admin','cuentas','all','1']);
             } else {
-
               this.status = '';
               this.obtFundacionesNA(this.page);
-
             }
-
-
-      
         }else{
           this._messageService.showError('Error','No se pudo enviar el correo de notificación a la fundación')
-
         }
-
       },
       err=>{
-        console.log(<any>err)
         this._messageService.showError('Error','No se pudo enviar el correo de notificación a la fundación')
-
       }
     )
         } else {
           this._messageService.showError('Error','No se pudo procesar el registro')
-
         }
       },
       error => {
         var error2 = <any>error;
-        console.log(error)
         this.status = 'error';
         if ((error2 != null && error2.error.n == '5') || (error2 != null && error2.error.n == '4') || (error2 != null && error2.error.n == '3') || (error2 != null && error2.error.n == '2')) {
           this.mensaje2 = error2.error.message;
-          
           this._messageService.showError('Error',this.mensaje2)
-
         } else {
           this._messageService.showError('Error',this.mensaje2)
         }
@@ -332,16 +260,11 @@ export class AprobarComponent implements OnInit {
   desaprobarCuenta(id,fund) {
     this.status = 'procesando';
     this.idFunAD = id;
-    console.log(this.idSolicitud)
     this._usuarioService.desaprobarFundacion(id).subscribe(
       response => {
         if (response.n == '1') {
-
-
-
           var as = "APROBADMIN";
           this.mail.asunto = as;
-
           if(this.msjPer == false){
             this.mail.mensaje = "La cuenta de "+fund.nombreFundacion+" ha sido aprobada exitosamente. ya puedes iniciar sesión, actualizar tus datos de perfil y comenzar a publicar en nuestra plataforma."
           }
@@ -352,15 +275,10 @@ export class AprobarComponent implements OnInit {
           this.mail.correoFundacion = fund.correo;
     this._usuarioService.enviarEmail(this.mail).subscribe(
       res=>{
-        
         if(res.n == '3'){
-
-          
-            //$("formMSJ")[0].reset();
             $('#modalPro').modal('hide')
            this.msj.setValue("")
             this._messageService.showSuccess('Cuenta','Se desaprobó correctamente la cuenta')
-
           setTimeout(() => {
             if (this.verTodas == 'no') {
               this.status = '';
@@ -368,57 +286,38 @@ export class AprobarComponent implements OnInit {
             } else {
               this.status = '';
               this.obtFundacionesNA(1);
-
             }
 
-
           }, 1000);
-
-      
         }else{
           this._messageService.showError('Error','No se pudo enviar el correo de notificación a la fundación')
-
         }
-
       },
       err=>{
         this._messageService.showError('Error','No se pudo enviar el correo de notificación a la fundación')
 
       }
     )
-        
         } else {
-
           this.status = 'error';
           this.mensaje = 'Algo salió mal, intentalo mas tarde.'
           this._messageService.showError('Error',this.mensaje)
-
         }
-
       },
       error => {
         var error2 = <any>error;
-        console.log(error)
-    
         if ((error2 != null && error2.error.n == '7') || (error2 != null && error2.error.n == '6') || (error2 != null && error2.error.n == '5') || (error2 != null && error2.error.n == '4') || (error2 != null && error2.error.n == '3') || (error2 != null && error2.error.n == '2')) {
           this.mensaje = error2.error.message;
           this._messageService.showError('Error',this.mensaje)
-
         } else {
-
           this.mensaje = 'Algo salió mal, intentalo mas tarde.'
           this._messageService.showError('Error',this.mensaje)
-
         }
       }
     )
 
   }
 
-
-  // fundaciones a cargar al iniciar la plantilla
-
-  //ver todas las fundaciones por aprobar cuenta
   verTodasFundaciones() {
     this._router.navigate(['/admin','cuentas','all','1']);
   }
@@ -426,7 +325,6 @@ export class AprobarComponent implements OnInit {
     if ($('#exampleRadios1').prop('checked') ) {
       this.msjPer = false;
       $("#formMsjPer").fadeOut("fast")
-
   }
   if ($('#personalizado').prop('checked') ) {
     this.msjPer = true;
@@ -436,7 +334,6 @@ export class AprobarComponent implements OnInit {
 
   }
   procesoCuenta(op,user){
-    console.log(user)
     this.fundacion2 = new UsuarioFundacion("","","","","","","","","","","","","","","","","","","","","","","",0,"");
     if(op == 'yes'){
       this.fundacion2 = user;
@@ -447,9 +344,6 @@ export class AprobarComponent implements OnInit {
       this.aprobarC = false;
       $('#modalPro').modal('show')
     }
-    
   }
-  enviarMail(){
-    
-  }
+
 }

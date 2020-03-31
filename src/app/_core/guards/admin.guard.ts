@@ -17,20 +17,12 @@ export class AdminGuard implements CanActivate {
       const currentUser = this.authenticationService.currentUserValue;
       
       if (currentUser) {
-        console.log(currentUser.usuario.rol)
-        console.log(next.data[0].roles.indexOf(currentUser.usuario.rol))
-          // check if route is restricted by role
           if (next.data[0].roles && next.data[0].roles.indexOf(currentUser.usuario.rol) === -1) {
-              // role not authorised so redirect to home page
               this.router.navigate(['/home']);
               return false;
           }
-
-          // authorised so return true
           return true;
       }else if(!currentUser){
-
-        // not logged in so redirect to login page with the return url
       this.router.navigate(['/autenticacion'], { queryParams: { returnUrl: state.url } });
       return true;
       }

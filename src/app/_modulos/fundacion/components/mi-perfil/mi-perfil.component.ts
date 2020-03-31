@@ -215,8 +215,6 @@ export class MiPerfilComponent implements OnInit {
       this.prob()
             
         });
-
-
              this.obtenerFundacion(this.currentUser.usuario._id);
 
   }
@@ -228,11 +226,8 @@ export class MiPerfilComponent implements OnInit {
         this.usuarioFundacion2 = response.usuario;
         this.correoAntes = response.usuario.correo;
         this.nombreAntes   = response.usuario.nombreFundacion
-        console.log(this.usuarioFundacion)
         this.usuarioFundacion.correo = response.usuario.correo;
-        //this.usuarioFundacion.direccionFundacion = response.usuario.direccion;
         this.usuarioFundacion.telefono = response.usuario.telefono;
-      
         this.mision.setValue(this.usuarioFundacion.mision);
         this.vision.setValue(this.usuarioFundacion.vision);
         this.perfil.setValue(this.usuarioFundacion.perfil);
@@ -252,8 +247,6 @@ export class MiPerfilComponent implements OnInit {
         this.link.setValue(this.usuarioFundacion.link)
         this.sector.setValue(this.usuarioFundacion.sector)
         this.barrio.setValue(this.usuarioFundacion.barrio)
-        //this.calleP.setValue(this.usuarioFundacion.calleP)
-        //this.calleS.setValue(this.usuarioFundacion.calleS)
         $(document).ready(()=>{
           this.prob()
                 
@@ -261,7 +254,6 @@ export class MiPerfilComponent implements OnInit {
 
       },
       error=>{
-        console.log(<any>error)
       }
     )
   }
@@ -404,7 +396,6 @@ $("#titular").keyup(()=>{
   this.titular.setValue(this.limpiarCampo(this.titular.value));
 }); 
 $("#banco").keyup(()=>{
-     console.log(this.banco.value)
   this.banco.setValue(this.limpiarCampo(this.banco.value));
 }); 
   
@@ -425,7 +416,6 @@ $("#banco").keyup(()=>{
   }
   //datos personales
   actualizarFundacion2(op){
-    console.log(op)
     $(document).ready(()=>{
       this.prob()
             
@@ -436,12 +426,9 @@ $("#banco").keyup(()=>{
 
       if(this.usuarioFundacion.logo == null){
         if(this.filesToUpload3 != undefined && this.filesToUpload3.length > 0){
-
           var update = {
-      
             nombreFundacion:this.usuarioFundacion.nombreFundacion,
             representante:this.usuarioFundacion.representante,
-  
           }
           if(this.nombreAntes != this.nombres.value){
             this._usuarioService.validarNombreF(this.usuarioFundacion).subscribe(
@@ -459,29 +446,9 @@ $("#banco").keyup(()=>{
 
                         this._messageService.showSuccess('Perfil','Datos actualizados')
                       });
-                     /* this._uploadService.makeGileRequest2(this.url+'subir-foto-fundacion/'+this.usuarioFundacion._id,[],this.filesToUpload3,'logo')
-                          .then((result:any)=>{
-                            if(result.n == '3' ){
-                              console.log(result)
-                              this.status='success';
-                              this.mensaje = result.message;
-                              this.usuarioFundacion.logo = result.usuario.logo;
-                              localStorage.setItem('identity', JSON.stringify(result.usuario));
-
-                              this._messageService.showSuccess('Perfil','Datos actualizados')
-                            }else{
-                             
-                              this._messageService.showError('Error','No se pudo actualizar, inténtalo de nuevo')
-                            }
-              
-              
-              
-                          });*/
-              
                     },
                     error=>{
                       this._messageService.showError('Error','No se pudo actualizar, inténtalo de nuevo')
-
                     }
                   )
                 }else if(response.n == '1'){
@@ -489,7 +456,6 @@ $("#banco").keyup(()=>{
                 }
               },  
               error=>{
-
               }
             )
           }else{
@@ -505,26 +471,6 @@ $("#banco").keyup(()=>{
 
                         this._messageService.showSuccess('Perfil','Datos actualizados')
                 });
-               /* this._uploadService.makeGileRequest2(this.url+'subir-foto-fundacion/'+this.usuarioFundacion._id,[],this.filesToUpload3,'logo')
-                    .then((result:any)=>{
-                      if(result.n == '3' ){
-                        localStorage.setItem('identity', JSON.stringify(result.usuario));
-
-                        this.status='success';
-                        this.mensaje = result.message;
-                        this.usuarioFundacion.logo = result.usuario.logo;
-                        this._messageService.showSuccess('Perfil','Datos actualizados')
-
-                      }else{
-                       
-                        this._messageService.showError('Error','No se pudo actualizar, inténtalo de nuevo')
-
-                      }
-        
-        
-        
-                    });*/
-        
               },
               error=>{
                 this._messageService.showError('Error','No se pudo actualizar, inténtalo de nuevo')
@@ -532,19 +478,15 @@ $("#banco").keyup(()=>{
               }
             )
           }
-         
         }else{
           this.status = 'error';
           this._messageService.showError('Error','Selecciona una foto')
 
         }
       }else{
-
         var update = {
-      
           nombreFundacion:this.usuarioFundacion.nombreFundacion,
           representante:this.usuarioFundacion.representante,
-
         }
         if(this.ValidaNomb != this.nombres.value){
           this._usuarioService.validarNombreF(this.usuarioFundacion).subscribe(
@@ -571,11 +513,9 @@ $("#banco").keyup(()=>{
             }
           )
         }else{
-          console.log("ëntro2")
 
           this._usuarioService.actualizarUsuario(update,this.usuarioFundacion._id).subscribe(
             response=>{
-      console.log(response)
               this.status='success';
            
               this._messageService.showSuccess('Perfil','Datos actualizados')
@@ -613,17 +553,14 @@ $("#banco").keyup(()=>{
       if(this.correoAntes != this.correo2.value){
         this._usuarioService.validarCorreoF(this.usuarioFundacion).subscribe(
           response=>{
-            console.log(response)
             if(response.n == '2'){
               this._usuarioService.actualizarUsuario(update2,this.usuarioFundacion._id).subscribe(
                 response=>{
-                  console.log(response)
                   this.status='success';
                   this._messageService.showSuccess('Perfil','Datos actualizados')
 
                 },
                 error=>{
-                  console.log(<any>error)
                   this._messageService.showError('Error','No se pudo actualizar, inténtalo de nuevo')
 
                 }
@@ -633,7 +570,6 @@ $("#banco").keyup(()=>{
             }
           },
           error=>{
-            console.log(<any>error)
           }
         )
       }else{
@@ -667,18 +603,10 @@ $("#banco").keyup(()=>{
         }else{
           this.usuarioFundacion.direccionMap = this.usuarioFundacion.direccionMap
         }
-       
-       // this.usuarioFundacion.calleP = this.calleP.value.trim();
-        //this.usuarioFundacion.calleS = this.calleS.value.trim();
-  
         var update3 = {
-        
           sector:this.usuarioFundacion.sector,
           barrio:this.usuarioFundacion.barrio,
           direccionMap: this.usuarioFundacion.direccionMap
-         // calleP:this.usuarioFundacion.calleP,
-         // calleS:this.usuarioFundacion.calleS
-  
         }
         this._usuarioService.actualizarUsuario(update3,this.usuarioFundacion._id).subscribe(
           response=>{
@@ -705,22 +633,16 @@ $("#banco").keyup(()=>{
   actualizarFundacion3(){
     this.usuarioFundacion.nombreFundacion = this.nombres.value.trim();
     this.usuarioFundacion.passwordFundacion = this.password2.value;
-
-
     var update = {
       correoFundacion:this.usuarioFundacion.correo,
       passwordFundacion:this.usuarioFundacion2.passwordFundacion,
-     
-
     }
     this._usuarioService.cambiarPss(update,this.usuarioFundacion._id).subscribe(
       response=>{
         this._messageService.showSuccess('Perfil','La contraseña se actualizo correctamente')
-
       },
       error=>{
         this._messageService.showError('Error','No se pudo actualizar, inténtalo de nuevo')
-
       }
     )
   }
@@ -731,7 +653,6 @@ $("#banco").keyup(()=>{
   const FILE = (event.target as HTMLInputElement).files[0];
   this.imageObj= FILE;
    this.filesToUpload3 = <Array<File>>event.target.files;
-   
     let files = <Array<File>>event.target.files;
    this.urls3 = [];
     if (files) {
@@ -774,7 +695,6 @@ openDialogMap(): void {
     }else{
       this.direccionSelec = ''
     }
-    console.log('The dialog was closed',result);
     
   });
 }

@@ -48,7 +48,6 @@ export class MainHeaderComponent implements OnInit {
     private _notificacionService:NotificacionService,private _communicationService:CommunicationService) {
     this.fullUrl = this.router.url.toString()
     this.keyUrl = this.fullUrl.split('/')
-    //this.cargaN = true;
     this.page = 1;
     this.url = environment.apiUrl;
    }
@@ -71,7 +70,6 @@ export class MainHeaderComponent implements OnInit {
       })
       $(window).scroll(function() {
         var height = $(window).scrollTop();
-        console.log(height)
         if(height > 100) {
           $('#header').addClass('active');
         } else {
@@ -87,21 +85,16 @@ export class MainHeaderComponent implements OnInit {
   toggle(){
     const selectElement = (s:any) => document.querySelector(s)
     selectElement('.open').addEventListener('click',()=>{
-      console.log(this.toggleBTN)
       if(this.toggleBTN == false){
         this.toggleBTN = false
         selectElement('.nav-list').classList.add('active')
       }else if(this.toggleBTN == true){
         this.toggleBTN = false
         selectElement('.nav-list').classList.remove('active')
-
       }
-      
- 
     })
     selectElement('.close').addEventListener('click',()=>{
       selectElement('.nav-list').classList.remove('active')
-
     })
   }
 
@@ -110,8 +103,6 @@ export class MainHeaderComponent implements OnInit {
     $( document ).ready(()=> {
       this.fullUrl = this.router.url.toString()
     this.keyUrl = this.fullUrl.split('/')
-    console.log("ENTRO EN STYLES")
-
     if(this.keyUrl[1] == 'home' && this.keyUrl[2] == 'inicio'){
       $("#header").addClass('transparentHeader')
       $("#header").removeClass('greenHeader')
@@ -206,8 +197,6 @@ export class MainHeaderComponent implements OnInit {
 
  
     if(this.currentUser && this.currentUser.usuario.rol == '4') {
-      console.log(this.keyUrl)
-
       if(this.keyUrl[1] == 'fundacion'){
         idKey = this.keyUrl[2]
       }else if(this.keyUrl[1] == 'perfil'){
@@ -259,11 +248,9 @@ export class MainHeaderComponent implements OnInit {
   obtEstadisticasAdmin(){
     this._notificacionService.obtALLNotificacionesADCount().subscribe(
       res=>{
-        console.log(res.total)
         this.totalNt = res.total;
       },
       err=>{
-        console.log(<any>err)
         this.totalNt = 0
       }
     )
@@ -272,28 +259,23 @@ export class MainHeaderComponent implements OnInit {
   
     this._notificacionService.obtALLNotificacionesCount().subscribe(
       res=>{
-        console.log(res.total)
         this.totalNt = res.total;
         if(this.currentUser.usuario.estado == 2){
           this.totalNt++;
         }
       },
       err=>{
-        console.log(<any>err)
         this.totalNt = 0
       }
     )
   } 
   obtallnotificaciones2(page,adding=false){
-    console.log("entroo noif ******")
     this.cargaN = true;     
-    //this.identity = this._usuarioService.obtIdentity();
     this.obtEstadisticasAdmin()
     this._notificacionService.obtALLNotificacionesAD(page).subscribe(
       response=>{
 
         if(response.notificaciones){
-          console.log(response)
           this.total = response.totalPubli;
           this.pages = response.pages;
           this.itemsPerPage = response.itemsPerPage;
@@ -317,19 +299,16 @@ export class MainHeaderComponent implements OnInit {
       error=>{
         this.notificaciones = []
         this.cargaN = false;    
-        console.log(<any>error)
       }
     )
   }
   obtallnotificaciones(page,adding=false){
     this.cargaN = true;    
     this.obtEstadisticasFUND() 
-    //this.identity = this._usuarioService.obtIdentity();
     this._notificacionService.obtALLNotificaciones(page).subscribe(
       response=>{
 
         if(response.notificaciones){
-          console.log(response)
           this.total = response.totalPubli;
           this.pages = response.pages;
           this.itemsPerPage = response.itemsPerPage;
@@ -343,8 +322,6 @@ export class MainHeaderComponent implements OnInit {
             this.notificaciones = arrayA.concat(arrayB);  
             this.cargaN = false;      
           }
-          
-          
         }else{
           this.status = 'error';
           this.mensaje = 'No existe notificaciones'
@@ -352,7 +329,6 @@ export class MainHeaderComponent implements OnInit {
       },
       error=>{
         this.cargaN = false;    
-        console.log(<any>error)
       }
     )
   }
@@ -360,12 +336,9 @@ async  deleteOneSignal(id,signal){
   this.signal =  await localStorage.getItem('idsignal')
     this._notificacionService.eliminarOneSignal(id,signal).subscribe(
       response=>{
-        console.log(response)
         localStorage.removeItem('idsignal');
-
       },
       error=>{
-        console.log(<any>error)
       }
     )
   }
@@ -378,10 +351,7 @@ async  deleteOneSignal(id,signal){
     await this.authenticationService.logout()
     this.getLinks()
     this.styleHeader()
-   /* localStorage.clear();
-    this.currentUser = this.authenticationService.currentUserValue;
-    //this.identity = null;
-    this._router.navigate(['/']);*/
+ 
   }
   public noMore = false;
   verMas(){
@@ -389,7 +359,6 @@ async  deleteOneSignal(id,signal){
     if(this.page == this.pages){
       this.noMore = true;
     }
-   // $("html, body").animate({scrollTop:$('body').prop("scrollHeight")},500);
     this.obtallnotificaciones(this.page, true);
   }
 
@@ -437,13 +406,8 @@ async  deleteOneSignal(id,signal){
         }else{
           this.obtEstadisticasFUND() 
         }
-       
-        
-        console.log(res)
-        
       },
       err=>{
-        console.log(<any>err)
       }
     )
   }

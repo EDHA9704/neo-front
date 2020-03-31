@@ -12,8 +12,6 @@ export class AutenticacionGuard implements CanLoad {
     route: Route,
     segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
       const currentUser = this.authenticationService.currentUserValue;
-      console.log(currentUser)
-console.log("ENTRO GUARD")
       if(!currentUser){
         return true
       }else{

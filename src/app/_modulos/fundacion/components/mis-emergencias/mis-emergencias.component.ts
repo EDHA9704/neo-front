@@ -54,7 +54,6 @@ export class MisEmergenciasComponent implements OnInit,DoCheck{
     this.bus = false;
     this.itemsEmer = 0;
     this.currentUser = this.authenticationService.currentUserValue;
-
     this.advertencia = false;
     this.carga = true;
   }
@@ -62,7 +61,6 @@ export class MisEmergenciasComponent implements OnInit,DoCheck{
   ngOnInit() {
     this.page = 1;
     this.actualPage();
-    //this.obtVoluntarios()
     this.changeFiltros()
   }
   ngDoCheck(){
@@ -73,12 +71,10 @@ export class MisEmergenciasComponent implements OnInit,DoCheck{
   changeFiltros(){
     $(document).ready(()=>{
       $("#tipoDrop").change(()=>{
-
         this.select = $("#tipoDrop").val();
         this.filtroBSQD(this.select)
     });
     $("#estadoDrop").change(()=>{
-
       this.select = $("#estadoDrop").val();
       this.filtroBSQD(this.select)
   });
@@ -88,28 +84,17 @@ export class MisEmergenciasComponent implements OnInit,DoCheck{
   actualPage(){
     this.type = ''
     this.pagesSelec = []
-   //this.statusAyuda = null;
-  // $('#modalAyudarEmergencia').modal('hide')
   this._route.params.subscribe(params =>{
-    
     let tipo = params['tipo'];
     this.type = tipo;
-    
     this.idFun = this.keyUrl[2]
-
     let page = +params['page'];
     this.page = page;
     this.obtFundacion(this.idFun)
-   /* let newF = params['new'];
-    if(newF == 'new'){
-      this.newEmer = true;
-    }*/
-   
     if(!params['page']){
       page = 1;
       this.page = 1;
     }
-    
     if(!page){
       page = 1;
     }else{
@@ -133,8 +118,6 @@ export class MisEmergenciasComponent implements OnInit,DoCheck{
       $("#estadoDrop").val('Todos')
       })
       this.filtroBTN = false;
-      //devolver listado de emergencias
-     
     }
 
     
@@ -158,8 +141,6 @@ obtFundacion(id){
 
   this._userService.obtUsuario(id).subscribe(
     response=>{
-      console.log("entro")
-      
       this.carga == false
       this.fundacion = response.usuario;
       this.changeFiltros()
@@ -172,7 +153,6 @@ obtFundacion(id){
     },
     error=>{
       this.router.navigate(['**']);  
-      console.log(<any>error);
     }
   )
   
@@ -181,7 +161,6 @@ obtFundacion(id){
 verFoto(foto){
   $('#modalComprobante').modal('show')
   this.imgCom = foto;
-
 }
  obtEmergencias(page){
    this.loading = true;
@@ -192,15 +171,12 @@ verFoto(foto){
      response=>{
        this.carga = false;
        if(response.emergencias && response.n == '1'){
-
          this.total = response.total;
          this.pages = response.pages;
-        
          this.itemsPerPage = response.itemsPerPage;
          this.emergencias = response.emergencias;
          for (let i = 1; i <= this.pages; i++) {
            this.pagesSelec.push(i)
-           
          }
          this.loading = false;
          $(document).ready(()=>{
@@ -212,7 +188,6 @@ verFoto(foto){
 
 
        }else{
-         console.log(response.n)
          this.status = 'error';
          this.mensaje = 'Algo salió mal.'
        }
@@ -222,7 +197,6 @@ verFoto(foto){
       this.emergencias = []
        $(".carga").fadeOut("slow");
        var errorMessage = <any>error;
-       console.log(errorMessage)
        this.carga = false;
        this.loading = false;
        this.advertencia = true;
@@ -251,13 +225,11 @@ verFoto(foto){
         this.emergencias = response.emergencias;
         for (let i = 1; i <= this.pages; i++) {
           this.pagesSelec.push(i)
-          
         }
         this.loading = false;
         $(document).ready(()=>{
         $(".content-grid-cards").addClass('visible')
         })
-        console.log(this.emergencias)
         this.itemsEmer = this.emergencias.length;
         this.status ='success';
 
@@ -276,8 +248,6 @@ verFoto(foto){
       this.status = 'error';  
       $(".carga").fadeOut("slow");
       var errorMessage = <any>error;
-     
-      
       if(errorMessage != null && error.error.n == '2'){
         this.mensaje = 'Lo sentimos, '+error.error.message;
         this.emergencias = null;
@@ -285,34 +255,25 @@ verFoto(foto){
         this.mensaje = 'No se ha elegigo filtros';
         this.emergencias = null;
       }
-      
       else{
-
         this.n = 'n';
-        
         this.mensaje = 'Algo salio mal, intentalo mas tarde'
       }
     }
   )
 }
 cancelarBus(){
-   
   this.bus = false;
   localStorage.removeItem('busquedaEmergencias2');
   this._router.navigate(['/fundacion',this.idFun,'emergencias','todos','1']);
 }
 
 filtroBSQD(option){
-
-  console.log(option)
   var optionFinal = option;
   if(optionFinal == 'Mal estado de salud' || optionFinal == 'Accidente' || optionFinal == 'Preñada' || optionFinal == 'Con cachorros'|| optionFinal == 'Maltrato' || optionFinal == 'Abandono'){
-    
     if(this.filtroBSQ == null){
-     
       this.filtroBSQ = [];
       this.filtroBSQ.push({tipo:'tipoE',option:optionFinal})
-      
     }else{
      var ok = false;
       this.filtroBSQ.forEach(fl => {
@@ -320,20 +281,16 @@ filtroBSQD(option){
           ok = true;
           fl.option = optionFinal;
         }
-
       });
-
       if(ok == false){
         this.filtroBSQ.push({tipo:'tipoE',option:optionFinal})
       }
     }
-
     localStorage.setItem('busquedaEmergencias2', JSON.stringify(this.filtroBSQ));
   }
 
   if(optionFinal == '0' || optionFinal == '1' || optionFinal == '2'){
     if(this.filtroBSQ == null){
-     
       this.filtroBSQ = [];
       this.filtroBSQ.push({tipo:'estadoE',option:optionFinal})
     }else{
@@ -343,25 +300,16 @@ filtroBSQD(option){
           ok2 = true;
           fl.option = optionFinal;
         }
-
-
       });
-
-     
       if(ok2 == false){
         this.filtroBSQ.push({tipo:'estadoE',option:optionFinal})
       }
     }
-
     localStorage.setItem('busquedaEmergencias2', JSON.stringify(this.filtroBSQ));
   }
-
   if(this.type == 'busqueda'){
     this.buscarEmergencias(this.page)
   }
   this._router.navigate(['/fundacion',this.idFun,'emergencias','busqueda','1']);
-  
-  
-
 }
 }

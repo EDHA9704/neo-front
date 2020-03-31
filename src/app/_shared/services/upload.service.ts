@@ -17,9 +17,7 @@ export class UploadService {
 
         for(var i = 0; i<files.length; i++){
             formData.append(name,files[i], files[i].name);
-
         }
-
         xhr.onreadystatechange = function(){
             if(xhr.readyState == 4){
                 if(xhr.status == 200){
@@ -30,9 +28,7 @@ export class UploadService {
                 }
             }
         }
-
         xhr.open('POST', url, true);
-       // xhr.setRequestHeader('Authorization', token);
         xhr.send(formData);
     });
 }
@@ -43,28 +39,22 @@ makeGileRequest2(url:string, params:Array<string>, files:Array<File>, name:strin
 
       for(var i = 0; i<files.length; i++){
           formData.append(name,files[i], files[i].name);
-
       }
-
       xhr.onreadystatechange = function(){
           if(xhr.readyState == 4){
               if(xhr.status == 200){
                   resolve(JSON.parse(xhr.response));
-
               }else{
                   reject(xhr.response);
               }
           }
       }
-
       xhr.open('POST', url, true);
-      
       xhr.send(formData);
   });
 }
 
 imageUpload(imageForm: FormData,path,id) {
-    console.log('image uploading');
     return this.http.post(this.url+path+id, 
     imageForm);
    }

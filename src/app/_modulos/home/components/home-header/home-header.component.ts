@@ -11,13 +11,10 @@ export class HeaderHomeComponent implements OnInit {
   UrlTree
   constructor(router: Router) {
     this.UrlTree = router
-    console.log(this.UrlTree.url)
-   
    }
 
   ngOnInit() {
     $( document ).ready(()=> {
-      console.log("entoroo mennn **********")
       if(this.UrlTree.url == '/home/nosotros'){
         $("#header").removeClass('darkHeader')
       }else{
@@ -25,7 +22,6 @@ export class HeaderHomeComponent implements OnInit {
       }
   });
   $( document ).ready(()=> {
-    console.log( "ready fundaicon!" );
     this.toggle()
 });
   }

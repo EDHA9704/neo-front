@@ -57,11 +57,8 @@ export class ContactanosComponent implements OnInit {
        
         this.fundacion = response.usuario;
         this.loadMap()
-        console.log(this.fundacion)
-       
       },
       error=>{
-        console.log(<any>error);
       }
     )
     
@@ -75,23 +72,14 @@ export class ContactanosComponent implements OnInit {
  
    $( document ).ready(()=> {
      const mapEle:HTMLElement = document.getElementById('mapcustom');
-  
-   
-    console.log(mapEle)
     this.mapHtml = mapEle;
-    console.log("bien")
     this.donLatLng.lat = this.fundacion.direccionMap.latLng.lat
     this.donLatLng.lng = this.fundacion.direccionMap.latLng.lng
-    console.log("bien2")
-    console.log(this.donLatLng)
     this.map = new google.maps.Map(this.mapHtml,{
       center:this.donLatLng,
       zoom:12,
     })
-    console.log("bien3")
     google.maps.event.addListenerOnce(this.map,'idle',()=>{
-     //loading.dismiss();
-     console.log("bien4")
      this.putMarker(this.map,this.donLatLng,'Hello')
     })
    });

@@ -14,7 +14,7 @@ export class LayoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("entrp LAYOUT")
+
   }
  
 }

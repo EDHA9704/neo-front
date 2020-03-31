@@ -74,7 +74,6 @@ export class PerfilEmergenciaComponent implements OnInit {
     this.fullUrl = this._router.url.toString()
     this.loadPage();
     this._comunicationService.reload.subscribe(res=>{
-      console.log("SIENTRO " + res)
       if(res==true){
         this.voluntariosMix = []
          this.voluntariosAS = []
@@ -83,12 +82,9 @@ export class PerfilEmergenciaComponent implements OnInit {
     })
   }
   loadPage(){
-   
-
     $('#modalAyudarEmergencia').modal('hide');
     this._route.params.subscribe(params =>{
       let id = params['idE'];
-    // this.idFun = params['id'];
      this.idEm = id;
 
      if(this.currentUser && this.currentUser.usuario.rol == '4'){
@@ -112,15 +108,10 @@ export class PerfilEmergenciaComponent implements OnInit {
           
           this.totalVolun = response.total;
           this.voluntarios = response.usuarios;
-          console.log(this.voluntarios)
           if(this.emergencia.estado == 1){
-            console.log("entro")
             this.voluntarios = []
-           // this.voluntariosMix = this.donacionOB.voluntarios;
             var temArray = []
-  
             this.emergencia.ayuda.voluntarios.forEach(element => {
-              console.log(element)
               var voluntario = {
                 _id:"",
                 nombres:"",
@@ -160,13 +151,7 @@ export class PerfilEmergenciaComponent implements OnInit {
   
   
             });
-  
-         
-            console.log(this.voluntariosMix)
           }
-         // $('html, body').animate({scrollTop:0},500);
-
-
         }else{
           this._messageService.showError('Error','No se pudo obtener los voluntarios, inténtalo de nuevo')
 
@@ -174,7 +159,6 @@ export class PerfilEmergenciaComponent implements OnInit {
       },
       error=>{
         var errorMessage = <any>error;
-        console.log(errorMessage)
         if(errorMessage != null && error.error.n == '2'){
           this._messageService.showError('Error','Lo sentimos, no existe fundaciones registradas.')
         }else if(errorMessage != null && error.error.n == '3'){
@@ -196,7 +180,6 @@ export class PerfilEmergenciaComponent implements OnInit {
           this.emergencia = response.emergencia;
           this.ngxService.stopLoader('loader-02');
           this._comunicationService.perfilFundacionSelec('')
-          console.log(this.emergencia);
           if(this.permission == true){
             this.obtVoluntarios()
             if(this.emergencia.ayuda){
@@ -210,11 +193,8 @@ export class PerfilEmergenciaComponent implements OnInit {
                     voluntario.voluntarioC = response.usuario;
                     voluntario.estadoD = vol.aprobado
                     this.voluntariosAS.push(voluntario)
-                    console.log(this.voluntariosAS)
                   },
                   error=>{
-                    console.log(<any>error)
-    
                   }
                 )
             }
@@ -227,14 +207,11 @@ export class PerfilEmergenciaComponent implements OnInit {
       error=>{
         this._router.navigate(['**']);  
         this._messageService.showError('Error','No se pudo obtener la emergenca, inténtalo de nuevo')
-
-        console.log(<any>error)
       }
     )
   }
   registrarAyuda(){
     this.statusAyuda = 'procesando' 
-    
      var valoresCheck = [];
      var paraNoti = [];
      $("input[type=checkbox]:checked").each(function(){
@@ -253,7 +230,6 @@ export class PerfilEmergenciaComponent implements OnInit {
    
      this._emergenciaService.nuevaAyuda(this.emergencia, this.idEm,this.emergencia.responsable.rol).subscribe(
        response=>{
-         console.log(response)
          if(response.emergencia && response.n == '1'){
            this.notificacion.emergencia = this.idEm;
            this.notificacion.fundacion = this.currentUser.usuario._id;
@@ -293,7 +269,6 @@ export class PerfilEmergenciaComponent implements OnInit {
          }
        },
        error=>{
-         console.log(<any>error);
          if( (error != null && error.error.n == '6') ||  (error != null && error.error.n == '3') || (error != null && error.error.n == '2')){
           this._messageService.showError('Error',error.error.message)
          
@@ -315,13 +290,11 @@ export class PerfilEmergenciaComponent implements OnInit {
    marcarAtentida(){
      this._emergenciaService.marcarAtentida(this.currentUser.usuario._id,this.emergencia._id,this.emergencia.responsable.rol).subscribe(
        response=>{
-        console.log(response);
         this._messageService.showSuccess('Emergencia','Se marcó la emergencia como atentida')
 
         this.obtEmergencia(this.emergencia._id)
        },
        error=>{
-        console.log(<any>error);
        }
      )
    }
@@ -331,14 +304,12 @@ export class PerfilEmergenciaComponent implements OnInit {
     }
     this._emergenciaService.negarEmergencia(body,this.emergencia._id,this.emergencia.responsable.rol).subscribe(
       response=>{
-       console.log(response);
        this._messageService.showSuccess('Emergencia','Se marcó la emergencia como falsa')
 
        this.obtEmergencia(this.emergencia._id)
       },
       error=>{
         this._messageService.showError('Error','Inténtalo de nuevo')
-       console.log(<any>error);
       }
     )
   }
@@ -349,21 +320,18 @@ export class PerfilEmergenciaComponent implements OnInit {
     }
     this._emergenciaService.aprobarEmergencia(body,this.emergencia._id,this.emergencia.responsable.rol).subscribe(
       response=>{
-       console.log(response);
        this._messageService.showSuccess('Emergencia','Se aprobó la emergencia')
 
        this.obtEmergencia(this.emergencia._id)
       },
       error=>{
         this._messageService.showError('Error','Inténtalo de nuevo')
-       console.log(<any>error);
       }
     )
   }
   executeConfirmacion(tipo,option){
     this.tipoConfirmacion = tipo;
     this.optionConfirmacion = option;
-    console.log(tipo)
    if(tipo == 'delVol'){
      $("#modalConfirmacion").modal('show')
      this.tituloConfirmacion = 'Descartar voluntario'
@@ -418,17 +386,12 @@ export class PerfilEmergenciaComponent implements OnInit {
    }
    hola(event){
     if(this.emergencia.estado == 1){
-    console.log("cambio")
    var tempVol = []
     $("input[type=checkbox]:checked").each(function(){
-     console.log(this.value)
      tempVol.push(this.value)
  
  });
-   console.log(tempVol.length)
-   console.log(this.voluntariosMix.length)
    if(tempVol.length > this.emergencia.ayuda.voluntarios.length){
-     console.log("OKEY")
      this.anadirVoluntarios = true
    }else{
      this.anadirVoluntarios = false
@@ -472,38 +435,29 @@ export class PerfilEmergenciaComponent implements OnInit {
     var temVolun = []
     var temFinal = []
    $("input[type=checkbox]:checked").each(function(){
-     console.log(this.value)
-
      temVolun.push({
        '_id':this.value,
        'voluntarioId':this.value,
        'aprobado':0});
  });
- console.log(temVolun)
  temVolun.forEach((x,index)=> {
-   console.log(x)
-   //console.log(this.voluntariosAS)
    var tem = this.voluntariosAS.filter(v=>v.voluntarioC._id == x._id)
    if(tem.length == 0){
      temFinal.push(x)
    }
    
  });
- console.log(temFinal)
  var body = {
    voluntarios:temFinal
  }
- console.log(body)
  this._emergenciaService.anadirVoluntarioEmer(body,this.emergencia._id).subscribe(
    response=>{
-     console.log(response)
      this.obtEmergencia(this.idEm)
      this.anadirVoluntarios = false;
      this._messageService.showSuccess('Emergencia','Voluntarios agregados correctamente')
    },
    error=>{
      this._messageService.showError('Error','No se pudo agregar los voluntarios, inténtalo de nuevo')
-     console.log(<any>error)
    }
  )
 
@@ -521,36 +475,21 @@ export class PerfilEmergenciaComponent implements OnInit {
       }
   }
   async loadMap(){
-   // const loading = await this.loadController.create()
-  //  loading.present()
-  // await this.currentLocationUser()
-
   $( document ).ready(()=> {
     const mapEle:HTMLElement = document.getElementById('mapcustom');
- 
-  
-   console.log(mapEle)
    this.mapHtml = mapEle;
-   console.log("bien")
    this.donLatLng.lat = this.emergencia.direccion.latLng.lat
    this.donLatLng.lng = this.emergencia.direccion.latLng.lng
-   console.log("bien2")
-   console.log(this.donLatLng)
    this.map = new google.maps.Map(this.mapHtml,{
      center:this.donLatLng,
      zoom:12,
    })
-   console.log("bien3")
    google.maps.event.addListenerOnce(this.map,'idle',()=>{
-    //loading.dismiss();
-    console.log("bien4")
     this.putMarker(this.map,this.donLatLng,'Hello')
    })
   });
   }
   putMarker(map,markerL,text){
-   
-      
     this.markerActualUserLocation = new google.maps.Marker({
       position:{
         lat:markerL.lat,

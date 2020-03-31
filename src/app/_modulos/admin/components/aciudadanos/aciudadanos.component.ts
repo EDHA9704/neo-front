@@ -123,12 +123,10 @@ export class AciudadanosComponent implements OnInit {
             this.dataSource = new MatTableDataSource<UsuarioFundacion>(this.fundaciones);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
-            console.log(this.fundaciones)
         }
       },
       error=>{
         this.carga = false;
-        console.log(<any>error)
       }
     )
   }
@@ -157,18 +155,12 @@ export class AciudadanosComponent implements OnInit {
    editarVol(user){
     $('#modalEditFun').appendTo("body")
     this.edFun = true
-  
    this.usuarioCiudadano= user;
    this.id.setValue(user._id)
    this.obtenerCiudadano(user._id);
-   console.log(this.usuarioCiudadano2)
-
    this.nombres.setValue(user.nombres);
    this.apellidos.setValue(user.apellidos);
-
-
    var temDate = user.fechaNacimiento.split("/")
-   console.log(temDate)
    if(temDate[0] != '' && temDate[1] != null && temDate[0] != undefined){
     var temDate2 = temDate[0]+'/'+temDate[1]+'/'+temDate[2]
     var temdateFin = new Date(temDate2)
@@ -188,7 +180,6 @@ export class AciudadanosComponent implements OnInit {
     }
     
    }
-   console.log(temdateFin)
    this.fechaNacimiento.setValue(temdateFin)
    this.correo2.setValue(user.correo)
    this.telefono.setValue(user.telefono)
@@ -206,10 +197,8 @@ export class AciudadanosComponent implements OnInit {
     this._userService.obtUsuario(id).subscribe(
       response=>{
         this.usuarioCiudadano2 = response.usuario;
-        console.log(this.usuarioCiudadano2)
       },
       error=>{
-        console.log(<any>error)
       }
     )
   }
@@ -236,25 +225,18 @@ export class AciudadanosComponent implements OnInit {
   }
   async actualizarCiudadano(){
     this.actualizarFunda = true;
-    // $('#modalEditFun').modal('hide');
-    // console.log(this.fechaFunda.value)
      this.usuarioCiudadano.nombres= this.nombres.value.trim();
      this.usuarioCiudadano.apellidos= this.apellidos.value.trim();
      var fec = new Date( this.fechaNacimiento.value);
      var fechaFin = fec.toLocaleDateString();
      this.usuarioCiudadano.fechaNacimiento = fechaFin;
      this.usuarioCiudadano.correo = this.correo2.value.trim();
-    
      this.usuarioCiudadano.telefono = this.telefono.value;
      this.usuarioCiudadano.celular = this.celular.value;
      this.usuarioCiudadano._id = this.id.value;
-  
-
-  
     this._userService.actualizarUsuarioCiudadano(this.usuarioCiudadano,this.usuarioCiudadano._id).subscribe(
       res=>{
         this.actualizarFunda = false;
-        console.log(res)
         if(res.n == '1'){
           this.obtCiudadanos()
           this._messageService.showSuccess('Ciudadano','Datos actualizados correctamente')
@@ -270,7 +252,6 @@ export class AciudadanosComponent implements OnInit {
       err=>{
         this.actualizarFunda = false;
         this._messageService.showError('Error','No se pudo actualizar los datos del ciudadano')
-        console.log(<any>err)
       }
     )
   

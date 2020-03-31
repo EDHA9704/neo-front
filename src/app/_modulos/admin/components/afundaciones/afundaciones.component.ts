@@ -40,18 +40,12 @@ export class AFundacionesComponent implements OnInit {
   public statusValid;
   activando = false;
   displayedColumns: string[] = ['logo','nombreFundacion','representante','correo','telefono','celular','estado','accion'];
- 
-
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
- // displayedColumns: string[] = ['nombre'];
-  //dataSource = ELEMENT_DATA;
   dataSource:any;
-  
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
   sector2= [
     {value: 'Norte'},
     {value: 'Centro'},
@@ -168,28 +162,20 @@ export class AFundacionesComponent implements OnInit {
   }
   public currentUser;
   constructor(private _route:ActivatedRoute,
-    private _router:Router, private _userService:UserService,private _uploadService:UploadService,public dialog: MatDialog,
-    private snackBar: MatSnackBar,private authenticationService: AuthenticationService,private _messageService:MessagesService,
+    private _userService:UserService,private _uploadService:UploadService,public dialog: MatDialog,
+    private authenticationService: AuthenticationService,private _messageService:MessagesService,
     ) {
-     
       this.currentUser = this.authenticationService.currentUserValue;
       this.url = environment.apiUrl;
       this.newF = false;
       this.usuarioFundacion = new UsuarioFundacion("","","","","","","","","","","","","","","","","","","","","","","",0,"")
-     
-      
-
      }
 
   ngOnInit() {
-   
     $(document).ready(()=>{
-     
       $("#nombre").keyup(function () {
-        console.log("asdad")
       }).keyup();
       this.prob()
-            
         });
     this.obtFundaciones();
 
@@ -197,29 +183,20 @@ export class AFundacionesComponent implements OnInit {
       let tipo = params['tipo2'];
       if(tipo == 'fundaciones'){
         this.obtFundaciones();
-      
       }
-     
-     
-    
     });
  
   }
   prob(){
-
     $("#nombre").keyup(()=>{
       this.validarNM('n')
       $("#nmbr").fadeOut("fast")
       this.nombres.setValue(this.limpiarCampo(this.nombres.value));
-
-  
   }); 
   $("#representante").keyup(()=>{
-     
     this.representante.setValue(this.limpiarCampo(this.representante.value));
    }); 
 $("#barrio").keyup(()=>{
-     
   this.barrio.setValue(this.limpiarCampo(this.barrio.value));
 }); 
 $("#calleP").keyup(()=>{
@@ -227,7 +204,6 @@ $("#calleP").keyup(()=>{
   this.calleP.setValue(this.limpiarCampo(this.calleP.value));
 }); 
 $("#calleS").keyup(()=>{
-     
   this.calleS.setValue(this.limpiarCampo(this.calleS.value));
 }); 
   $("#correo2").keyup(()=>{
@@ -238,37 +214,27 @@ $("#calleS").keyup(()=>{
 
   }
   limpiarCampo(text){
-
     var textFin = text.replace(/([\\ \\]+(?=[\\ \\])|^\\s+|\\s+$)/g, '');
-  
     text = textFin;
-  
     return text;
-  
   }
-
   obtFundaciones(){
     this.carga = true;
     this._userService.obtUsuariosRolSP('4').subscribe(
       response=>{
         if(response.usuarios && response.n == '1'){
-
             this.fundaciones = response.usuarios;
-            
             $(".carga").fadeOut("slow");
-
             this.dataSource = new MatTableDataSource<UsuarioFundacion>(this.fundaciones);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
             $(".mat-elevation-z8").addClass('visible')
             this.carga = false;
-
         }else{
         }
       },
       error=>{
         this.carga = false;
-        console.log(<any>error)
       }
     )
   }
@@ -276,15 +242,11 @@ $("#calleS").keyup(()=>{
     this._userService.obtUsuario(id).subscribe(
       response=>{
         this.usuarioFundacion2 = response.usuario;
-        console.log(this.usuarioFundacion2)
       },
       error=>{
-        console.log(<any>error)
       }
     )
   }
-
-//para editar fundaciones
 public filesToUpload3: Array<File>;
 urls3 = new Array<string>();
 fileChangeEvent3(event:any){
@@ -314,62 +276,45 @@ fileChangeEvent3(event:any){
     $('#modalEditFun').appendTo("body")
     this.edFun = true
    this.logo.setValue(user.logo)
-  // console.log(user)
    if(this.logo.value == null){
     this.logo.setValue('')
    }
    this.usuarioFundacion = user;
    this.id.setValue(user._id)
    this.obtenerFundacion(user._id);
-   console.log(this.usuarioFundacion2)
-
    this.nombres.setValue(user.nombreFundacion);
-
-
-
    var temDate = user.fechaFundacion.split("/")
-   console.log(temDate)
    if(temDate[0] != '' && temDate[0] != null && temDate[0] != undefined){
     var temDate2 = temDate[1]+'/'+temDate[0]+'/'+temDate[0]
     var temdateFin = new Date(temDate2)
    }else{
     var temdateFin = new Date(user.fechaFundacion)
    }
-   console.log(temdateFin)
    this.fechaFunda.setValue(temdateFin)
    this.representante.setValue(user.representante);
    this.correo2.setValue(user.correo)
    this.telefono.setValue(user.telefono)
    this.celular.setValue(user.celular)
    this.sector.setValue(user.sector);
-   //this.calleP.setValue(user.calleP)
-   //this.calleS.setValue(user.calleS)
    this.barrio.setValue(user.barrio)
    $('#modalEditFun').modal('show');
    $(document).ready(()=>{
-   
     this.prob()
-          
       });
 
   }  
-
   eliminarLogo(id,file){
     this._userService.eliminarLogo(id,file,'FF').subscribe(
       response=>{
-       //this.usuarioFundacion2.logo = null;
        this.obtFundaciones()
        this.logo.setValue('')
       }
     ),
     error=>{
-
     }
   }
   verificarLogoActuali(){
-    //console.log(this.logo.value)
    if(this.logo.value != ''){
-     //this.actualizarFundacion();
         this.actualizarFundacion()
    }else{
      if(this.filesToUpload3 == undefined || this.filesToUpload3.length == 0){
@@ -377,22 +322,15 @@ fileChangeEvent3(event:any){
        $('#modalValidFOTOEDI').modal('show');
  
      }else{
-       //this.actualizarFundacion();
        this.actualizarFundacion()
      }
    }
-
-
  }
-
- 
-
  verificarEliminarFundacion(id){
   $('#modalValidEliminarFUN').appendTo("body")
    $('#modalValidEliminarFUN').modal('show');
    this.idEliminar = id;
  }
-
  eliminarFundacion(){
    this._userService.eliminarFundacion(this.idEliminar).subscribe(
      response=>{ 
@@ -416,7 +354,6 @@ fileChangeEvent3(event:any){
       if(response.n == '1'){
        this._messageService.showSuccess('Fundación','Se activo la fundación correctamente')
         this.obtFundaciones()
-       // $('#modalValidEliminarFUN').modal('hide')
       }
     },
     error=>{
@@ -430,19 +367,12 @@ fileChangeEvent3(event:any){
    $('#modalEditFun').modal('show');
    $('#modalValidFOTOEDI').modal('hide');
  }
- 
- 
-
-
-
 validarNM(op){
-  
   if(op == 'n'){
     const nombre = $("#nombre").val();
     this.usuarioFundacion.nombreFundacion = nombre
     this._userService.validarNombreF(this.usuarioFundacion).subscribe(
       response=>{
-
         if(response.n == '1' && this.usuarioFundacion2.nombreFundacion != this.usuarioFundacion.nombreFundacion ){
           this.statusValid = 'error'
           this.nm = 'sie'
@@ -453,10 +383,8 @@ validarNM(op){
           this.nm = 'noe'
           this.statusValid = ''
         }
-        console.log(this.nm)
       },
       error=>{
-        console.log(<any>error)
       }
     )
   }
@@ -477,7 +405,6 @@ validarNM(op){
         }
       },
       error=>{
-        console.log(<any>error)
       }
     )
   }
@@ -486,8 +413,6 @@ validarNM(op){
 
   async actualizarFundacion(){
     this.actualizarFunda = true;
-    // $('#modalEditFun').modal('hide');
-    // console.log(this.fechaFunda.value)
      this.usuarioFundacion.nombreFundacion = this.nombres.value.trim();
      var fec = new Date( this.fechaFunda.value);
      var fechaFin = fec.toLocaleDateString();
@@ -498,8 +423,6 @@ validarNM(op){
      this.usuarioFundacion.celular = this.celular.value;
      this.usuarioFundacion.sector = this.sector.value.trim();
      this.usuarioFundacion.barrio = this.barrio.value.trim();
-     //this.usuarioFundacion.calleP = this.calleP.value.trim();
-     //this.usuarioFundacion.calleS = this.calleS.value.trim();
      this.usuarioFundacion.representante = this.representante.value.trim();
      this.usuarioFundacion._id = this.id.value;
      if(this.direccionSelec != ''){
@@ -508,18 +431,13 @@ validarNM(op){
       this.usuarioFundacion.direccionMap = this.usuarioFundacion.direccionMap
     }
    if(this.nm == 'noe' &&  this.cor == 'noe'){
-  
     this._userService.actualizarUsuario(this.usuarioFundacion,this.usuarioFundacion._id).subscribe(
       response =>{
-      // this.usuarioFundacion2 = response.usuario;
         if(response.usuario && response.usuario._id && response.n == '1'){ 
-         
           if(this.filesToUpload3 != undefined){
-  
             const imageForm = new FormData();
             imageForm.append('image', this.imageObj);
             this._uploadService.imageUpload(imageForm,'subir-foto-fundacion/',response.usuario._id).subscribe(res => {
-              
               this.logo.setValue(res['usuario']['logo']);
               this.actualizarFunda = false;
               $('#modalEditFun').modal('hide');
@@ -527,7 +445,6 @@ validarNM(op){
               this._messageService.showSuccess('Fundación','Datos actualizados correctamente')
               this.obtFundaciones()
             });
-          
           }else{
             this.actualizarFunda = false;
             this.direccionSelec = ''
@@ -535,24 +452,15 @@ validarNM(op){
            this._messageService.showSuccess('Fundación','Datos actualizados correctamente')
             this.filesToUpload3 = undefined;
             $('#modalEditFun').modal('hide');
-         
           }
-            
-           
-          
-        
         }else {
-          console.log(response)
           this.actualizarFunda = false;
           this._messageService.showError('Error','No se pudo actualizar los datos de la fundación')
         }
       },
       error =>{
-        console.log(<any>error)
         this.actualizarFunda = false;
         this._messageService.showError('Error','No se pudo actualizar los datos de la fundación')
-
-        
       }
     );
    }else{
@@ -560,15 +468,12 @@ validarNM(op){
     this._messageService.showError('Error','No se pudo actualizar los datos de la fundación')
      this.statusValid = 'error'
    }
-   
-    
     }
     openDialogMap(): void {
       const dialogRef = this.dialog.open(MapCustomComponent, {
         width: '500px',
         height: '500px',
       });
-    
       dialogRef.afterClosed().subscribe(result => {
     
         if(result != ''){
@@ -577,8 +482,6 @@ validarNM(op){
         }else{
           this.direccionSelec = ''
         }
-        console.log('The dialog was closed',result);
-        
       });
     }
 }

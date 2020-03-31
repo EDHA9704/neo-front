@@ -107,19 +107,13 @@ keyUrl
  
     this.userService.obtUsuario(this.idFun).subscribe(
       response=>{
-        console.log(response)
-        /*$(document).ready(()=>{
-          this.prob()
-                
-            });*/
+       
        
         this.usuarioFundacion = response.usuario;
         this._communcationService.perfilFundacionSelec(this.usuarioFundacion.logo)
-        //localStorage.setItem('photoFF', response.usuario.logo);
         this.carga = true
       },
       error=>{
-        //this.router.navigate(['**']);  
       }
     )
   }

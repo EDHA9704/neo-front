@@ -17,7 +17,6 @@ export class AppComponent {
     private authenticationService: AuthenticationService
 ) {
     this.authenticationService.currentUser.subscribe(x => {
-      console.log(x)
       this.currentUser = x
     }
      );
@@ -27,13 +26,10 @@ get isAdmin() {
 }
 ngOnInit() {
 $( document ).ready(()=> {
-  console
-  .log("viendo scroll")
+
   $(window).scroll(function() {
-   console.log('OK FUNCIONA')
   });
 });
-console.log("ENTRO APP")
 
 var OneSignal = window['OneSignal'] || [];
 OneSignal.push(function() { 

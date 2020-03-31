@@ -48,9 +48,7 @@ minTime= "500"
     [aspectRatio]="4 / 3"
     format="png"
     (imageCropped)="imageCropped($event)"
-    (imageLoaded)="imageLoaded()"
     (cropperReady)="cropperReady()"
-    (loadImageFailed)="loadImageFailed()"
   ></image-cropper>
   <div class="imgCroped" *ngIf="imageReady == 'ok'">
     <img [src]="croppedImage" />

@@ -87,11 +87,8 @@ export class PerfilAdopcionComponent implements OnInit {
           var fs = new Date(ff)
           var fn = fs.toLocaleDateString();
           this.adopcion.adoptante.fechaNacimiento = fn;
-          console.log(this.adopcion)
-       
           $(document).ready(()=>{
             this.prob()
-                  
               });
 
         }else{
@@ -132,7 +129,6 @@ export class PerfilAdopcionComponent implements OnInit {
     this._adopcionService.aprobarAdopcion(adop,id,mid, this.adopcion.adoptante.rol).subscribe(
 
       response=>{
-        console.log(response) 
         if(response.n == '1'){
           var end = end
           this._messageService.showSuccess('Adopción','Solicitud de adopción aprobada correctamente')
@@ -150,8 +146,6 @@ export class PerfilAdopcionComponent implements OnInit {
       },
       error=>{
         this.statusAPA = ''
-        console.log(<any>error)
-      
         if((error.error.n == '9') || (error.error.n == '7') || (error.error.n == '5') || (error.error.n == '4') || (error.error.n == '3') || (error.error.n == '2') ){
           this._messageService.showError('Error',error.error.message)
         }else{
@@ -170,7 +164,6 @@ export class PerfilAdopcionComponent implements OnInit {
     this._adopcionService.desaprobarAdopcion(adop,id,mid,this.adopcion.adoptante.rol).subscribe(
 
       response=>{
-        console.log(response)
         if(response.n == '1'){
           this._messageService.showSuccess('Adopción','Solicitud de adopción negada correctamente')
           this.obtAdopcion(this.idm);
@@ -181,8 +174,6 @@ export class PerfilAdopcionComponent implements OnInit {
        
       },
       error=>{
-        console.log(<any>error)
-       
         if((error.error.n == '7') || (error.error.n == '6') || (error.error.n == '5') || (error.error.n == '4') || (error.error.n == '3') || (error.error.n == '2') ){
 
           this._messageService.showError('Error',error.error.message)
@@ -225,36 +216,21 @@ export class PerfilAdopcionComponent implements OnInit {
       }
   }
   async loadMap(){
-    // const loading = await this.loadController.create()
-   //  loading.present()
-   // await this.currentLocationUser()
- 
    $( document ).ready(()=> {
      const mapEle:HTMLElement = document.getElementById('mapcustom');
-  
-   
-    console.log(mapEle)
     this.mapHtml = mapEle;
-    console.log("bien")
     this.donLatLng.lat = this.adopcion.datosAdopcion.direccion.latLng.lat
     this.donLatLng.lng = this.adopcion.datosAdopcion.direccion.latLng.lng
-    console.log("bien2")
-    console.log(this.donLatLng)
     this.map = new google.maps.Map(this.mapHtml,{
       center:this.donLatLng,
       zoom:12,
     })
-    console.log("bien3")
     google.maps.event.addListenerOnce(this.map,'idle',()=>{
-     //loading.dismiss();
-     console.log("bien4")
      this.putMarker(this.map,this.donLatLng,'Hello')
     })
    });
    }
    putMarker(map,markerL,text){
-    
-       
      this.markerActualUserLocation = new google.maps.Marker({
        position:{
          lat:markerL.lat,

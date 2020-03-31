@@ -151,9 +151,7 @@ cancelarBus(){
       response=>{
         this.carga = false;
         if(response.emergencias && response.n == '1'){
-          console.log(response)
           $(".carga").fadeOut("slow");
-         
           this.advertencia = false;
           this.total = response.total;
           this.pages = response.pages;
@@ -161,9 +159,7 @@ cancelarBus(){
           this.emergencias = response.emergencias;
           for (let i = 1; i <= this.pages; i++) {
             this.pagesSelec.push(i)
-            
           }
-          //console.log(this.emergencias)
           this.itemsEmer = this.emergencias.length;
           this.status ='success';
           this.loading = false;
@@ -182,8 +178,6 @@ cancelarBus(){
         this.status = 'error';  
         $(".carga").fadeOut("slow");
         var errorMessage = <any>error;
-       
-        
         if(errorMessage != null && error.error.n == '2'){
           this.mensaje = 'Lo sentimos, '+error.error.message;
           this.emergencias = null;
@@ -191,11 +185,8 @@ cancelarBus(){
           this.mensaje = 'No se ha elegigo filtros';
           this.emergencias = null;
         }
-        
         else{
-  
           this.n = 'n';
-          
           this.mensaje = 'Algo salio mal, intentalo mas tarde'
         }
       }
@@ -269,8 +260,6 @@ cancelarBus(){
   verFoto(foto){
     $('#modalComprobante').modal('show')
     this.imgCom = foto;
-    console.log(this.imgCom)
-
   }
   obtEmergencias(page){
     let rol = 4;
@@ -288,7 +277,6 @@ cancelarBus(){
          
           this.itemsPerPage = response.itemsPerPage;
           this.emergencias = response.emergencias;
-          console.log(this.emergencias)
           this.itemsEmer = this.emergencias.length;
           this.loading = false;
           $(".content-grid-cards").addClass('visible')
@@ -307,7 +295,6 @@ cancelarBus(){
         }else{
           this.pagesSelec = []
     this.emergencias = []
-          console.log(response.n)
           this.status = 'error';
           this.mensaje = 'Algo salió mal.'
         }
@@ -317,7 +304,6 @@ cancelarBus(){
     this.emergencias = []
         $(".carga").fadeOut("slow");
         var errorMessage = <any>error;
-        console.log(errorMessage)
         this.carga = false;
         this.loading = false;
         this.advertencia = true;

@@ -24,20 +24,14 @@ export class AuthenticationService {
     login(usuario, gettoken = null) {
         if(gettoken != null){
             usuario.gettoken = gettoken;
-      
           }
         let params = usuario;
-        console.log(params)
         return this.http.post<any>(`${environment.apiUrl}login`,  params)
             .pipe(map(user => {
-                console.log(user)
-                // login successful if there's a jwt token in the response
                 if (user && user.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('identity', JSON.stringify(user));
                     this.currentUserSubject.next(user);
                 }
-
                 return user;
             }));
     }
@@ -74,10 +68,7 @@ export class AuthenticationService {
         
       }
     logout() {
-        // remove user from local storage to log user out
-        
         localStorage.removeItem('identity');
-
         this.currentUserSubject.next(null);
         this._router.navigate(['/autenticacion']);
     }
