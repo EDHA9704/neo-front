@@ -346,7 +346,7 @@ async  deleteOneSignal(id,signal){
     )
   }
  async cerrarSesion(){
-    
+  this.signal =  await localStorage.getItem('idsignal')
     if(this.currentUser.usuario && this.signal && this.signal != null && this.signal != ''){
       this.deleteOneSignal(this.currentUser.usuario._id,this.signal)
     }
