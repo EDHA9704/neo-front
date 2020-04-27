@@ -340,7 +340,8 @@ minTime= "500"
       <div *ngIf="portadasFundacion && usuarioFundacion"  class="historias">
         <div class="ti3" *ngIf="currentUser && historiasF">
         <h5 class="ti2">Historias inspiradoras</h5>
-        <button *ngIf="currentUser.usuario._id == idF "  type="button" class="btn " data-toggle="modal" data-target="#modalHI" ><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+        <button *ngIf="currentUser.usuario._id == idF "  type="button" class="btn " data-toggle="modal" data-target="#modalHI" >
+          <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 2em;"></i></button>
     
         </div>
         <div class="ti3" *ngIf="!currentUser">

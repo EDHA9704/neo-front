@@ -15,7 +15,7 @@ import { MessagesService } from 'src/app/_shared/messages/messages.service';
 import { SwiperComponent} from 'ngx-useful-swiper';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
-@Component({
+@Component({ 
   selector: 'app-nosotros',
   templateUrl: './nosotros.component.html',
   styleUrls: ['./nosotros.component.scss']
