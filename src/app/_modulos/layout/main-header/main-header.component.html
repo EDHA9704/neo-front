@@ -85,7 +85,9 @@
                                             </div>
                                             <div class="imgnotiS" *ngIf="not.ciudadano">
     
-                                                <img *ngIf="not.ciudadano.foto" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.ciudadano.foto}}">
+                                                <img *ngIf="not.ciudadano.foto && not.ciudadano.tipo == 'nr'" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.ciudadano.foto}}">
+                                                <img *ngIf="not.ciudadano.foto && not.ciudadano.tipo == 'fb'" src="{{not.ciudadano.foto}}">
+
                                                 <img *ngIf="!not.ciudadano.foto" src="../../../../assets/img/Captura2.png">
                                             </div>
                                             <div class="textnotiS" >
@@ -109,8 +111,8 @@
                                             </div>
                                             <div class="imgnotiS" *ngIf="not.ciudadano">
     
-                                                <img *ngIf="not.ciudadano.foto" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.ciudadano.foto}}">
-                                                <img *ngIf="!not.ciudadano.foto" src="../../../../assets/img/Captura2.png">
+                                                <img *ngIf="not.ciudadano.foto && not.ciudadano.tipo == 'nr'" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.ciudadano.foto}}">
+                                                <img *ngIf="not.ciudadano.foto && not.ciudadano.tipo == 'fb'" src="{{not.ciudadano.foto}}">
                                             </div>
                                             <div class="textnotiS">
                                                 <p *ngIf="not.ciudadano">{{not.ciudadano.nombres}} {{not.ciudadano.apellidos}} a solicitado adoptar a {{not.mascota.nombre}}</p>
@@ -134,8 +136,8 @@
                                             </div>
                                             <div class="imgnotiS" *ngIf="not.ciudadano">
     
-                                                <img *ngIf="not.ciudadano.foto" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.ciudadano.foto}}">
-                                                <img *ngIf="!not.ciudadano.foto" src="../../../../assets/img/Captura2.png">
+                                                <img *ngIf="not.ciudadano.foto && not.ciudadano.tipo == 'nr'" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.ciudadano.foto}}">
+                                                <img *ngIf="not.ciudadano.foto && not.ciudadano.tipo == 'fb'" src="{{not.ciudadano.foto}}">
                                             </div>
                                             <div class="textnotiS">
                                                 <p >Aprobaste la adopción para {{not.mascota.nombre}}</p>
@@ -192,8 +194,8 @@
                                                 </div>
                                                 <div class="imgnotiS" *ngIf="not.ciudadano">
     
-                                                    <img *ngIf="not.ciudadano.foto" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.ciudadano.foto}}">
-                                                    <img *ngIf="!not.ciudadano.foto" src="../../../../assets/img/Captura2.png">
+                                                    <img *ngIf="not.ciudadano.foto && not.ciudadano.tipo == 'nr'" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{not.ciudadano.foto}}">
+                                                    <img *ngIf="not.ciudadano.foto && not.ciudadano.tipo == 'fb'" src="{{not.ciudadano.foto}}">
                                                     
                                                 </div>
                                             <div class="textnotiS" >

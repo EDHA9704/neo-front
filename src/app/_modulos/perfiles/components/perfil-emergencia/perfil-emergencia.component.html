@@ -159,8 +159,10 @@ minTime= "500"
                         <div class="donador">
                             <div class="donador-photo">
                                 <div class="photo">
-                                    <img src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                                    <img *ngIf="emergencia.responsable.foto && emergencia.responsable.tipo == 'nr'" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
                                         emergencia.responsable.foto}}">
+                                        <img *ngIf="emergencia.responsable.foto && emergencia.responsable.tipo == 'fb'" src="{{ 
+                                            emergencia.responsable.foto}}">
                                 </div>
                             </div>
                             <div class="donador-datos">

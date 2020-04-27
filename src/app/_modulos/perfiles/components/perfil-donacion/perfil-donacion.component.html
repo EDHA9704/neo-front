@@ -156,8 +156,10 @@ minTime= "500"
                       <div class="donador" *ngIf="donacionOB.donanteR">
                         <div class="donador-photo">
                             <div class="photo">
-                                <img src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                                <img *ngIf="donacionOB.donanteR.foto && donacionOB.donanteR.foto != '' && donacionOB.donanteR.tipo == 'nr'" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
                                     donacionOB.donanteR.foto}}">
+                                    <img *ngIf="donacionOB.donanteR.foto && donacionOB.donanteR.foto != '' && donacionOB.donanteR.tipo == 'fb'" src="{{ 
+                                        donacionOB.donanteR.foto}}">
                             </div>
                           </div>
                           <div class="donador-datos">
