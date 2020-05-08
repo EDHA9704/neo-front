@@ -125,12 +125,12 @@ export class NewfundacionComponent implements OnInit {
   registrarFundacion(stepper: MatStepper) {
     if (this.direccionSelec != '') {
       this.usuarioFundacion.nombreFundacion = this.formGr1.value.nombres;
-      var fec = new Date(this.formGr1.value.fechaFunda); 
+      var fec = new Date(this.formGr1.value.fechaFunda);
       var fechaFin = fec.toLocaleDateString();
       this.usuarioFundacion.fechaFundacion = fechaFin;
       this.usuarioFundacion.representante = this.formGr1.value.representante;
 
-      this.usuarioFundacion.correo = this.formGr2.value.correo2;
+      this.usuarioFundacion.correoCuenta = this.formGr2.value.correo2;
       this.usuarioFundacion.passwordFundacion = this.formGr2.value.password2;
       this.usuarioFundacion.telefono = this.formGr2.value.telefono;
       this.usuarioFundacion.celular = this.formGr2.value.celular;

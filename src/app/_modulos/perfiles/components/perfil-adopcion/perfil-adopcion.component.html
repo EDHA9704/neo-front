@@ -88,10 +88,8 @@ minTime= "500"
                           <div class="donador-photo">
                             <div class="photo">
                                 <img *ngIf="!adopcion.adoptante.foto" class="img-fluid" src="../../../../assets/img/ab893f9074d536e3e940d61f0fc62b39-los-usuarios-firman-en-rojo-by-vexels.png">
-                                <img *ngIf="adopcion.adoptante.foto && adopcion.adoptante.tipo == 'nr'" class="img-fluid" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
+                                <img *ngIf="adopcion.adoptante.foto" class="img-fluid" src="https://fundacionesbckimg.s3.us-east-2.amazonaws.com/{{ 
                                   adopcion.adoptante.foto}}">
-                                  <img *ngIf="adopcion.adoptante.foto && adopcion.adoptante.tipo == 'fb'" class="img-fluid" src="{{ 
-                                    adopcion.adoptante.foto}}">
                             </div>
                         </div>
                             <div class="donador-datos">

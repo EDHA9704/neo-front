@@ -362,6 +362,7 @@ $("#descripcion").keyup(()=>{
 
   }
   imageCropped(event: any) {
+    console.log(event)
       this.croppedImage = event.base64;
       const FILE = event.file;
       this.imageObj = FILE;

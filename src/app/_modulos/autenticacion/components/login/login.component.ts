@@ -315,8 +315,6 @@ verificarCodigo(){
               $('#modalFundacion2').modal('show');
               this.direccionSelec = ''
               this.limipiarForms()
-              this.myStepper.selectedIndex = 0
-              this.imL2 == false
               this.authenticationService.eliminarCodigo(responseC.codigo._id).subscribe(
                 response=>{
 
@@ -417,7 +415,6 @@ limipiarForms(){
   this.formGr1.reset()
   this.formGr2.reset()
   this.formGr3.reset()
-
 }
 
 openDialogMap(): void {

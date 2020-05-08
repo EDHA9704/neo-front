@@ -83,15 +83,12 @@ export class MainHeaderComponent implements OnInit {
    
   }
   toggle(){
-    console.log("entro toggle")
     const selectElement = (s:any) => document.querySelector(s)
     selectElement('.open').addEventListener('click',()=>{
       if(this.toggleBTN == false){
-        console.log("entro toggle FALSE",this.toggleBTN)
         this.toggleBTN = false
         selectElement('.nav-list').classList.add('active')
       }else if(this.toggleBTN == true){
-        console.log("entro toggle true",this.toggleBTN)
         this.toggleBTN = false
         selectElement('.nav-list').classList.remove('active')
       }
@@ -346,7 +343,7 @@ async  deleteOneSignal(id,signal){
     )
   }
  async cerrarSesion(){
-  this.signal =  await localStorage.getItem('idsignal')
+    
     if(this.currentUser.usuario && this.signal && this.signal != null && this.signal != ''){
       this.deleteOneSignal(this.currentUser.usuario._id,this.signal)
     }
