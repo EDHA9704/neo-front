@@ -29,14 +29,14 @@ ngOnInit() {
   
 $( document ).ready(()=> {
   window.addEventListener('storage', (event) => {
-    console.log("si entro local")
     if (event.storageArea == localStorage) {
-      console.log("tambien aqui")
          var token:any = localStorage.getItem('identity');
          if(token == undefined || token == null || token == "") { 
+          console.log("logout")
            localStorage.clear()
-             window.location.href = 'https://neo-front.herokuapp.com/autenticacion';
+             window.location.href = 'http://localhost:4200/autenticacion';
          }else{
+          /*console.log("tambien aqui *****")
            let user = JSON.parse(token)
            console.log(user)
 
@@ -46,7 +46,7 @@ $( document ).ready(()=> {
             window.location.href = 'https://neo-front.herokuapp.com/fundacion/'+user.usuario._id+'/nosotros'
            }else{
             window.location.href = 'https://neo-front.herokuapp.com/home/inicio'
-           }
+           }*/
          }
     }
 });

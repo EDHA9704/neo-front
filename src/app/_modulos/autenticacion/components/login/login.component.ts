@@ -71,6 +71,29 @@ fullUrl:any
 
   ngOnInit() {
     $( document ).ready(()=> {
+      window.addEventListener('storage', (event) => {
+        if (event.storageArea == localStorage) {
+             var token:any = localStorage.getItem('identity');
+             if(token == undefined || token == null || token == "") { 
+               
+             }else{
+              console.log("login")
+               let user = JSON.parse(token)
+               console.log(user)
+    
+              if(user.usuario.rol == '1'){
+                window.location.href = 'https://neo-front.herokuapp.com/admin'
+               }else if(user.usuario.rol == '4'){
+                window.location.href = 'https://neo-front.herokuapp.com/fundacion/'+user.usuario._id+'/nosotros'
+               }else{
+                window.location.href = 'https://neo-front.herokuapp.com/home/inicio'
+               }
+             }
+        }
+    });
+      
+    });
+    $( document ).ready(()=> {
       $('#password2').popover({ trigger: 'focus', title: 'Contraseña', content: "La contraseña debe contener entre 8-20 caracteres, al menos 1 letra mayúscula, 1 letra minúscula, 1 número y un caracter no alfanumérico." })
       this.animationLogin()
   });
