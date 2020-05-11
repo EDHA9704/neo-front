@@ -20,7 +20,7 @@ export class AvoluntariosComponent implements OnInit {
   public carga;
 
   public usuarioFundacion:UsuarioFundacion;
-  displayedColumns: string[] = ['nombres','cedula','correo','telefono','celular','estado'];
+  displayedColumns: string[] = ['nombres','cedula','correo','fundacion','telefono','celular','estado'];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
