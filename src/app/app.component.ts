@@ -34,7 +34,7 @@ $( document ).ready(()=> {
          if(token == undefined || token == null || token == "") { 
           console.log("logout")
            localStorage.clear()
-             window.location.href = 'http://localhost:4200/autenticacion';
+             window.location.href = 'https://neo-front.herokuapp.com/autenticacion';
          }else{
           /*console.log("tambien aqui *****")
            let user = JSON.parse(token)
