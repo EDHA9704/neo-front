@@ -71,7 +71,7 @@ fullUrl:any
 
   ngOnInit() {
     $( document ).ready(()=> {
-      window.addEventListener('storage', (event) => {
+     /* window.addEventListener('storage', (event) => {
         if (event.storageArea == localStorage) {
              var token:any = localStorage.getItem('identity');
              if(token == undefined || token == null || token == "") { 
@@ -90,7 +90,7 @@ fullUrl:any
                }
              }
         }
-    });
+    });*/
       
     });
     $( document ).ready(()=> {
@@ -110,63 +110,79 @@ fullUrl:any
   get f3() { return this.formGr3.controls; }
 
   onSubmit(){
-    var OneSignal = window['OneSignal'] || [];
-    this.loading = true;
-    this.error = ''
-    this.authenticationService.login(this.loginForm.value,true).subscribe(
-      response=>{
-        if(response.n == '4'){
-          OneSignal.getUserId().then((userId) =>{
-            var device = { 
-              usuario:response.usuario._id,
-              onesgId:userId,
-              rol:response.usuario.rol
-            }
-            localStorage.setItem('idsignal', JSON.stringify(userId));
-            this._notificacionService.nuevaOneSignal(device).subscribe(
-              response=>{
-              },
-              error=>{
+    var token:any = localStorage.getItem('identity');
+    if(token == undefined || token == null || token == "") { 
+      var OneSignal = window['OneSignal'] || [];
+      this.loading = true;
+      this.error = ''
+      this.authenticationService.login(this.loginForm.value,true).subscribe(
+        response=>{
+          if(response.n == '4'){
+            OneSignal.getUserId().then((userId) =>{
+              var device = { 
+                usuario:response.usuario._id,
+                onesgId:userId,
+                rol:response.usuario.rol
               }
-            )
-          });
-          if(this.returnUrl && this.returnUrl != '' && this.returnUrl != null  && this.returnUrl != undefined){
-            this.router.navigate([this.returnUrl]);
-            setTimeout(() => {
-              this.loading = false;
-            }, 1000);
+              localStorage.setItem('idsignal', JSON.stringify(userId));
+              this._notificacionService.nuevaOneSignal(device).subscribe(
+                response=>{
+                },
+                error=>{
+                }
+              )
+            });
+            if(this.returnUrl && this.returnUrl != '' && this.returnUrl != null  && this.returnUrl != undefined){
+              this.router.navigate([this.returnUrl]);
+              setTimeout(() => {
+                this.loading = false;
+              }, 1000);
+            }else{
+              if(response.usuario.rol == '1'){
+                this.router.navigate(['/admin']);
+                setTimeout(() => {
+                  this.loading = false;
+                }, 1000);
+                 
+               }else if(response.usuario.rol == '4'){
+                this.router.navigate(['/fundacion',response.usuario._id,'nosotros']);
+                setTimeout(() => {
+                  this.loading = false;
+                }, 1000);
+               }else{
+                this.router.navigate(['/home']);
+                setTimeout(() => {
+                  this.loading = false;
+                }, 1000);
+               }
+            }
           }else{
-            if(response.usuario.rol == '1'){
-              this.router.navigate(['/admin']);
-              setTimeout(() => {
-                this.loading = false;
-              }, 1000);
-               
-             }else if(response.usuario.rol == '4'){
-              this.router.navigate(['/fundacion',response.usuario._id,'nosotros']);
-              setTimeout(() => {
-                this.loading = false;
-              }, 1000);
-             }else{
-              this.router.navigate(['/home']);
-              setTimeout(() => {
-                this.loading = false;
-              }, 1000);
-             }
+            this.error = 'No se pudo identificar el usuario'
+            this._meesageService.showError('Error',this.error)
           }
-        }else{
+        }, 
+        error =>{
+          this.loading = false;
           this.error = 'No se pudo identificar el usuario'
           this._meesageService.showError('Error',this.error)
+          var errorMessage = <any>error;
+        
         }
-      }, 
-      error =>{
-        this.loading = false;
-        this.error = 'No se pudo identificar el usuario'
-        this._meesageService.showError('Error',this.error)
-        var errorMessage = <any>error;
-      
+      )
+    }else{
+     console.log("login")
+      let user = JSON.parse(token)
+      console.log(user)
+
+     if(user.usuario.rol == '1'){
+       window.location.href = 'https://neo-front.herokuapp.com/admin'
+      }else if(user.usuario.rol == '4'){
+       window.location.href = 'https://neo-front.herokuapp.com/fundacion/'+user.usuario._id+'/nosotros'
+      }else{
+       window.location.href = 'https://neo-front.herokuapp.com/home/inicio'
       }
-    )
+    }
+  
   }
  
   animationLogin(){
