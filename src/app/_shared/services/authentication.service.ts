@@ -30,6 +30,7 @@ export class AuthenticationService {
         return this.http.post<any>(`${environment.apiUrl}login`,  params)
             .pipe(map(user => {
                 if (user && user.token) {
+                    localStorage.removeItem('logged_in');
                     localStorage.setItem('identity', JSON.stringify(user));
                     this.currentUserSubject.next(user);
                 }
