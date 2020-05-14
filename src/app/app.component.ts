@@ -67,8 +67,8 @@ storageChange (event) {
   if(event.key === 'logged_in') {
      // alert('Logged in: ' + event.newValue)
      console.log("OK ENTRO LOG")
-     //window.location.href = 'https://neo-front.herokuapp.com/autenticacion';
-     window.location.href = 'http://localhost:4200/autenticacion';
+     window.location.href = 'https://neo-front.herokuapp.com/autenticacion';
+     //window.location.href = 'http://localhost:4200/autenticacion';
   }
   }
   
