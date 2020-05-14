@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from './_shared/services';
 import { User, Role } from './_models';
 import $ from "jquery";
+import { CommunicationService } from './_shared/communications/communication.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,7 +16,7 @@ export class AppComponent {
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
-    public zone: NgZone
+    public zone: NgZone,private commService:CommunicationService
 ) {
     this.authenticationService.currentUser.subscribe(x => {
       this.currentUser = x
@@ -26,7 +27,14 @@ get isAdmin() {
   return this.currentUser && this.currentUser.rol === Role.Admin;
 }
 ngOnInit() {
-  
+  this.commService.logOutAll.subscribe(
+    res=>{
+      console.log(res)
+      if(res == true){
+
+      }
+    }
+  )
 $( document ).ready(()=> {
   window.addEventListener('storage', (event) => {
     if (event.storageArea == localStorage) {
@@ -34,24 +42,12 @@ $( document ).ready(()=> {
          if(token == undefined || token == null || token == "") { 
           console.log("logout")
            localStorage.clear()
+             //window.location.href = 'https://neo-front.herokuapp.com/autenticacion';
              window.location.href = 'https://neo-front.herokuapp.com/autenticacion';
-         }else{
-          /*console.log("tambien aqui *****")
-           let user = JSON.parse(token)
-           console.log(user)
-
-          if(user.usuario.rol == '1'){
-            window.location.href = 'https://neo-front.herokuapp.com/admin'
-           }else if(user.usuario.rol == '4'){
-            window.location.href = 'https://neo-front.herokuapp.com/fundacion/'+user.usuario._id+'/nosotros'
-           }else{
-            window.location.href = 'https://neo-front.herokuapp.com/home/inicio'
-           }*/
          }
     }
-});
-  $(window).scroll(function() {
-  });
+},false);
+
 });
 
 var OneSignal = window['OneSignal'] || [];

@@ -6,6 +6,8 @@ import { Injectable, Output,EventEmitter } from '@angular/core';
 export class CommunicationService {
   @Output() fundacionSelec: EventEmitter<any> = new EventEmitter();
   @Output() reload: EventEmitter<any> = new EventEmitter();
+  @Output() logOutAll: EventEmitter<any> = new EventEmitter();
+
   constructor() { }
 
   perfilFundacionSelec(fundacion) {
@@ -13,6 +15,10 @@ export class CommunicationService {
   }
   reloadData(){
     this.reload.emit(true)
+  }
+
+  logOutTabs(){
+    this.logOutAll.emit(true)
   }
 
 }
