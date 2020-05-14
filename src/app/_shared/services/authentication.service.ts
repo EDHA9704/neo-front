@@ -70,6 +70,7 @@ export class AuthenticationService {
       }
     logout() {
         this.commService.logOutTabs()
+        window.localStorage.setItem('logged_in', "false")
         localStorage.removeItem('identity');
         this.currentUserSubject.next(null);
         this._router.navigate(['/autenticacion']);

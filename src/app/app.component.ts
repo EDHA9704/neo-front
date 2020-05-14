@@ -35,8 +35,11 @@ ngOnInit() {
       }
     }
   )
-$( document ).ready(()=> {
-  window.addEventListener('storage', (event) => {
+//$( document ).ready(()=> {
+
+  window.addEventListener('storage', this.storageChange, false)
+
+ /* window.addEventListener('storage', (event) => {
     if (event.storageArea == localStorage) {
          var token:any = localStorage.getItem('identity');
          if(token == undefined || token == null || token == "") { 
@@ -46,9 +49,9 @@ $( document ).ready(()=> {
              window.location.href = 'https://neo-front.herokuapp.com/autenticacion';
          }
     }
-},false);
+},false);*/
 
-});
+//});
 
 var OneSignal = window['OneSignal'] || [];
 OneSignal.push(function() { 
@@ -59,6 +62,15 @@ OneSignal.push(function() {
 
 
 }
+storageChange (event) {
+
+  if(event.key === 'logged_in') {
+     // alert('Logged in: ' + event.newValue)
+     console.log("OK ENTRO LOG")
+     window.location.href = 'https://neo-front.herokuapp.com/autenticacion';
+  }
+  }
+  
 logout() {
   this.authenticationService.logout();
   this.router.navigate(['/login']);
